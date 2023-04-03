@@ -24,9 +24,4 @@ jobs:
           npm install -g rdme
 
       - name: Loop Through Pushed Markdown Files
-        run: |
-          for file in `git diff-tree --no-commit-id --name-only -r HEAD`
-          do
-            echo "Processing markdown file: $file"
-            # Do something with the markdown file here
-          done
+        run: git diff-tree --no-commit-id --name-only -r HEAD
