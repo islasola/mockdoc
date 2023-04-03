@@ -24,4 +24,4 @@ jobs:
           npm install -g rdme
 
       - name: Loop Through Pushed Markdown Files
-        run: git diff-tree --no-commit-id --name-only -r HEAD
+        run: git diff HEAD^..HEAD
