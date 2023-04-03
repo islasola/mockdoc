@@ -23,9 +23,10 @@ jobs:
         run: |
           npm install -g rdme
 
-      - name: Run `docs` command 🚀
+      - name: Loop Through Pushed Markdown Files
         run: |
-          for file in $(git diff-tree --no-commit-id --name-only -r HEAD | grep ".md$")
+          for file in `git diff-tree --no-commit-id --name-only -r HEAD | grep ".md$"`
           do
-            rdme docs $file
+            echo "Processing markdown file: $file"
+            # Do something with the markdown file here
           done
