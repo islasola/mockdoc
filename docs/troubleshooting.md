@@ -27,3 +27,41 @@ If the issue remains unsolved after all above steps are tried, please contact ou
 1. `Default_project` cannot be deleted.
 2. A project with database(s) in it cannot be deleted.
 3. You cannot delete a project that does not belong to you.
+
+### Why does it always report `Name or service not known` when I ping the private link of a GCP-hosted instance?
+
+Check your DNS settings by referring to [Set up firewall rules and a DNS record](setup_private_link.md#set-up-firewall-rules-and-a-dns-record).
+
+- If the configuration is correct, when you ping your private link, you should see
+
+![Succeeded in resolving the private link](https://assets.zilliz.com/zillizCloudDocAssets/private_link_gcp_ts_01.png)
+
+- If the configuration is incorrect, when you ping your private link, you may see 
+
+![Failed to resolve the private link](https://assets.zilliz.com/zillizCloudDocAssets/private_link_gcp_ts_02.png)
+
+### Why does it always report a timeout when connecting to the private link of an AWS-hosted instance?
+
+A timeout usually occurs for the following reasons:
+
+- No private DNS records exist.
+
+    If a DNS record exists, you can ping the private link as follows:
+
+    ![A normal `ping` test](https://assets.zilliz.com/zillizCloudDocAssets/private_link_ts_1.png)
+
+    If you see the following, you need to [set up the DNS record](setup_private_link.md#create-a-cname-record-in-the-hosted-zone).
+
+    ![A failed `ping` test](https://assets.zilliz.com/zillizCloudDocAssets/private_link_ts_2.png)
+
+- No or invalid security group rules exist.
+
+    You need to properly set the security group rules for the traffic from your EC2 instance to your VPC endpoint in the AWS console. A proper security group within your VPC should allow inbound access from your EC2 instances on the port suffixed to your private link.
+
+    You can use a `curl` command to test the connectivity of the private link. In a normal case, it returns a 400 response.
+
+    ![A normal `curl` connectivity test](https://assets.zilliz.com/zillizCloudDocAssets/private_link_ts_3.png)
+
+    If the `curl` command hangs without any response as in the following screenshot, you need to set up proper security group rules by referring to step 9 in [Create a VPC endpoint](https://docs.amazonaws.cn/en_us/vpc/latest/privatelink/create-interface-endpoint.html).
+
+    ![A hung `curl` connectivity test](https://assets.zilliz.com/zillizCloudDocAssets/private_link_ts_4.png)
