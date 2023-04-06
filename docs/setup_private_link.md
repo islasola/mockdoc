@@ -8,7 +8,7 @@ category: 642e25fca949170a5eda921e
 
 To have your application clients privately access the database instances on Zilliz Cloud, you need to create an endpoint in each of the subnets in your application VPC and register the VPC, subnets, and endpoints with Zilliz Cloud, so that Zilliz Cloud allocates a private link for you to set up a DNS record to map the private link to the endpoints.
 
-This guide walks you through the procedures for 
+This guide walks you through the procedures for
 
 - Setting up Private link for AWS-hosted instances
 - Setting up Private link for GCP-hosted instances
@@ -21,7 +21,7 @@ Zilliz Cloud offers you an intuitive wizard to add private links. On the **Priva
 
 Private Link is a project-level setting. When you create a private link for a database, it applies to its neighboring databases in the same project deployed in the same cloud region.
 
-### Select Cloud Provider and Region
+### Select Cloud Provider and Region for AWS-hosted instances
 
 To create a private link for a database deployed in an AWS region, select **AWS** from the **Cloud Provider** drop-down list.
 
@@ -36,7 +36,7 @@ Before creating a VPC endpoint, you need to have a VPC on your Amazon console. T
 1. Open the [Amazon VPC console](https://console.aws.amazon.com/vpc/).
 2. In the navigation pane, choose **VPCs**.
 3. Find the VPC of your desire and copy its ID.
-4. Enter this ID in **VPC ID** on Zilliz Cloud. 
+4. Enter this ID in **VPC ID** on Zilliz Cloud.
 
 To create a VPC, refer to [Create a VPC](https://docs.aws.amazon.com/vpc/latest/userguide/working-with-vpcs.html#Create-VPC).
 
@@ -84,9 +84,9 @@ Then, enter the VPC endpoint ID in **Your VPC Private Link ID** and click **Add*
 
 ![Enter VPC endpoint ID](https://assets.zilliz.com/zillizCloudDocAssets/enter_vpc_endpiont_id.png)
 
-### Obtain private link
+### Obtain private link for AWS-hosted instances
 
-After verifying and accepting the VPC endpoint you have submitted, Zilliz Cloud allocates a private link for this endpoint. You can see it in the Database details tab of your database. 
+After verifying and accepting the VPC endpoint you have submitted, Zilliz Cloud allocates a private link for this endpoint. You can see it in the Database details tab of your database.
 
 ## Set up a DNS record
 
@@ -121,7 +121,7 @@ aws route53 create-hosted-zone \
   --caller-reference $(date +"%s")
 ```
 
-### Create a CNAME record in the hosted zone
+### Create a CNAME record in the hosted zone for AWS-hosted instances
 
 A CNAME record is a type of DNS record that maps an alias name to a true or canonical domain name. Create a CNAME record to map the private link allocated by Zilliz Cloud to the DNS name of your VPC endpoint. Then you can use the private link to access your database privately.
 
@@ -169,7 +169,7 @@ Zilliz Cloud offers you an intuitive wizard to add private links. On the **Priva
 
 Private Link is a project-level setting. When you create a private link for a database, it applies to its neighboring databases in the same project deployed in the same cloud region.
 
-### Select Cloud Provider and Region
+### Select Cloud Provider and Region for GCP-hosted instances
 
 To create a private link for a database deployed in a Google Cloud region, select **Google Cloud** from the **Cloud Provider** drop-down list.
 
@@ -181,7 +181,7 @@ Currently, a private link applies to databases deployed in GCP US-West1. Once yo
 
 1. Open the [Google Cloud Dashboard](https://console.cloud.google.com/home/dashboard).  
 2. Find the Project ID of your desire and copy its ID.
-3. Enter this ID in Google Cloud Project ID on Zilliz Cloud. 
+3. Enter this ID in Google Cloud Project ID on Zilliz Cloud.
 
 ### Obtain VPC Name
 
@@ -190,7 +190,7 @@ Before creating a VPC endpoint, you need to have a VPC on your Amazon console. T
 1. Open the [Google Cloud VPC Dashboard](https://console.cloud.google.com/networking/networks/list).  
 2. In the navigation pane, choose **VPC networks**.
 3. Find the VPC of your desire and copy its Name.
-4. Enter this name in **VPC Name** on Zilliz Cloud. 
+4. Enter this name in **VPC Name** on Zilliz Cloud.
 
 To create a VPC network, refer to [Create and manage VPC networks](https://cloud.google.com/vpc/docs/create-modify-vpc-networks).
 
@@ -216,9 +216,9 @@ In the returned message, copy the endpoint name listed on [this page](https://co
 
 Then, enter the copied name in **Your Endpoint** and click **Add**.
 
-### Obtain private link
+### Obtain private link for GCP-hosted instances
 
-After verifying and accepting the preceding attributes you have submitted, Zilliz Cloud allocates a private link for this endpoint. You can see it in the Database details tab of your database. 
+After verifying and accepting the preceding attributes you have submitted, Zilliz Cloud allocates a private link for this endpoint. You can see it in the Database details tab of your database.
 
 ## Set up firewall rules and a DNS record
 
@@ -247,7 +247,7 @@ PRIVATE_DNS_ZONE_NAME=zilliz-privatelink-zone;
 gcloud dns --project=$PROJECT_ID managed-zones create $PRIVATE_DNS_ZONE_NAME --description="" --dns-name="vectordb.zillizcloud.com." --visibility="private" --networks=$VPC_NAME
 ```
 
-### Create a CNAME record in the hosted zone
+### Create a CNAME record in the hosted zone for GCP-hosted instances
 
 A CNAME record is a type of DNS record that maps an alias name to a true or canonical domain name. Create a CNAME record to map the private link allocated by Zilliz Cloud to the DNS name of your VPC endpoint. Then you can use the private link to access your database privately.
 
@@ -271,6 +271,6 @@ Once you complete the preceding steps, you can verify the connection as follows:
 ![Verify the connection](https://assets.zilliz.com/zillizCloudDocAssets/verify_private_link.png)
 
 1. On the **Database Details** tab of a database in concern, click **Private Link** in the **Cloud Endpoint** area.
-2. Copy the private link, then click **View the guides to connect your database via endpoint**. 
+2. Copy the private link, then click **View the guides to connect your database via endpoint**.
 
 For any issues reported, refer to the troubleshooting guide for reported issues on [AWS-hosted instances](troubleshooting#why-does-it-always-report-name-or-service-not-known-when-i-ping-the-private-link-of-a-gcp-hosted-instance) and [GCP-hosted instances](troubleshooting#why-does-it-always-report-a-timeout-when-connecting-to-the-private-link-of-an-aws-hosted-instance).
