@@ -24,7 +24,7 @@ The following are some example ANN searches with filters:
 
 - Filter articles that readers can finish within 10 to 15 minutes.
 
-    ```Python
+    ``python
     # Ensure that the collection has been loaded before searches
     collection.load()
 
@@ -41,7 +41,7 @@ The following are some example ANN searches with filters:
 
 - Filter articles that have more than 1500 claps and 15 responses.
 
-    ```Python
+    ```python
     # Ensure that the collection has been loaded before searches
     collection.load()
 
@@ -58,7 +58,7 @@ The following are some example ANN searches with filters:
 
 - Filter articles published by **Towards Data Science**.
 
-    ```Python
+    ``python
     # Ensure that the collection has been loaded before searches
     collection.load()
 
@@ -75,7 +75,7 @@ The following are some example ANN searches with filters:
 
 - Filter articles published by authors rather than **Towards Data Science** or **Personal Growth**.
 
-    ```Python
+    ```python
     # Ensure that the collection has been loaded before searches
     collection.load()
 
@@ -92,7 +92,7 @@ The following are some example ANN searches with filters:
 
 - Filter articles whose titles start with **Top**.
 
-    ```Python
+    ```python
     # Ensure that the collection has been loaded before searches
     collection.load()
 
@@ -109,7 +109,7 @@ The following are some example ANN searches with filters:
 
 - Filter articles from **Towards Data Science** that readers can finish within 10 to 15 minutes or have more than 1500 responses and 15 claps.
 
-    ```Python
+    ``python
     # Ensure that the collection has been loaded before searches
     collection.load()
 

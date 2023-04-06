@@ -66,7 +66,7 @@ connections.connect(
 
 ## Create a collection
 
-A collection is similar to a table in a relational database. You can create a collection by setting its name, schema, and optional description. If you'd like to learn more about the schema of the example dataset, refer to [Example Dataset Overview](example_dataset_overview).
+A collection is similar to a table in a relational database. You can create a collection by setting its name, schema, and optional description. If you'd like to learn more about the schema of the example dataset, refer to [Example Dataset Overview](example_dataset).
 
 ```python
 from pymilvus import FieldSchema, CollectionSchema, DataType, Collection

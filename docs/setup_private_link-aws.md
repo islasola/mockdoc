@@ -89,7 +89,7 @@ Amazon Route 53 is a web-based DNS service. Create a hosted DNS zone so that you
 
 Run the following script in your AWS Cloushell to create a hosted DNS zone. Note that you need to set `VPCE_DNS` to the DNS name of your VPC endpoint and `VPC_ID` to the ID of your VPC.
 
-```Shell
+```shell
 # Use the value you have copied from the output of the previous step.
 # The value is similar to 
 # vpce-0ce90d01341533a5c-ngbqfdnj.vpce-svc-0b62964bfd0edfb74.us-west-2.vpce.amazonaws.com
@@ -118,7 +118,7 @@ A CNAME record is a type of DNS record that maps an alias name to a true or cano
 
 Run the following script in your AWS Cloushell to create a CNAME record in the hosted DNS zone. Note that you need to set `ZONE_ID` to the ID of the hosted DNS zone created in the previous step and `SFC_PL_Data_DNS` to the private link listed on the **Database Details** tab of your database instance.
 
-```Shell
+```shell
 # Variable for the hosted zone ID returned in the output for the Route 53 zone
 ZONE_ID='/hosted_zone/xxxxxx'
 

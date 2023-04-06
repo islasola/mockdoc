@@ -37,7 +37,7 @@ A database endpoint exposes the database to the public Internet. After creating 
 
 Initiate a connection to the database as follows:
 
-```Python
+```python
 # Run `python3` in your terminal to operate in the Python interactive mode.
 from pymilvus import connections
 

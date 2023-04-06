@@ -8,7 +8,7 @@ category: 642e25b85291100124b05ef4
 
 In this example, create a collection named **medium_articles_2020**. To get the example dataset, refer to [Example Dataset Overview](example_dataset_overview).
 
-```Python
+```python
 from pymilvus import FieldSchema, CollectionSchema, DataType, Collection
 
 fields = [
@@ -67,7 +67,7 @@ utility.rename_collection("medium_articles_2020", "medium_passages_2020")
 
 Dropping a collection deletes all information from the collection, including its data, metadata, and indexes. Exercise caution when dropping a collection because this operation is irreversible.
 
-```Python
+``python
 from pymilvus import utility
 
 utility.drop_collection("medium_articles_2020")

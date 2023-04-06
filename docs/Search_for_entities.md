@@ -16,7 +16,7 @@ This guide illustrates entity searches with a sample collection created using th
 
 For a single-vector search, you only need to provide a query vector and a limit value (top-K).
 
-```Python
+```python
 # Ensure that the collection has been loaded before searches.
 collection.load()
 
@@ -50,7 +50,7 @@ The above script searches for articles with title vectors that are the most simi
 
 You can conduct a bulk search by giving multiple query vectors in one request. In most cases, bulk search is more efficient than single-vector searches, because the total latency is much lower than searching against these query vectors in individual requests.
 
-```Python
+```python
 # Ensure that the collection has been loaded before searches.
 collection.load()
 
@@ -87,7 +87,7 @@ The above script searches for the neighbors of two query vectors and returns the
 
 The script below searches for articles with title vectors that are similar to the given query vector among those that match the condition `claps > 3000 && responses > 20`. This filter narrows our search to articles that have more than 3000 claps and 20 responses. To learn more about filters, refer to [Search with Filters](search_with_filters).
 
-```Python
+```python
 # Ensure that the collection has been loaded before searches.
 collection.load()
 

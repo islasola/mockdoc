@@ -83,7 +83,7 @@ Cloud DNS is a web-based DNS service. Create a managed DNS zone so that you can 
 
 Run the following script in your GCP Cloushell to create a managed DNS zone. Note that you need to set `PROJECT_ID` to your GCP project ID and `PRIVATE_DNS_ZONE_NAME` to `zilliz-privatelink-zone`.
 
-```Shell
+```shell
 PROJECT_ID={{project-id}};
 PRIVATE_DNS_ZONE_NAME=zilliz-privatelink-zone;
 
@@ -96,7 +96,7 @@ A CNAME record is a type of DNS record that maps an alias name to a true or cano
 
 Run the following script in your Cloud Shell to create a CNAME record in the hosted DNS zone. Note that you need to set `ENDPOINT_IP` to the IP address of the endpoint created in the previous step and `PRIVATE_LINK_DOMAIN_PREFIX` to the private link listed on the **Database Details** tab of your database instance.
 
-```Shell
+```shell
 PRIVATE_LINK_DOMAIN_SUFFIX=vectordb.zillizcloud.com;
 ## such as in01-61e949d971f841b-privatelink.gcp-us-west1
 PRIVATE_LINK_DOMAIN_PREFIX={{privatelink-domain-prefix}};
