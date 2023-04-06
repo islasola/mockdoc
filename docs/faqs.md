@@ -55,7 +55,7 @@ The hardware resources consist of compute and storage. Compute resource is mainl
 
 Zilliz will inform you via your registration email if the payment is unsuccessful. You can solve it by changing your credit card. If the payment is still unsuccessful for 7 days, you will lose the write access to the database. The database will be deleted if the payment is unsuccessful for 9 days.
 
-### How can I transfer data from AWS S3 to Zilliz Cloud?
+### What types of AWS S3 URLs are allowed on Zilliz Cloud?
 
 To transfer data from AWS S3 buckets, you can use virtual-host-style URLs, path-style URLs, or URLs with the `S3://` scheme.
 
@@ -79,7 +79,7 @@ To transfer data from AWS S3 buckets, you can use virtual-host-style URLs, path-
 
     You can use URLs of this type only if you need to [bulk-insert data](insert_entities.md#Bulk-insert) from an Amazon S3 bucket.
 
-### How can I transfer data from Google Cloud Storage to Zilliz Cloud?
+### What types of Google Cloud Storage URLs are allowed on Zilliz Cloud?
 
 To transfer data from Google Cloud Storage buckets, you can use either of the following:
 
