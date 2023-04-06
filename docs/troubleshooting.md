@@ -36,7 +36,7 @@ Check your DNS settings by referring to [Set up firewall rules and a DNS record]
 
 ![Succeeded in resolving the private link](https://assets.zilliz.com/zillizCloudDocAssets/private_link_gcp_ts_01.png)
 
-- If the configuration is incorrect, when you ping your private link, you may see 
+- If the configuration is incorrect, when you ping your private link, you may see
 
 ![Failed to resolve the private link](https://assets.zilliz.com/zillizCloudDocAssets/private_link_gcp_ts_02.png)
 
