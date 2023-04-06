@@ -11,5 +11,5 @@ To have your application clients privately access the database instances on Zill
 
 This guide walks you through the procedures for
 
-- Setting up Private link for AWS-hosted instances
-- Setting up Private link for GCP-hosted instances
+- [Setting up Private link for AWS-hosted instances](setup_private_link-aws.md)
+- [Setting up Private link for GCP-hosted instances](setup_private_link-gcp.md)
