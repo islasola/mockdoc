@@ -2,6 +2,7 @@
 title: FAQs
 excerpt: Find answers to frequently asked questions about Zilliz Cloud.
 category: 642e264dc2653e0058a56246
+order: 1
 ---
 
 #### What's the difference between Zilliz Cloud and open-source Milvus?
