@@ -8,7 +8,7 @@ category: 642e25b85291100124b05ef4
 
 The following example creates an index on the `title_vector` field in the **medium_article_2020** collection created in [this guide](manage_collections).
 
-```Python
+``` Python
 from pymilvus import Collection
 
 index_params = {
@@ -34,7 +34,7 @@ collection.create_index(
 
 Load the index of the collection for ANN searches.
 
-```Python
+``` Python
 from pymilvus import Collection
 
 collection = Collection("medium_articles_2020")      
@@ -45,7 +45,7 @@ collection.load()
 
 For some collections that are not frequently used, you can release their indexes to save CUs. You can load them again later when needed. Note that this operation only releases indexes from CUs, but does not delete data or its index from the collection.
 
-```Python
+``` Python
 from pymilvus import Collection
 
 collection = Collection("medium_articles_2020")     
@@ -58,7 +58,7 @@ Since reloading a collection is time-consuming, only release the collections tha
 
 For those indexes no longer in need, drop them as follows:
 
-```Python
+``` Python
 from pymilvus import Collection
 
 collection = Collection("medium_articles_2020")     
