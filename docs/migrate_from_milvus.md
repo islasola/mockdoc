@@ -57,22 +57,7 @@ To prepare migration data for Milvus v2.x, do as follows:
 6. Check the backup files.
     
     - If you set `minio.address` and `minio.port` to an S3 bucket, your backup file are already in the S3 bucket.
-    - If you set `minio.address` and `minio.port` to a Minio bucket, you can download them using Minio Console or the **mc** client, and upload them to a S3 bucket or save them in a local folder.
-
-        To download from [Minio Console](https://min.io/docs/minio/kubernetes/upstream/administration/minio-console.html), log into Minio Console, locate the bucket specified in `minio.address`, select the files in the bucket, and click **Download** to download them. 
-        
-        If you prefer [the **mc** client](https://min.io/docs/minio/linux/reference/minio-mc.html#mc-install), do as follows:
-
-        ```shell
-        # configure a Minio host
-        mc alias set my_minio https://<minio_endpoint> <accessKey> <secretKey>
-
-        # List the available buckets
-        mc ls my_minio
-
-        # Download a file from the bucket
-        mc cp --recursive my_minio/<your-bucket-path> <local_dir_path>
-        ``` 
+    - If you set `minio.address` and `minio.port` to a MinIO bucket, you can download them using Minio Console or the **mc** client, and upload them to an S3 bucket or save them in a local folder. For details on how to download files from MinIO, see [How can I download files from MinIO?](faqs.md#how-can-i-download-files-from-minio).
 
 ### Prepare migration data on Milvus v1.x
 
