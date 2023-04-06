@@ -26,9 +26,9 @@ collection.create_index(
 
 **AUTOINDEX** is a proprietary index type available on Zilliz Cloud for index auto-optimization. 
 
-<div class="alert note">
-Currently, Zilliz Cloud does not allow indexes on scalar fields.
-</div>
+> 📘 Note
+>
+> Currently, Zilliz Cloud does not allow indexes on scalar fields.
 
 ## Load an index
 
@@ -52,7 +52,7 @@ collection = Collection("medium_articles_2020")
 collection.release()
 ```
 
-Since reloading a collection is time-consuming, only release the collections that will stay idle for a long time, e.g. more than 10 hours. 
+Since reloading a collection is time-consuming, only release the collections that will stay idle for a long time, e.g. more than 10 hours.
 
 ## Drop an index
 
