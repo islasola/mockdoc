@@ -1,10 +1,8 @@
 ---
 title: Connect to Database
-excerpt: Procedure for connecting to a database instance
+excerpt: This guide walks you through how to access a database on Zilliz Cloud. You will learn how to obtain the database endpoint, configure the network access whitelist, and connect to a database.
 category: 642e25b85291100124b05ef4
 ---
-
-This guide walks you through how to access a database on Zilliz Cloud. You will learn how to obtain the database endpoint, configure the network access whitelist, and connect to a database.
 
 ## Before you start
 

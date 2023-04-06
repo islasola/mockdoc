@@ -1,10 +1,8 @@
 ---
 title: About Zilliz Cloud
-excerpt: Learn details about Zilliz Cloud
+excerpt: Zilliz Cloud is a fully managed service on the cloud for [LF AI Milvus®](https://milvus.io/), you can set up your Milvus cluster to unlock high-performance similarity search with no extra effort needed for infrastructure management.
 category: 642a6f4269ec7e000bba19ca
 ---
-
-Zilliz Cloud is a fully managed service on the cloud for [LF AI Milvus®](https://milvus.io/), you can set up your Milvus cluster to unlock high-performance similarity search with no extra effort needed for infrastructure management.
 
 ## Why should you choose Zilliz Cloud?
 
