@@ -1,5 +1,5 @@
 ---
-title: Zilliz Cloud Limits
+title: Troubleshootings
 excerpt: Find answers to frequently asked questions about the usage of Zilliz Cloud. If you cannot find the answer to you problem here, please contact our support team at <a href="mailto:support@zilliz.com">support@zilliz.com</a>.
 category: 642e264dc2653e0058a56246
 order: 2
