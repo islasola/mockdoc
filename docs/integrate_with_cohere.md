@@ -145,7 +145,7 @@ collection.flush()
 Once all the data is inserted into the Zilliz Cloud collection, we can ask the system questions by taking our question phrase, embedding it with Cohere, and searching with Zilliz Cloud. 
 
 > 📘 Notes
-> 
+>
 > Searches performed on data right after insertion might be a little slower as searching unindexed data is done in a brute-force manner. Once the new data is automatically indexed, the searches will speed up.
 
 ```python
