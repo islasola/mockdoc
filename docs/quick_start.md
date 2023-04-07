@@ -125,9 +125,17 @@ collection.load()
 
 To import a dataset, you need to upload the file containing the dataset to Zilliz Cloud. For your convenience, a sample JSON file has been uploaded to a public storage bucket.
 
-- For a database deployed on Amazon Web Service (AWS), <a onclick='navigator.clipboard.writeText("https:/\/s3.us-west-2.amazonaws.com/publicdataset.zillizcloud.com/medium_articles_2020_dpr/medium_articles_2020_dpr.json"); this.innerText="You have copied";' onmouseover='this.style.cursor="pointer"'>Click here to copy</a> the S3 URL.
+- For a database deployed on Amazon Web Service (AWS), copy the following S3 URL.
 
-- For a database deployed on Google Cloud Platform (GCP), <a onclick='navigator.clipboard.writeText("https:/\/storage.cloud.google.com/publicdataset-zillizcloud-com/medium_articles_2020.json"); this.innerText="You have copied";' onmouseover='this.style.cursor="pointer"'>Click here to copy</a> the Google Cloud Storage (GCS) URL.
+  ```shell
+  https://s3.us-west-2.amazonaws.com/publicdataset.zillizcloud.com/medium_articles_2020_dpr/medium_articles_2020_dpr.json
+  ```
+
+- For a database deployed on Google Cloud Platform (GCP), copy the following Google Cloud Storage (GCS) URL.
+
+  ```shell
+  https://storage.cloud.google.com/publicdataset-zillizcloud-com/medium_articles_2020.json
+  ```
 
 Click the name of the collection to view its details. In the **Collection** tab, click **Import Now** in the **Import Data to a Collection** area. You can select either **Import a local file** or **Import a file from S3** in the dialog box.
 
