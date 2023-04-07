@@ -13,3 +13,5 @@ To add a credit card, click **Billing** in the left navigation pane. Then click 
 ![Add payment method](https://assets.zilliz.com/zillizCloudDocAssets/add_payment_method.png)
 
 ## Use AWS marketplace
+
+You can also subscribe to [Zilliz Cloud on AWS marketplace](https://aws.amazon.com/marketplace/pp/prodview-iqbidum7feuio).
