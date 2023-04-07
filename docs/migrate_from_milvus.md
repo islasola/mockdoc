@@ -41,6 +41,12 @@ To prepare migration data for Milvus v2.x, do as follows:
     - `minio.port`
     - `minio.bucketName`
     - `minio.backupBucketName`
+    - `rootPath`
+
+    > 📘 Notes
+    >
+    > - For a Milvus instance installed using Docker Compose, `minio.bucketName` defaults to `a-bucket` and `rootPath` defaults to `files`.
+    > - For a Milvus instance installed on Kubernetes, `minio.bucketName` defaults to `milvus-bucket` and `rootPath` defaults to `file`.
 
 4. Create a backup of your Milvus installation.
 
@@ -57,7 +63,14 @@ To prepare migration data for Milvus v2.x, do as follows:
 6. Check the backup files.
     
     - If you set `minio.address` and `minio.port` to an S3 bucket, your backup file are already in the S3 bucket.
-    - If you set `minio.address` and `minio.port` to a MinIO bucket, you can download them using Minio Console or the **mc** client, and upload them to an S3 bucket or save them in a local folder. For details on how to download files from MinIO, see [How can I download files from MinIO?](faqs.md#how-can-i-download-files-from-minio).
+    - If you set `minio.address` and `minio.port` to a MinIO bucket, you can download them using Minio Console or the **mc** client. For details on how to download files from MinIO, see [How can I download files from MinIO?](faqs.md#how-can-i-download-files-from-minio).
+
+7. Decompress the downloaded archive and upload only the content of the backup folder to Zilliz Cloud.
+
+    ```
+    backup
+    └── my_backup  <= **Upload this subfolder**
+    ```
 
 ### Prepare migration data on Milvus v1.x
 

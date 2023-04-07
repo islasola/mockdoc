@@ -2,6 +2,7 @@
 title: For AWS-hosted Databases
 excerpt: Zilliz Cloud offers private access to your AWS-hosted databases through private links in case you do not want to have your database traffic go over the Internet.
 category: 642e25fca949170a5eda921e
+parentDoc: 642e422d08adbb0051c8ded1
 ---
 
 ## Set up a Private link on Zilliz Cloud
