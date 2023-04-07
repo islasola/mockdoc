@@ -99,9 +99,9 @@ To transfer data from Google Cloud Storage buckets, you can use either of the fo
 
 You can use either of the following methods to download files from MinIO:
 
-- To download from [Minio Console](https://min.io/docs/minio/kubernetes/upstream/administration/minio-console.html)
+- To download from [MinIO Console](https://min.io/docs/minio/kubernetes/upstream/administration/minio-console.html)
 
-    Log into Minio Console, locate the bucket specified in `minio.address`, select the files in the bucket, and click **Download** to download them.
+    Log into MinIO Console, locate the bucket specified in `minio.address`, select the files in the bucket, and click **Download** to download them.
 
 - To download using [the **mc** client](https://min.io/docs/minio/linux/reference/minio-mc.html#mc-install), do as follows:
 
