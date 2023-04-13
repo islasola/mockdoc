@@ -62,10 +62,10 @@ The properties in the returned response are listed in the following table.
 
 The following table lists the errors that the request possibly returns.
 
-| Error Code | Error Message                                                                           | Possible Reasons                                                                |
-|------------|-----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
-| 80001      | Illegal Api-Key.                                                                        | An anonymous user attempts to use an illegal key to access the OpenAPI service. |
-| 80002      | Invalid Api-Key. Please log in to the cloud platform to confirm if your Api-Key exists. | The API key you offer has been deleted or expired.                              |
+| Code  | Message                                                                                 | Possible Reasons                                                                |
+|-------|-----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| 80001 | Illegal Api-Key.                                                                        | An anonymous user attempts to use an illegal key to access the OpenAPI service. |
+| 80002 | Invalid Api-Key. Please log in to the cloud platform to confirm if your Api-Key exists. | The API key you offer has been deleted or expired.                              |
 
 ## Have a try!
 
