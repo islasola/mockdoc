@@ -197,17 +197,17 @@ You can use Milvus SDK directly to manipulate the databases on Zilliz Cloud. Eac
             <td rowspan="3" style="vertical-align: middle;">Bulk-insert</td>
             <td>BulkInsert</td>
             <td>Yes</td>
-            <td>Yes</td>
+            <td>No</td>
         </tr>
         <tr>
             <td>GetBulkInsertState</td>
             <td>Yes</td>
-            <td>Yes</td>
+            <td>No</td>
         </tr>
         <tr>
             <td>ListBulkInsertTasks</td>
             <td>Yes</td>
-            <td>Yes</td>
+            <td>No</td>
         </tr>
         <tr>
             <td rowspan="15" style="vertical-align: middle;">Collection</td>
