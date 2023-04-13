@@ -69,4 +69,4 @@ The following table lists the errors that the request possibly returns.
 
 ## Have a try!
 
-Use our API explorer on the side pane to call this API and check the request and responses.
+Use our API explorer on the side pane to call this API and check the request and responses. Remember to fill in the necessary body parameters below, if applicable.
