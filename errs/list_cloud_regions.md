@@ -25,7 +25,7 @@ The request body is similar to the following:
 
 ### Response
 
-- If we process your request successfully, the response would be like the following
+- Response body if we process your request successfully
 
 ```json
 {
@@ -43,7 +43,7 @@ The request body is similar to the following:
 }
 ```
 
-- If we failed to process your request, the response would be similar to the following:
+- Response body if we failed to process your request
 
 ```json
 {

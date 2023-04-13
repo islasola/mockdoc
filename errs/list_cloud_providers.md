@@ -19,7 +19,7 @@ No request body required
 
 ### Response
 
-- If we process your request successfully, the response would be like the following
+- Response body if we process your request successfully
 
 ```json
 {
@@ -37,7 +37,7 @@ No request body required
 }
 ```
 
-- If we failed to process your request, the response would be similar to the following:
+- Response body if we failed to process your request
 
 ```json
 {
