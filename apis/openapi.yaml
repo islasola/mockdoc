@@ -25,6 +25,11 @@ paths:
                                 oneOf:
                                     - $ref: "#/components/schemas/Clouds"
                                     - $ref: "#/components/schemas/Error"
+                            examples:
+                                success:
+                                    $ref: "#/components/examples/Clouds"
+                                failure:
+                                    $ref: "#/components/examples/Errors"
     /regions:
         post:
             summary: List Cloud Regions
@@ -776,6 +781,15 @@ components:
                             type: array
                             items:
                                 type: string
+    examples:
+        Clouds:
+            summary: List Clouds
+            description: Lists all available cloud providers.
+            value: { "code": 200, "data": [ { "cloudId": "aws", "description": "amazon cloud" }, { "cloudId": "gcp", "description": "google cloud" } ] }
+        Errors:
+            summary: Error Message
+            description: An example error message
+            value: { "code": 80001, "message": "Illegal API key." }
     securitySchemes:
         bearerAuth:
             type: http
