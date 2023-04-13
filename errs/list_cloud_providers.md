@@ -5,6 +5,8 @@ category: 64368bb63b18090510bad283
 slug: post_clouds
 ---
 
+### Use cases
+
 This endpoint applies to the scenario where you want to list all available cloud providers on Zilliz Cloud.
 
 ### Parameters
@@ -47,4 +49,4 @@ The following table lists the errors that the request possibly returns.
 
 ## Have a try!
 
-Use our API explorer to call this API and check the request and responses.
+Use our API explorer on the side pane to call this API and check the request and responses.
