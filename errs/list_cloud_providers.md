@@ -15,7 +15,7 @@ N/A
 
 ### Request
 
-No request body required.
+No request body required
 
 ### Response
 
@@ -52,11 +52,11 @@ The properties in the returned response are listed in the following table.
 
 | Property | Description                                                                                                                                  |
 |----------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| code     | **integer**<br>Indicates whether the request succeeds.<br><ul><li>`200`: The request succeeds.</li></li>Others: Some error occurs.</li></ul> |
-| data     | **array of objects**<br>Includes the list of returned cloud providers.
-| data.cloudId | **string**<br>Indicates the ID of the cloud provider. |
-| data.description | **string**<br>Indicates the description of the cloud provider. |
-| message  | **string**<br>Indicates the possible reason for the reported error. |
+| `code`     | **integer**<br>Indicates whether the request succeeds.<br><ul><li>`200`: The request succeeds.</li><li>Others: Some error occurs.</li></ul> |
+| `data`    | **array of objects**<br>Includes the list of returned cloud providers.
+| `data.cloudId` | **string**<br>Indicates the ID of the cloud provider. |
+| `data.description` | **string**<br>Indicates the description of the cloud provider. |
+| `message`  | **string**<br>Indicates the possible reason for the reported error. |
 
 ### Errors
 
