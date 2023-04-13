@@ -5,15 +5,17 @@ category: 64368bb63b18090510bad283
 slug: post_regions
 ---
 
-### Use cases
+## Use cases
 
 This endpoint applies to the scenario where you want to list all available cloud regions of a specified cloud provider.
+
+## Request
 
 ### Parameters
 
 No path or query parameters required
 
-### Request
+### Body
 
 The request body is similar to the following:
 
@@ -23,7 +25,9 @@ The request body is similar to the following:
 }
 ```
 
-### Response
+## Response
+
+### Body
 
 - Response body if we process your request successfully
 
@@ -65,7 +69,7 @@ The properties in the returned response are listed in the following table.
 | `data[].apiBaseUrl` | **string**<br>Indicates the base URL you should use to access the resources in the corresponding region. |
 | `message`  | **string**<br>Indicates the possible reason for the reported error. |
 
-### Errors
+## Errors
 
 The following table lists the errors that the request possibly returns.
 

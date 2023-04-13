@@ -5,19 +5,23 @@ category: 64368bb63b18090510bad283
 slug: post_clouds
 ---
 
-### Use cases
+## Use cases
 
 This endpoint applies to the scenario where you want to list all available cloud providers on Zilliz Cloud.
+
+## Request
 
 ### Parameters
 
 No path or query parameters required
 
-### Request
+### Body
 
 No request body required
 
-### Response
+## Response
+
+### Body
 
 - Response body if we process your request successfully
 
@@ -58,7 +62,7 @@ The properties in the returned response are listed in the following table.
 | `data[].description` | **string**<br>Indicates the description of the cloud provider. |
 | `message`  | **string**<br>Indicates the possible reason for the reported error. |
 
-### Errors
+## Errors
 
 The following table lists the errors that the request possibly returns.
 
