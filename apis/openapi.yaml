@@ -4,14 +4,14 @@ info:
     title: "API Reference"
     description: OpenAPI for operations on Zilliz Cloud
 servers:
-    - url: https://api.{cloud-region}.zillizcloud.com/v1
+    - url: https://api.{cloud-region}.cloud-uat3.zilliz.com/v1
       variables:
         cloud-region:
-            default: aws-us-east-1
+            default: aws-us-west-2
             description: Indicates the cloud region that accommodates your vector databases.
 paths:
     /clouds:
-        post:
+        get:
             summary: List Cloud Providers
             description: Lists available cloud providers.
             tags:
@@ -31,21 +31,17 @@ paths:
                                 failure:
                                     $ref: "#/components/examples/Errors"
     /regions:
-        post:
+        get:
             summary: List Cloud Regions
             description: Lists all available regions that the specified cloud provider offers.
             tags:
                 - Global Metadata
-            requestBody:
-                required: true
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                cloudId:
-                                    description: The ID of a valid cloud provider.
-                                    type: string
+            parameters:
+                - in: query
+                  name: cloudId,
+                  description: The ID of a valid cloud provider.
+                  schema:
+                    type: string
             responses:
                 200:
                     description: Returns a list of all available regions that the specified cloud provider offers.
@@ -524,6 +520,8 @@ paths:
                                 oneOf:
                                     - $ref: "#/components/schemas/RecordDeleteResult"
                                     - $ref: "#/components/schemas/Error"
+security:
+    - bearerAuth: []
 components:
     schemas:
         Empty:
@@ -794,5 +792,3 @@ components:
         bearerAuth:
             type: http
             scheme: bearer
-security:
-    - bearerAuth: []

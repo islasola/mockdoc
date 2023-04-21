@@ -2,7 +2,6 @@
 title: Insert Collection Records
 excerpt: Inserts the records that match the filtering condition from the specified collection. 
 category: 64368bb63b18090510bad283
-slug: post_clusterid-insert
 ---
 
 > 📘 Notes

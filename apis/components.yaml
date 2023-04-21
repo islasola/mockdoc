@@ -1,0 +1,270 @@
+components:
+    schemas:
+        Empty:
+            type: object
+            properties:
+                code: 
+                    type: integer
+                data:
+                    type: object
+        Error:
+            type: object
+            properties:
+                code:
+                    type: integer
+                message:
+                    type: string
+        Clouds:
+            type: object
+            properties:
+                code:
+                    type: integer
+                data:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            cloudId:
+                                type: string
+                            description:
+                                type: string
+        Regions:
+            type: object
+            properties:
+                code:
+                    type: integer
+                data:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            cloudId:
+                                type: string
+                            regionId:
+                                type: string
+                            apiBaseUrl:
+                                type: string
+        Clusters:
+            type: object
+            properties:
+                code:
+                    type: integer
+                data:
+                    type: object
+                    properties:
+                        count:
+                            type: integer
+                        currentPage:
+                            type: integer
+                        pageSize:
+                            type: integer
+                        clusters:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    clusterId:
+                                        type: string
+                                    clusterName:
+                                        type: string
+                                    description:
+                                        type: string
+                                    clusterType:
+                                        type: string
+                                    cuSize:
+                                        type: integer
+                                    status:
+                                        type: string
+                                    connectAddress:
+                                        type: string
+                                    privateLinkAddress:
+                                        type: string
+                                    createTime:
+                                        type: string
+        Cluster:
+            type: object
+            properties:
+                code:
+                    type: integer
+                data:
+                    type: object
+                    properties:
+                        clusterId:
+                            type: string
+                        clusterName:
+                            type: string
+                        description:
+                            type: string
+                        clusterType:
+                            type: string
+                        cuSize:
+                            type: integer
+                        status:
+                            type: string
+                        connectAddress:
+                            type: string
+                        privateLinkAddress:
+                            type: string
+                        createTime:
+                            type: string
+                        storageSize:
+                            type: integer
+                        snapshotNumber:
+                            type: integer
+                        createProgress:
+                            type: integer
+        ClusterOps:
+            type: object
+            properties:
+                code:
+                    type: integer
+                data:
+                    type: object
+                    properties:
+                        clusterId:
+                            type: string
+                        prompt:
+                            type: string
+        Collections:
+            type: object
+            properties:
+                code:
+                    type: integer
+                data:
+                    type: object
+                    properties:
+                        collectionCount:
+                            type: integer
+                        collections:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    collectionId:
+                                        type: string
+                                    collectionName:
+                                        type: string
+        CollectionCreateSimple:
+            type: object
+            properties:
+                collectionName:
+                    type: string
+                    description: The name of the collection to be created.
+                dimensions:
+                    type: integer
+                    description: The number of dimensions for the vector field of the collection.
+                descriptions:
+                    type: string
+                    description: The description of the collection to be created.
+            required:
+                - collectionName
+                - dimensions
+        CollectionCreateWithSchemaAndIndex:
+            type: object
+            properties:
+                collectionName:
+                    type: string
+                    description: The name of the collection to be created.
+                shardsNum:
+                    type: integer
+                    description: The number of shards to be created for the collection. This parameter is optional.
+                description:
+                    type: string
+                    description: The description of the collection to be created. This parameter is optional
+                fields:
+                    type: array
+                    description: The fields of the collection to be created.
+                    items:
+                        type: object
+                        properties:
+                            name:
+                                type: string
+                            type:
+                                type: string
+                            primaryKey:
+                                type: boolean
+                            autoId:
+                                type: boolean
+                            description:
+                                type: string
+                indexes:
+                    type: array
+                    description: The fields to be indexed along with the creation of the database. This parameter is optional.
+                    items:
+                        type: object
+                        properties:
+                            indexName:
+                                type: string
+                                description: The name of the index file to be created.
+                            fieldName:
+                                type: string
+                                description: The name of field for which the index file is to be created.
+                            metricType:
+                                type: string
+                                description: The algorithm used to measure the distance between vectors.
+            required:
+                - collectionName
+                - fields
+        SearchResults:
+            type: object
+            properties:
+                code:
+                    type: integer
+                data: 
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            id:
+                                type: integer
+                            name:
+                                type: string
+                            feature:
+                                type: array
+                                items:
+                                    type: number
+                                    format: float
+                            distance:
+                                type: number
+                                format: float
+        RecordDeleteResult:
+            type: object
+            properties:
+                code:
+                    type: integer
+                data:
+                    type: object
+                    properties:
+                        deleteCount:
+                            type: integer
+                        deleteIds:
+                            type: array
+                            items:
+                                type: string
+        InsertDeleteResult:
+            type: object
+            properties:
+                code:
+                    type: integer
+                data:
+                    type: object
+                    properties:
+                        insertCount:
+                            type: integer
+                        insertIds:
+                            type: array
+                            items:
+                                type: string
+    examples:
+        Clouds:
+            summary: List Clouds
+            description: Lists all available cloud providers.
+            value: { "code": 200, "data": [ { "cloudId": "aws", "description": "amazon cloud" }, { "cloudId": "gcp", "description": "google cloud" } ] }
+        Errors:
+            summary: Error Message
+            description: An example error message
+            value: { "code": 80001, "message": "Illegal API key." }
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
