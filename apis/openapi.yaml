@@ -38,7 +38,7 @@ paths:
                 - Global Metadata
             parameters:
                 - in: query
-                  name: cloudId,
+                  name: cloudId
                   description: The ID of a valid cloud provider.
                   schema:
                     type: string
@@ -53,24 +53,26 @@ paths:
                                     - $ref: "#/components/schemas/Error"
     /clusters:
         get:
-            summary: List Vector Databases
-            description: Lists all available vector databases.
+            summary: List Clusters
+            description: Lists all available clusters.
             tags: 
                 - Cluster Operations
             parameters:
                 - in: query
                   name: pageSize
-                  description: The number of records on each page returned.
+                  description: The number of records to return on each page.
                   schema:
                       type: integer
+                      default: 10
                 - in: query
                   name: current
                   description: The current page number.
                   schema:
                       type: integer
+                      default: 1
             responses:
                 200:
-                    description: Returns a list of your vector databases.
+                    description: Returns a list of your clusters.
                     content:
                         application/json:
                             schema:
@@ -78,8 +80,8 @@ paths:
                                     - $ref: "#/components/schemas/Clusters"
                                     - $ref: "#/components/schemas/Error"
         post:
-            summary: Create Vector Database
-            description: Creates a vector database.
+            summary: Create Cluster
+            description: Creates a cluster.
             tags: 
                 - Cluster Operations
             requestBody:
@@ -87,98 +89,81 @@ paths:
                 content:
                     application/json:
                         schema:
-                            type: object
-                            properties:
-                                clusterType:
-                                    description: The type of the vector database to be created. Available options are **Performance-optimized** and **Capacity-optimized**, This parameter is optional and it defaults to **Performance-optimized**.
-                                    type: string
-                                cuSize:
-                                    description: The size of the CU to be used for the created vector database. It is an integer from 1 to 256.
-                                    type: integer
-                                clusterName:
-                                    description: The name of the vector database to be created. It is a string of no more than 32 characters.
-                                    type: string
-                                description:
-                                    description: The description of the vector database to be created. This parameter is optional.
-                                    type: string
-                                adminPwd:
-                                    description: The admin password of the vector database. It is a string of 8 to 128 characters containing uppercase and lowercase alphanumerical characters and special characters such as `~`, `!`, `@`, `#`, `$`, `%`, `^`, `&`, `*`, `?`, `_`, and `-`.
-                                    type: string
-                            required:
-                                - cuSize
-                                - clusterName
-                                - adminPwd
+                          $ref: "#/components/schemas/CreateCluster"
             responses:
                 200:
-                    description: Returns the ID of the created vector database with a prompt message indicating the success.
+                    description: Returns the ID of the created cluster with a prompt message indicating the success.
                     content:
                         application/json:
                             schema:
                                 oneOf:
-                                    - $ref: "#/components/schemas/Error"
                                     - $ref: "#/components/schemas/ClusterOps"
+                                    - $ref: "#/components/schemas/Error"
     /clusters/{clusterId}:
         get:
-            summary: Describe Vector Database
-            description: Lists the details of the specified vector database.
+            summary: Describe Cluster
+            description: Lists the details of the specified cluster.
             tags: 
                 - Cluster Operations
             parameters:
                 - in: path
                   name: clusterId
                   required: true
-                  description: The unique string that identifies the vector database in concern, you can use either the ID or Name of the vector database.
+                  description: The unique string that identifies the cluster in concern.
                   schema:
                       type: string
             responses:
                 200:
-                    description: Returns the details of the specified vector database, including its ID, name, type, status, number of created snapshots, etc. or an error message with an error code.
+                    description: Returns the details of the specified cluster, including its ID, name, type, status, number of created snapshots, etc. or an error message with an error code.
                     content:
                         application/json:
                             schema:
                                 oneOf:
+                                    - $ref: "#/components/schemas/Cluster"
                                     - $ref: "#/components/schemas/Error"
-                                    - $ref: "#/components/schemas/ClusterOps"
         delete:
-            summary: Drop a Vector Database
-            description: Deletes the specified vector database.
+            summary: Drop Cluster
+            description: Deletes the specified cluster.
             tags: 
                 - Cluster Operations
             parameters:
                 - in: path
                   name: clusterId
                   required: true
-                  description: The unique string that identifies the vector database in concern, you can use either the ID or Name of the vector database.
+                  description: The unique string that identifies the cluster in concern.
                   schema:
                       type: string
             responses:
                 200:
-                    description: Returns the ID of the deleted vector database with a prompt message indicating the success or an error message with an error code.
+                    description: Returns the ID of the deleted cluster with a prompt message indicating the success or an error message with an error code.
                     content:
                         application/json:
                             schema:
                                 oneOf:
-                                    - $ref: "#/components/schemas/Error"
                                     - $ref: "#/components/schemas/ClusterOps"
+                                    - $ref: "#/components/schemas/Error"
     /clusters/{clusterId}/config:
         post:
-            summary: Configure Vector Database
-            description: Configures the specified vector database. Currently, you can configure the its CU size using this API.
+            summary: Configure Cluster
+            description: Configures the specified cluster. Currently, you can configure the its CU size using this API.
             tags:
                 - Cluster Operations
             parameters:
                 - in: path
                   name: clusterId
                   required: true
-                  description: The unique string that identifies the vector database in concern, you can use either the ID or Name of the vector database.
+                  description: The unique string that identifies the cluster in concern.
                   schema:
                       type: string
-                - in: query
-                  name: cuSize
-                  required: true
-                  description: The size of the CU that accommodates the specified vector database.
-                  schema:
-                       type: integer
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                          type: object
+                          properties:
+                              cuSize:
+                                type: integer
             responses:
                 200:
                     description: Returns the ID of the vector database affected by this operation with a prompt message indicating the success or an error message with an error code.
@@ -186,41 +171,41 @@ paths:
                         application/json:
                             schema:
                                 oneOf:
-                                    - $ref: "#/components/schemas/Error"
                                     - $ref: "#/components/schemas/ClusterOps"
+                                    - $ref: "#/components/schemas/Error"
     /clusters/{clusterId}/suspend:
         post:
-            summary: Suspend Vector Database
-            description: Suspends the specified vector database.
+            summary: Suspend Cluster
+            description: Suspends the specified cluster.
             tags: 
                 - Cluster Operations
             parameters:
                 - in: path
                   name: clusterId
                   required: true
-                  description: The unique string that identifies the vector database in concern, you can use either the ID or Name of the vector database.
+                  description: The unique string that identifies the cluster in concern.
                   schema:
                       type: string
             responses:
                 200:
-                    description: Returns the ID of the suspended vector database with a prompt message indicating the success or an error message with an error code.
+                    description: Returns the ID of the suspended cluster with a prompt message indicating the success or an error message with an error code.
                     content:
                         application/json:
                             schema:
                                 oneOf:
-                                    - $ref: "#/components/schemas/Error"
                                     - $ref: "#/components/schemas/ClusterOps"
+                                    - $ref: "#/components/schemas/Error"
     /clusters/{clusterId}/resume:
         post:
-            summary: Resume Vector Database
-            description: Resumes the specified vector database.
+            summary: Resume Cluster
+            description: Resumes the specified cluster.
             tags: 
                 - Cluster Operations
             parameters:
                 - in: path
                   name: clusterId
                   required: true
-                  description: The unique string that identifies the vector database in concern, you can use either the ID or Name of the vector database.
+                  description: The unique string that identifies the cluster in concern.
                   schema:
                       type: string
             responses:
@@ -230,23 +215,31 @@ paths:
                         application/json:
                             schema:
                                 oneOf:
+                                    - $ref: "#/components/schemas/ClusterOps"
                                     - $ref: "#/components/schemas/Error"
     /{clusterId}/collections:
         get:
             summary: List Collections
-            description: Lists the collections in the specified vector database.
+            description: Lists the collections in the specified cluster.
             tags: 
                 - Collection Operations
             parameters:
                 - in: path
                   name: clusterId
                   required: true
-                  description: The unique string that identifies the vector database in concern, you can use either the ID or Name of the vector database.
+                  description: The unique string that identifies the cluster in concern.
                   schema:
                       type: string
+                - in: query
+                  name: collectionNames
+                  description: The list of collections in your concern.
+                  schema:
+                      type: array
+                      items:
+                        type: string
             responses:
                 200:
-                    description: Returns a list of collections in the specified vector database.
+                    description: Returns a list of collections in the specified cluster.
                     content:
                         application/json:
                             schema:
@@ -284,7 +277,7 @@ paths:
                                     - $ref: "#/components/schemas/Empty"
                                     - $ref: "#/components/schemas/Error"                    
     /{clusterId}/collections/describe:
-        post:
+        get:
             summary: Describe Collection
             description: Describes the specified collection in detail.
             tags: 
@@ -309,7 +302,7 @@ paths:
                         application/json:
                             schema:
                                 oneOf:
-                                    - $ref: "#/components/schemas/CollectionCreateWithSchemaAndIndex"
+                                    - $ref: "#/components/schemas/DescribeCollectionResponse"
                                     - $ref: "#/components/schemas/Error" 
     /{clusterId}/collections/drop:
         post:
@@ -324,12 +317,16 @@ paths:
                   description: The unique string that identifies the vector database in concern, you can use either the ID or Name of the vector database.
                   schema:
                       type: string
-                - in: query
-                  name: collectionName
-                  required: true
-                  description: The name of the collection in concern.
-                  schema:
-                        type: string
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                collectionName:
+                                    type: string
+                                    description: The name of the collection in concern.
             responses:
                 200:
                     description: Empty returns.
@@ -367,20 +364,11 @@ paths:
                                     description: The fields to be returned along with the vector search results.
                                     items:
                                         type: string
-                                anns:
-                                    type: object
-                                    description: The search settings
-                                    properties:
-                                        vectorField:
-                                            type: array
-                                            items: 
-                                                type: number
-                                                format: float
                                 level:
                                     type: integer
                                     description: The level of accurary of the search results. It defaults to 1 and possible values are 1, 2, and 3. A higher value indicates a more accurate result at a slower performance.
                                 filter:
-                                    description: The filtering condition for the vector search.
+                                    description: The filtering condition for the vector search. This parameter is required if `vectorField` is not present.
                                     type: string
                                 limit:
                                     description: The maximum number of records to return.
@@ -393,49 +381,6 @@ paths:
             responses:
                 200:
                     description: Returns the results of the vector search.
-                    content:
-                        application/json:
-                            schema:
-                                oneOf:
-                                    - $ref: "#/components/schemas/SearchResults"
-                                    - $ref: "#/components/schemas/Error"
-    /{clusterId}/query:
-        post: 
-            summary: Conduct Scalar Query
-            description: Conducts a query against scalar fields in the specified collection.
-            tags: 
-                - Vector Operations
-            parameters:
-                - in: path
-                  name: clusterId
-                  required: true
-                  description: The unique string that identifies the vector database in concern, you can use either the ID or Name of the vector database.
-                  schema:
-                      type: string
-            requestBody:
-                required: true
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                collectionName:
-                                    type: string
-                                    description: The name of the collection in concern.
-                                filter:
-                                    description: The filtering condition for the query.
-                                    type: string
-                                outputFields:
-                                    type: array
-                                    description: The fields to be returned along with the query results.
-                                    items:
-                                        type: string
-                            required:
-                                - collectionName
-                                - filter
-            responses:
-                200:
-                    description: Returns the results of the query.
                     content:
                         application/json:
                             schema:
@@ -550,8 +495,10 @@ components:
                         properties:
                             cloudId:
                                 type: string
+                                description: The ID of a cloud provider.
                             description:
                                 type: string
+                                description: The description of the cloud provider.
         Regions:
             type: object
             properties:
@@ -637,6 +584,29 @@ components:
                             type: integer
                         createProgress:
                             type: integer
+        CreateCluster:
+            type: object
+            properties:
+                clusterType:
+                    description: The type of the vector database to be created. Available options are **Performance-optimized** and **Capacity-optimized**, This parameter is optional and it defaults to **Performance-optimized**.
+                    default: "Performance-optimized"
+                    type: string
+                cuSize:
+                    description: The size of the CU to be used for the created vector database. It is an integer from 1 to 256.
+                    type: integer
+                clusterName:
+                    description: The name of the vector database to be created. It is a string of no more than 32 characters.
+                    type: string
+                description             :
+                    description: The description of the vector database to be created. This parameter is optional.
+                    type: string
+                adminPwd:
+                    description: The admin password of the vector database. It is a string of 8 to 128 characters containing uppercase and lowercase alphanumerical characters and special characters such as `~`, `!`, `@`, `#`, `$`, `%`, `^`, `&`, `*`, `?`, `_`, and `-`.
+                    type: string
+            required:
+                  - cuSize
+                  - clusterName
+                  - adminPwd
         ClusterOps:
             type: object
             properties:
@@ -683,6 +653,50 @@ components:
             required:
                 - collectionName
                 - dimensions
+        DescribeCollectionResponse:
+            type: object
+            properties:
+                code:
+                    type: integer
+                data:
+                    type: object
+                    properties:
+                        collectionId: 
+                            type: string
+                        collectionName:
+                            type: string
+                        shardNum:
+                            type: integer
+                        description:
+                            type: string
+                        fields:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    name:
+                                        type: string
+                                    type:
+                                        type: string
+                                    primaryKey:
+                                        type: boolean
+                                    autoId:
+                                        type: boolean
+                                    description:
+                                        type: string
+                        indexes:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    indexName:
+                                        type: string
+                                    fieldName:
+                                        type: string
+                                    metricType:
+                                        type: string
+                                    extraParams:
+                                        type: object
         CollectionCreateWithSchemaAndIndex:
             type: object
             properties:
@@ -741,13 +755,6 @@ components:
                         properties:
                             id:
                                 type: integer
-                            name:
-                                type: string
-                            feature:
-                                type: array
-                                items:
-                                    type: number
-                                    format: float
                             distance:
                                 type: number
                                 format: float

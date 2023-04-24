@@ -1,24 +1,25 @@
 ---
 title: {{page_title}}
 excerpt: {{page_excerpt}}
-category: 64368bb63b18090510bad283
+category: {{category_id}}
+slug: {{title_slug}}
 ---
 
 ## Request
 
 ### Parameters
 
-{%- if query_params %}
+{% if query_params -%}
 
 - Query parameters
 
     | Parameter        | Description                                                                               |
     |------------------|-------------------------------------------------------------------------------------------|
-    {% for param in query_params -%}
-    | {{param['name']}}  | **{{param['schema']['type']}}** {%- if param['required'] -%}(required){%- endif -%}<br>{{param['description']}} |
+    {%- for param in query_params %}
+    | `{{param['name']}}`  | **{{param['schema']['type']}}** {%- if param['required'] -%}(required){%- endif -%}<br>{{param['description']}} |
     {%- endfor %}
 
-{% else %}
+{%- else -%}
 
 - No query parameters required
 
@@ -30,41 +31,44 @@ category: 64368bb63b18090510bad283
 
     | Parameter        | Description                                                                               |
     |------------------|-------------------------------------------------------------------------------------------|
-    {% for param in query_params -%}
-    | {{param['name']}}  | **{{param['schema']['type']}}** {%- if param['required'] -%}(required){%- endif -%}<br>{{param['description']}} |
+    {%- for param in path_params %}
+    | `{{param['name']}}`  | **{{param['schema']['type']}}** {%- if param['required'] -%}(required){%- endif -%}<br>{{param['description']}} |
     {%- endfor %}
 
-{%- else %}
+{%- else -%}
 
 - No path parameters required
 
 {%- endif %}
 
-### Body
+### Request Body
 
-{% for req_body in req_bodies -%}
+{%- for req_body in req_bodies %}
+
 ```json
-{{req_body['body']}}
+{{req_body | req_format }}
 ```
 
 | Parameter        | Description                                                                               |
 |------------------|-------------------------------------------------------------------------------------------|
-{% for prop in req_body['properties'] -%}
-| {{prop}}  | **{{req_body['properties'][prop]['type']}}** {%- if req_body['properties'][prop]['required'] -%}(required){%- endif -%}<br>{{req_body['properties'][prop]['description']}} |
+{%- for k, v in req_body['properties'].items() %}
+| `{{k}}`  | **{{v['type']}}** {%- if k in req_body['required'] -%}(required){%- endif -%}<br>{{v['description']}} |
+
 {%- endfor %}
 
-{% endfor %}
+
+{%- endfor %}
 
 ## Response
 
-{{ response_description }}
+{{ res_des }}
 
-### Body
+### Response Bodies
 
 - Response body if we process your request successfully
 
 ```json
-{{res_body['body']}}
+{{res_body | res_format }}
 ```
 
 - Response body if we failed to process your request
@@ -80,23 +84,21 @@ category: 64368bb63b18090510bad283
 
 The properties in the returned response are listed in the following table.
 
-| Property | Description                                                                                                                                  |
-|----------|----------------------------------------------------------------------------------------------------------------------------------------------|
-| `code`     | **integer**<br>Indicates whether the request succeeds.<br><ul><li>`200`: The request succeeds.</li><li>Others: Some error occurs.</li></ul> |
-{% for prop in res_body['properties'] -%}
-| `{{prop}}` | **{{res_body['properties'][prop]['type']}}**<br>{{res_body['properties'][prop]['description']}} |
+| Property | Description                                                                                                                                 |
+|----------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| `code`   | **integer**<br>Indicates whether the request succeeds.<br><ul><li>`200`: The request succeeds.</li><li>Others: Some error occurs.</li></ul> |
+{%- if 'properties' in res_body['properties']['data'] %}
+| `data`    | **object**<br>A data object. |
+{%- for k, v in res_body['properties']['data']['properties'].items() %}
+| `data.{{k}}`   | **{{v['type']}}**<br>{{v['description']}} |
 {%- endfor %}
+{%- elif 'items' in res_body['properties']['data'] %}
+| `data`  | **array**<br>A data array |
+{%- for k, v in res_body['properties']['data']['items']['properties'].items() %}
+| `data[].{{k}}`   | **{{v['type']}}**<br>{{v['description']}} |
+{%- endfor %}
+{%- endif %}
 | `message`  | **string**<br>Indicates the possible reason for the reported error. |
-
-## Errors
-
-The following table lists the errors that the request possibly returns.
-
-| Code            | Message        | Possible Reasons |
-|-----------------|----------------|------------------|
-<% for err in errors -%>
-| {{err['code']}} | {{err['msg']}} | {{err['desc']}}  |
-<%- endfor %>
 
 ## Have a try!
 

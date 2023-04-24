@@ -27,7 +27,12 @@ jobs:
         with:
           rdme: openapi ./apis/openapi.json --key=${{ secrets.README_API_KEY }} --id=64368bb63b18090510bad282 --useSpecVersion --update
 
-      - name: Run `docs` command
+      - name: Generate restful reference 🚀
+        run: |
+          mkdir restref
+          python3 ./scripts/refgen.py ${{ secrets.README_API_KEY }}
+
+      - name: Run `docs` command 🚀
         uses: readmeio/rdme@v8
         with:
-          rdme: docs ./errs --key=${{ secrets.README_API_KEY }} --version=1.0.0    
+          rdme: docs ./restref --key=${{ secrets.README_API_KEY }} --version=1.0.0    
