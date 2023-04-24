@@ -43,6 +43,7 @@ slug: {{title_slug}}
 
 ### Request Body
 
+{%- if req_bodies -%}
 {%- for req_body in req_bodies %}
 
 ```json
@@ -58,6 +59,7 @@ slug: {{title_slug}}
 
 
 {%- endfor %}
+{%- endif -%}
 
 ## Response
 
