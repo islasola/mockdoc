@@ -59,7 +59,11 @@ slug: {{title_slug}}
 
 
 {%- endfor %}
-{%- endif -%}
+{%- else %}
+
+No request body required
+
+{%- endif %}
 
 ## Response
 
