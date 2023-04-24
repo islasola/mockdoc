@@ -121,7 +121,7 @@ paths:
                                 oneOf:
                                     - $ref: "#/components/schemas/Cluster"
                                     - $ref: "#/components/schemas/Error"
-        delete:
+        post:
             summary: Drop Cluster
             description: Deletes the specified cluster.
             tags: 

@@ -459,7 +459,7 @@
           }
         }
       },
-      "delete": {
+      "post": {
         "summary": "Drop Cluster",
         "description": "Deletes the specified cluster.",
         "tags": [
