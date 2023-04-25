@@ -4,13 +4,13 @@ info:
     title: "API Reference"
     description: OpenAPI for operations on Zilliz Cloud
 servers:
-    - url: https://api.{cloud-region}.cloud-uat3.zilliz.com/v1
+    - url: https://api.{cloud-region}.cloud.zilliz.com/v1
       variables:
         cloud-region:
             default: aws-us-west-2
             description: Indicates the cloud region that accommodates your vector databases.
 paths:
-    /clouds:
+    /v1/clouds:
         get:
             summary: List Cloud Providers
             description: Lists available cloud providers.
@@ -30,7 +30,7 @@ paths:
                                     $ref: "#/components/examples/Clouds"
                                 failure:
                                     $ref: "#/components/examples/Errors"
-    /regions:
+    /v1/regions:
         get:
             summary: List Cloud Regions
             description: Lists all available regions that the specified cloud provider offers.
@@ -51,7 +51,7 @@ paths:
                                 oneOf:
                                     - $ref: "#/components/schemas/Regions"
                                     - $ref: "#/components/schemas/Error"
-    /clusters:
+    /v1/clusters:
         get:
             summary: List Clusters
             description: Lists all available clusters.
@@ -99,7 +99,7 @@ paths:
                                 oneOf:
                                     - $ref: "#/components/schemas/ClusterOps"
                                     - $ref: "#/components/schemas/Error"
-    /clusters/{clusterId}:
+    /v1/clusters/{instance-id}:
         get:
             summary: Describe Cluster
             description: Lists the details of the specified cluster.
@@ -107,7 +107,7 @@ paths:
                 - Cluster Operations
             parameters:
                 - in: path
-                  name: clusterId
+                  name: instance-id
                   required: true
                   description: The unique string that identifies the cluster in concern.
                   schema:
@@ -128,7 +128,7 @@ paths:
                 - Cluster Operations
             parameters:
                 - in: path
-                  name: clusterId
+                  name: instance-id
                   required: true
                   description: The unique string that identifies the cluster in concern.
                   schema:
@@ -142,7 +142,7 @@ paths:
                                 oneOf:
                                     - $ref: "#/components/schemas/ClusterOps"
                                     - $ref: "#/components/schemas/Error"
-    /clusters/{clusterId}/config:
+    /v1/clusters/{instance-id}/config:
         post:
             summary: Configure Cluster
             description: Configures the specified cluster. Currently, you can configure the its CU size using this API.
@@ -150,7 +150,7 @@ paths:
                 - Cluster Operations
             parameters:
                 - in: path
-                  name: clusterId
+                  name: instance-id
                   required: true
                   description: The unique string that identifies the cluster in concern.
                   schema:
@@ -173,7 +173,7 @@ paths:
                                 oneOf:
                                     - $ref: "#/components/schemas/ClusterOps"
                                     - $ref: "#/components/schemas/Error"
-    /clusters/{clusterId}/suspend:
+    /v1/clusters/{instance-id}/suspend:
         post:
             summary: Suspend Cluster
             description: Suspends the specified cluster.
@@ -181,7 +181,7 @@ paths:
                 - Cluster Operations
             parameters:
                 - in: path
-                  name: clusterId
+                  name: instance-id
                   required: true
                   description: The unique string that identifies the cluster in concern.
                   schema:
@@ -195,7 +195,7 @@ paths:
                                 oneOf:
                                     - $ref: "#/components/schemas/ClusterOps"
                                     - $ref: "#/components/schemas/Error"
-    /clusters/{clusterId}/resume:
+    /v1/clusters/{instance-id}/resume:
         post:
             summary: Resume Cluster
             description: Resumes the specified cluster.
@@ -203,7 +203,7 @@ paths:
                 - Cluster Operations
             parameters:
                 - in: path
-                  name: clusterId
+                  name: instance-id
                   required: true
                   description: The unique string that identifies the cluster in concern.
                   schema:
@@ -217,7 +217,7 @@ paths:
                                 oneOf:
                                     - $ref: "#/components/schemas/ClusterOps"
                                     - $ref: "#/components/schemas/Error"
-    /{clusterId}/collections:
+    /v1/{instance-id}/collections:
         get:
             summary: List Collections
             description: Lists the collections in the specified cluster.
@@ -225,7 +225,7 @@ paths:
                 - Collection Operations
             parameters:
                 - in: path
-                  name: clusterId
+                  name: instance-id
                   required: true
                   description: The unique string that identifies the cluster in concern.
                   schema:
@@ -246,7 +246,7 @@ paths:
                                 oneOf:
                                     - $ref: "#/components/schemas/Collections"
                                     - $ref: "#/components/schemas/Error"
-    /{clusterId}/collections/create:
+    /v1/{instance-id}/collections/create:
         post:
             summary: Create Collection
             description: Creates a collection in the specified vector database. As to the request body, there are two options available. If you choose to use **Option 1**, Zilliz Cloud will create the `id` and `vector` fields in the created collection.
@@ -254,7 +254,7 @@ paths:
                 - Collection Operations
             parameters:
                 - in: path
-                  name: clusterId
+                  name: instance-id
                   required: true
                   description: The unique string that identifies the vector database in concern, you can use either the ID or Name of the vector database.
                   schema:
@@ -276,7 +276,7 @@ paths:
                                 oneOf:
                                     - $ref: "#/components/schemas/Empty"
                                     - $ref: "#/components/schemas/Error"                    
-    /{clusterId}/collections/describe:
+    /v1/{instance-id}/collections/describe:
         get:
             summary: Describe Collection
             description: Describes the specified collection in detail.
@@ -284,7 +284,7 @@ paths:
                 - Collection Operations
             parameters:
                 - in: path
-                  name: clusterId
+                  name: instance-id
                   required: true
                   description: The unique string that identifies the vector database in concern, you can use either the ID or Name of the vector database.
                   schema:
@@ -304,7 +304,7 @@ paths:
                                 oneOf:
                                     - $ref: "#/components/schemas/DescribeCollectionResponse"
                                     - $ref: "#/components/schemas/Error" 
-    /{clusterId}/collections/drop:
+    /v1/{instance-id}/collections/drop:
         post:
             summary: Drop Collection
             description: Drops the specified collection.
@@ -312,7 +312,7 @@ paths:
                 - Collection Operations
             parameters:
                 - in: path
-                  name: clusterId
+                  name: instance-id
                   required: true
                   description: The unique string that identifies the vector database in concern, you can use either the ID or Name of the vector database.
                   schema:
@@ -336,7 +336,7 @@ paths:
                                 oneOf:
                                     - $ref: "#/components/schemas/Empty"
                                     - $ref: "#/components/schemas/Error"
-    /{clusterId}/search:
+    /v1/{instance-id}/search:
         post:
             summary: Conduct Vector Search
             description: Conducts a search against the vector field in the specified collection.
@@ -344,7 +344,7 @@ paths:
                 - Vector Operations
             parameters:
                 - in: path
-                  name: clusterId
+                  name: instance-id
                   required: true
                   description: The unique string that identifies the vector database in concern, you can use either the ID or Name of the vector database.
                   schema:
@@ -387,7 +387,7 @@ paths:
                                 oneOf:
                                     - $ref: "#/components/schemas/SearchResults"
                                     - $ref: "#/components/schemas/Error"
-    /{clusterId}/insert:
+    /v1/{instance-id}/insert:
         post:
             summary: Insert Records to Collection
             description: Inserts the records that match the filtering condition from the specified collection. Notes that the size of the POST request should be no greater than 50 MB, the number or rows to be inserted should be no more than 5,000 rows, and the schema of the `data` object should match the schema of the specified collection.
@@ -395,7 +395,7 @@ paths:
                 - Vector Operations
             parameters:
                 - in: path
-                  name: clusterId
+                  name: instance-id
                   required: true
                   description: The unique string that identifies the vector database in concern, you can use either the ID or Name of the vector database.
                   schema:
@@ -427,7 +427,7 @@ paths:
                                 oneOf:
                                     - $ref: "#/components/schemas/InsertDeleteResult"
                                     - $ref: "#/components/schemas/Error"
-    /{clusterId}/delete:
+    /v1/{instance-id}/delete:
         post:
             summary: Drop Records from Collection
             description: Drops the records that match the filtering condition from the specified collection.
@@ -435,7 +435,7 @@ paths:
                 - Vector Operations
             parameters:
                 - in: path
-                  name: clusterId
+                  name: instance-id
                   required: true
                   description: The unique string that identifies the vector database in concern, you can use either the ID or Name of the vector database.
                   schema:

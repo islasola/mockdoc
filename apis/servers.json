@@ -1,0 +1,13 @@
+{
+    "servers": [
+        {
+          "url": "https://api.{cloud-region}.cloud.zilliz.com/v1",
+          "variables": {
+            "cloud-region": {
+              "default": "aws-us-west-2",
+              "description": "Indicates the cloud region that accommodates your vector databases."
+            }
+          }
+        }
+      ]
+}
