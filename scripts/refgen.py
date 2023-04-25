@@ -119,7 +119,7 @@ if __name__ == '__main__':
 
     template = env.get_template('reference.md')
 
-    with open('apis/openapi.json') as f:
+    with open('apis/clean.json') as f:
         specifications = json.load(f)
 
         for url in specifications['paths']:

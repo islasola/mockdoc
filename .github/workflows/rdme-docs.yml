@@ -20,12 +20,16 @@ jobs:
       - name: Run `docs` command 🚀
         uses: readmeio/rdme@v8
         with:
-          rdme: docs ./docs --key=${{ secrets.README_API_KEY }} --version=1.0.0    
+          rdme: docs ./docs --key=${{ secrets.README_API_KEY }} --version=1.0.0   
+
+      - name: Clean openapi specs 🧹
+        run: |
+          python3 ./scripts/clean.py
 
       - name: Run `openapi` command 🚀
         uses: readmeio/rdme@v8
         with:
-          rdme: openapi ./apis/openapi.json --key=${{ secrets.README_API_KEY }} --id=64368bb63b18090510bad282 --useSpecVersion --update
+          rdme: openapi ./apis/clean.json --key=${{ secrets.README_API_KEY }} --id=64368bb63b18090510bad282 --useSpecVersion --update
 
       - name: Generate restful reference 🚀
         run: |
