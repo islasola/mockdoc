@@ -14,6 +14,8 @@ if __name__ == '__main__':
 
     with open('apis/openapi.json', 'r') as f:
         specifications = json.load(f)
+        specifications['info']['title'] = 'API Reference'
+        specifications['info']['description'] = 'OpenAPI for operations on Zilliz Cloud'
         
         for url in specifications['paths']:
             for method in specifications['paths'][url]:
@@ -49,4 +51,5 @@ if __name__ == '__main__':
             specifications['servers'] = servers['servers']
 
         with open('apis/clean.json', 'w') as f:
-            json.dump(specifications, f, indent=4)
+            c = json.dumps(specifications, indent=4).replace('anyOf', 'oneOf')
+            f.write(c)

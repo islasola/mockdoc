@@ -7,25 +7,25 @@
   },
   "tags": [
     {
-      "name": "Cloud Cluster"
+      "name": "Cluster Operations"
     },
     {
-      "name": "Collection Operator"
+      "name": "Collection Operations"
     },
     {
-      "name": "Vector Operators"
+      "name": "Vector Operations"
     }
   ],
   "paths": {
     "/clusters": {
       "get": {
         "summary": "List Clusters",
-        "x-apifox-folder": "Cloud Cluster",
+        "x-apifox-folder": "Cluster Operations",
         "x-apifox-status": "released",
         "deprecated": false,
         "description": "Lists all clusters in the specified cloud region.",
         "tags": [
-          "Cloud Cluster"
+          "Cluster Operations"
         ],
         "parameters": [
           {
@@ -74,12 +74,12 @@
     "/clusters/{clusterId}": {
       "get": {
         "summary": "Describe Cluster",
-        "x-apifox-folder": "Cloud Cluster",
+        "x-apifox-folder": "Cluster Operations",
         "x-apifox-status": "released",
         "deprecated": false,
         "description": "Describe a cluster in detail.",
         "tags": [
-          "Cloud Cluster"
+          "Cluster Operations"
         ],
         "parameters": [
           {
@@ -111,12 +111,12 @@
     "/clusters/{clusterId}/resume": {
       "post": {
         "summary": "Resume Cluster",
-        "x-apifox-folder": "Cloud Cluster",
+        "x-apifox-folder": "Cluster Operations",
         "x-apifox-status": "released",
         "deprecated": false,
         "description": "Resume a suspended cluster.",
         "tags": [
-          "Cloud Cluster"
+          "Cluster Operations"
         ],
         "parameters": [
           {
@@ -148,12 +148,12 @@
     "/clusters/{clusterId}/suspend": {
       "post": {
         "summary": "Suspend Cluster",
-        "x-apifox-folder": "Cloud Cluster",
+        "x-apifox-folder": "Cluster Operations",
         "x-apifox-status": "released",
         "deprecated": false,
         "description": "Suspend a specified cluster. This operation will only stop the cluster and your data will remain intact.",
         "tags": [
-          "Cloud Cluster"
+          "Cluster Operations"
         ],
         "parameters": [
           {
@@ -185,12 +185,12 @@
     "/{clusterId}/collections": {
       "get": {
         "summary": "List Collections",
-        "x-apifox-folder": "Collection Operator",
+        "x-apifox-folder": "Collection Operations",
         "x-apifox-status": "released",
         "deprecated": false,
         "description": "List collections in a specified cluster.",
         "tags": [
-          "Collection Operator"
+          "Collection Operations"
         ],
         "parameters": [
           {
@@ -235,12 +235,12 @@
     "/{clusterId}/collections/create": {
       "post": {
         "summary": "Create Collection",
-        "x-apifox-folder": "Collection Operator",
+        "x-apifox-folder": "Collection Operations",
         "x-apifox-status": "released",
         "deprecated": false,
         "description": "Creates a collection in the specified cluster.",
         "tags": [
-          "Collection Operator"
+          "Collection Operations"
         ],
         "parameters": [
           {
@@ -289,12 +289,12 @@
     "/{clusterId}/collections/describe": {
       "get": {
         "summary": "Describe Collection",
-        "x-apifox-folder": "Collection Operator",
+        "x-apifox-folder": "Collection Operations",
         "x-apifox-status": "released",
         "deprecated": false,
         "description": "Describe a collection in detail.",
         "tags": [
-          "Collection Operator"
+          "Collection Operations"
         ],
         "parameters": [
           {
@@ -336,12 +336,12 @@
     "/{clusterId}/collections/drop": {
       "post": {
         "summary": "Drop Collection",
-        "x-apifox-folder": "Collection Operator",
+        "x-apifox-folder": "Collection Operations",
         "x-apifox-status": "released",
         "deprecated": false,
         "description": "Drops a specified collection. This operation erases your collection data. Exercise caution when perform this operation.",
         "tags": [
-          "Collection Operator"
+          "Collection Operations"
         ],
         "parameters": [
           {
@@ -383,12 +383,12 @@
     "/{clusterId}/delete": {
       "post": {
         "summary": "Delete",
-        "x-apifox-folder": "Vector Operators",
+        "x-apifox-folder": "Vector Operations",
         "x-apifox-status": "released",
         "deprecated": false,
         "description": "Deletes entities from a collection",
         "tags": [
-          "Vector Operators"
+          "Vector Operations"
         ],
         "parameters": [
           {
@@ -430,12 +430,12 @@
     "/{clusterId}/insert": {
       "post": {
         "summary": "Insert",
-        "x-apifox-folder": "Vector Operators",
+        "x-apifox-folder": "Vector Operations",
         "x-apifox-status": "released",
         "deprecated": false,
         "description": "Inserts entities in the specified collection.",
         "tags": [
-          "Vector Operators"
+          "Vector Operations"
         ],
         "parameters": [
           {
@@ -477,12 +477,12 @@
     "/{clusterId}/search": {
       "post": {
         "summary": "Search",
-        "x-apifox-folder": "Vector Operators",
+        "x-apifox-folder": "Vector Operations",
         "x-apifox-status": "released",
         "deprecated": false,
         "description": "Conducts a similarity search in the specified collection. ",
         "tags": [
-          "Vector Operators"
+          "Vector Operations"
         ],
         "parameters": [
           {
@@ -969,7 +969,7 @@
           },
           "metricType": {
             "type": "string",
-            "description": "The metric type used in the index process."
+            "description": "The metric type used in the index process. Possible values are **L2** (Euclidean Distance) and **IP** (Inner product)."
           }
         },
         "x-apifox-orders": [
