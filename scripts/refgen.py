@@ -142,8 +142,8 @@ if __name__ == '__main__':
 
                 if 'requestBody' in specifications['paths'][url][method]:
                     schema = specifications['paths'][url][method]['requestBody']['content']['application/json']['schema']
-                    if 'anyOf' in schema:
-                        for req_body in schema['anyOf']:
+                    if 'oneOf' in schema:
+                        for req_body in schema['oneOf']:
                             req_bodies.append(req_body)
                     else:
                         req_bodies.append(schema)
@@ -151,8 +151,8 @@ if __name__ == '__main__':
                 if 'responses' in specifications['paths'][url][method]:
                     print(page_title)
                     res_des = specifications['paths'][url][method]['responses']['200']['description']
-                    if 'anyOf' in specifications['paths'][url][method]['responses']['200']['content']['application/json']['schema']:
-                        schemas = specifications['paths'][url][method]['responses']['200']['content']['application/json']['schema']['anyOf']
+                    if 'oneOf' in specifications['paths'][url][method]['responses']['200']['content']['application/json']['schema']:
+                        schemas = specifications['paths'][url][method]['responses']['200']['content']['application/json']['schema']['oneOf']
                         res_body = [ x for x in schemas if 'data' in x['properties'] ][0]
                     else:
                         res_body = specifications['paths'][url][method]['responses']['200']['content']['application/json']['schema']
