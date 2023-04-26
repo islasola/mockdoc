@@ -49,6 +49,8 @@ if __name__ == '__main__':
         with open('apis/servers.json', 'r') as f:
             servers = json.load(f)
             specifications['servers'] = servers['servers']
+            specifications['components'] = servers['components']
+            specifications['security'] = servers['security']
 
         with open('apis/clean.json', 'w') as f:
             c = json.dumps(specifications, indent=4).replace('anyOf', 'oneOf')
