@@ -4,10 +4,9 @@ import requests
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 def get_slug(docs, title):
-    result = None
     for doc in docs:
         if doc['title'] == title:
-            result = doc['slug']
+            return doc['slug']
         elif 'children' in doc:
             for child in doc['children']:
                 if child['title'] == title:
