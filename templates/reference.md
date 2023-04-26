@@ -53,7 +53,7 @@ slug: {{title_slug}}
 | Parameter        | Description                                                                               |
 |------------------|-------------------------------------------------------------------------------------------|
 {%- for k, v in req_body['properties'].items() %}
-{%- if v['type'] not in ['array', 'object']  %}
+{%- if v['type'] not in ['array', 'object'] or 'properties' not in v['items']  %}
 | `{{k}}`  | **{{v['type']}}** {%- if k in req_body['required'] -%}(required){%- endif -%}<br>{{v['description']}} |
 {%- elif v['type'] == 'array' and 'properties' in v['items'] %}
 | `{{k}}`  | **{{v['type']}}** {%- if k in req_body['required'] -%}(required){%- endif -%}<br>{{v['description']}} |
@@ -107,7 +107,7 @@ The properties in the returned response are listed in the following table.
 {%- if 'properties' in res_body['properties']['data'] %}
 | `data`    | **object**<br>A data object. |
 {%- for k, v in res_body['properties']['data']['properties'].items() %}
-{%- if v['type'] not in ['array', 'object'] %}
+{%- if v['type'] not in ['array', 'object'] or 'properties' not in v['items'] %}
 | `data.{{k}}`   | **{{v['type']}}**<br>{{v['description']}} |
 {%- elif v['type'] == 'array' and 'properties' in v['items'] %}
 | `data.{{k}}`   | **{{v['type']}}**<br>{{v['description']}} |
@@ -124,7 +124,7 @@ The properties in the returned response are listed in the following table.
 {%- elif 'items' in res_body['properties']['data'] %}
 | `data`  | **array**<br>A data array |
 {%- for k, v in res_body['properties']['data']['items']['properties'].items() %}
-{%- if v['type'] not in ['array', 'object'] %}
+{%- if v['type'] not in ['array', 'object'] or 'properties' not in v['items'] %}
 | `data.{{k}}`   | **{{v['type']}}**<br>{{v['description']}} |
 {%- elif v['type'] == 'array' and 'properties' in v['items'] %}
 | `data.{{k}}`   | **{{v['type']}}**<br>{{v['description']}} |
