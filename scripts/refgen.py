@@ -30,7 +30,7 @@ def req_format(req_body):
                 if 'properties' in v['items']:
                     for k2,v2 in v['items']['properties'].items():
                         b2[0][k2] = v2['type']
-                    b[k] = b2
+                b[k] = b2
             else:
                 b[k] = v['type']
     elif 'items' in req_body:
@@ -40,8 +40,6 @@ def req_format(req_body):
             b = [{}]
             for k,v in properties.items():
                 b[0][k] = v['type']
-        elif items['type'] == 'object':
-            b = [{}]
 
     return json.dumps(b, indent=4, sort_keys=True)
       
