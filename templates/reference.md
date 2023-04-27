@@ -141,6 +141,12 @@ The properties in the returned response are listed in the following table.
 {%- endif %}
 | `message`  | **string**<br>Indicates the possible reason for the reported error. |
 
+## Possible Errors
+
+| Error Code | Error Message |
+| ---------- | ------------- |
+{{ page_title | list_error }}
+
 ## Have a try!
 
 Use our API explorer on the side pane to call this API and check the request and responses. Remember to fill in the necessary body parameters below, if applicable.

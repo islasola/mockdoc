@@ -1,7 +1,8 @@
 import os, sys
-import json
+import json, csv
 import requests
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+from errgen import ErrorGenerator
 
 def get_slug(docs, title):
     for doc in docs:
@@ -79,7 +80,12 @@ def res_format(res_body):
         return json.dumps({
                 "code": 200,
                 "data": {}
-            }, indent=4, sort_keys=True)        
+            }, indent=4, sort_keys=True)
+    
+def list_error(page_title):
+    errgen = ErrorGenerator()
+    group = errgen.grouping[''.join(page_title.split(' '))]
+    return ''.join([ f'| {x} | {errgen.get_errorcode_desc(x)} |\n' for x in group])
 
 if __name__ == '__main__':
     api_key = sys.argv[1]
@@ -115,6 +121,7 @@ if __name__ == '__main__':
 
     env.filters['res_format'] = res_format
     env.filters['req_format'] = req_format
+    env.filters['list_error'] = list_error
 
     template = env.get_template('reference.md')
 
@@ -155,6 +162,8 @@ if __name__ == '__main__':
                         res_body = [ x for x in schemas if 'data' in x['properties'] ][0]
                     else:
                         res_body = specifications['paths'][url][method]['responses']['200']['content']['application/json']['schema']
+
+                
 
                 t = template.render({
                     'page_title': page_title,
