@@ -143,8 +143,8 @@ The properties in the returned response are listed in the following table.
 
 ## Possible Errors
 
-| Error Code | Error Message |
-| ---------- | ------------- |
+| Code | Error Message |
+| ---- | ------------- |
 {{ page_title | list_error }}
 
 ## Have a try!
