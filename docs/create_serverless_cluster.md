@@ -1,7 +1,7 @@
 ---
 title: Create a Serverless Cluster
 excerpt: This guide walks you through how to create a serverless cluster on Zilliz Cloud.
-category: 
+category: 644ba9105afa34006010ac54
 ---
 
 To meet diverse business requirements, Zilliz Cloud offers three subscription plans, **Free**, **Standard**, and **Enterprise**. If you're new to vector databases and want to quickly get started, you can try out with the **Free** plan to create a serverless cluster without any charge.
