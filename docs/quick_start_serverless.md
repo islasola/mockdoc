@@ -1,7 +1,7 @@
 ---
 title: Quick Start
 excerpt: This quick start guide will help you quickly launch a serverless cluster on Zilliz Cloud and learn the basic operations.
-category: 
+category: 644ba9105afa34006010ac54
 ---
 
 This tutorial guides you through
