@@ -25,8 +25,6 @@ jobs:
       - name: Clean openapi specs 🧹
         run: |
           python3 ./scripts/clean.py
-          curl --location --request GET 'https://api.gcp-us-west1.cloud-uat3.zilliz.com/v1/clusters?pageSize=&current=' \
-            --header 'Authorization: Bearer ${{ secrets.README_API_KEY }}'
 
       - name: Run `openapi` command 🚀
         uses: readmeio/rdme@v8
