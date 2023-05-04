@@ -18,7 +18,9 @@ Once you log in to the [Zilliz Cloud console](https://cloud.zilliz.com/login), c
 
 ![Create a serverless cluster]()
 
-> Note: The capacity unit (CU) available for a serverless cluster is limited. If you want to scale resources, upgrade to a Dedicated plan. For more information about the editions, refer to [xxx]().
+> 📘 Note
+>
+> The capacity unit (CU) available for a serverless cluster is limited. If you want to scale resources, upgrade to a Dedicated plan. For more information about the editions, refer to [xxx]().
 
 ## Create a collection for the cluster
 
@@ -28,7 +30,9 @@ After you configure basic parameters for the serverless cluster, proceed to the 
 
 In this example, a collection for 384-dimensional vector data is created.
 
-> Note: You can create only one collection for each serverless cluster. If you want to create more collections, upgrade to a Dedicated plan.
+> 📘 Note
+>
+> You can create only one collection for each serverless cluster. If you want to create more collections, upgrade to a Dedicated plan.
 
 ## Obtain the API key and API endpoint
 
@@ -661,7 +665,9 @@ curl --location --request POST '<API-Endpoint>/v1/<Cluster-ID>/insert' \
 
 The preceding command uses the API key and API endpoint for the serverless cluster.
 
-> Note: When inserting larger amounts of data in a batch, insert 5,000 rows or fewer each time.
+> 📘 Note
+> 
+> When inserting larger amounts of data in a batch, insert 5,000 rows or fewer each time.
 
 The expected result is as follows:
 
@@ -804,6 +810,7 @@ curl --location --request POST '<API-Endpoint>/v1/<Cluster-ID>/search' \
 ```
 
 The expected result is as follows:
+
 ```shell
 {
     "code": 200,
