@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>ZDOC</title>
+</head>
+<body>
+    <div id="app" class="container">
+        <div class="columns">
+            <div class="column is-10 is-offset-1">
+                <section class="hero is-info">
+                    <div class="hero-body">
+                        <p class="title">Zilliz Cloud Docs</p>
+                        <p class="subtitle">A place to find all information you need to work with Zilliz Cloud</p>
+                    </div>
+                </section>
+                <div class="container" style="margin-top: 1rem">
+                    <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                        <div class="column is-one-fourth">
+                            <label class="role-container">
+                                <input type="radio" checked="checked" value="0" v-model="reader" name="category" />
+                                <div class="role">
+                                    <span class="role-head">AIGC developer</span>
+                                    <span class="role-desc">As an AIGC developer, you can use Zilliz Cloud as a vector store for similarity searches, choose this to start.</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="column is-one-fourth">
+                            <label class="role-container">
+                                <input type="radio" value="1" v-model="reader" name="category" />
+                                <div class="role">
+                                    <span class="role-head">Vector DB Starter</span>
+                                    <span class="role-desc">If you are new to the concept of vector databases and want to build your skills, start from here.</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="column is-one-fourth">
+                            <label class="role-container">
+                                <input type="radio" value="2" v-model="reader" name="category" />
+                                <div class="role">
+                                    <span class="role-head">Enterprise users</span>
+                                    <span class="role-desc">If you are already familiar with vector embeddings and need to process and store billion-scale data, choose this to start.</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="column is-one-fourth">
+                            <label class="role-container">
+                                <input type="radio" value="3" v-model="reader" name="category" />
+                                <div class="role">
+                                    <span class="role-head">Milvus users</span>
+                                    <span class="role-desc">If you are already familiar with Milvus and want to migrate your data and services from self-hosting clusters to Zilliz Cloud, choose this to start.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                <hr />
+                <section class="container">
+                    <div class="columns">
+                        <div class="column is-2">
+                            <p class="qtag">Before you start</p>
+                        </div>
+                        <div class="column">
+                            <div class="box">
+                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                    <div class="column is-half" v-if="reader === '3'">
+                                        <p style="line-height: 2rem;">
+                                            Milvus v.s. Zilliz Cloud: Spec Differences
+                                        </p>
+                                    </div>
+                                    <div class="column is-half" v-if="reader === '3'">
+                                        <p style="line-height: 2rem;">
+                                            Make Your Code Runnable on Zilliz Cloud
+                                        </p>
+                                    </div>
+                                    <div class="column is-half">
+                                        <p style="line-height: 2rem;">
+                                            Know Pricing Plans
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-2">
+                            <p class="qtag">Quick start</p>
+                        </div>
+                        <div class="column">
+                            <div class="box">
+                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Quick Start <span class="tag is-info">API</span>
+                                        </p>  
+                                    </div>
+                                    <div class="column is-one-third" v-if="reader !== '1'">
+                                        <p style="line-height: 2rem;">
+                                            Quick Start <span class="tag is-info">SDK</span>
+                                        </p> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-2">
+                            <p class="qtag">Concepts</p>
+                        </div>
+                        <div class="column">
+                            <div class="box">
+                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Cluster, Collection, and Entities
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            CU Explained
+                                        </p>  
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            AUTOINDEX Explained
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            ANN Search Explained
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Consistency Explained
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-2">
+                            <p class="qtag">Work with Zilliz Cloud</p>
+                        </div>
+                        <div class="column">
+                            <div class="box">
+                                <div class="columns is-flex-direction-row is-flex-wrap-wrap" style="max-height: 1800;">
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Prepare Dataset
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Create Cluster
+                                        </p>
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Obtain API key
+                                        </p>
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Connect to Cluster
+                                        </p>  
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Create Collection
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Manage Collection
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Insert Entities
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Conduct ANN Searches
+                                        </p> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-2">
+                            <p class="qtag">Integrations</p>
+                        </div>
+                        <div class="column">
+                            <div class="box">
+                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            OpenAI <span class="tag is-info">API</span>
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            OpenAI <span class="tag is-info">SDK</span>
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            HuggingFace <span class="tag is-info">API</span>
+                                        </p>
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            HuggingFace <span class="tag is-info">SDK</span>
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Cohere <span class="tag is-info">API</span>
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Cohere <span class="tag is-info">SDK</span>
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            PyTorch <span class="tag is-info">API</span>
+                                        </p>  
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            PyTorch <span class="tag is-info">SDK</span>
+                                        </p>
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            SentenceTransformers <span class="tag is-info">API</span>
+                                        </p>
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            SentenceTransformers <span class="tag is-info">SDK</span>
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            LlamaIndex <span class="tag is-info">API</span>
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            LlamaIndex <span class="tag is-info">SDK</span>
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            LangChain <span class="tag is-info">API</span>
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            LangChain <span class="tag is-info">SDK</span>
+                                        </p> 
+                                    </div>
+                                </div>                          
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-2">
+                            <p class="qtag">Backup and Restore</p>
+                        </div>
+                        <div class="column">
+                            <div class="box">
+                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Create Snapshot
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Schedule Snapshot
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Restore from Snapshot
+                                        </p> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-2">
+                            <p class="qtag">Migrate from Milvus</p>
+                        </div>
+                        <div class="column">
+                            <div class="box">
+                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Migrate from Milvus 2.x
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Migrate from Milvus 1.x
+                                        </p> 
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-2">
+                            <p class="qtag">Security</p>
+                        </div>
+                        <div class="column">
+                            <div class="box">
+                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Whitelist Network Access
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Set up Private Link
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Restore from Recycle Bin
+                                        </p> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-2">
+                            <p class="qtag">Usage & Billing</p>
+                        </div>
+                        <div class="column">
+                            <div class="box">
+                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Manage Account
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Add Billing Method
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Subscribe on AWS Marketplace
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            View Invoice
+                                        </p> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-2">
+                            <p class="qtag">System Settings</p>
+                        </div>
+                        <div class="column">
+                            <div class="box">
+                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Manage Organization
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Manage API keys
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Set up Time Zone
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Set up Maintenance Window
+                                        </p> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-2">
+                            <p class="qtag">Troubeshootings</p>
+                        </div>
+                        <div class="column">
+                            <div class="box">
+                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            Troubleshooting Guides
+                                        </p> 
+                                    </div>
+                                    <div class="column is-one-third">
+                                        <p style="line-height: 2rem;">
+                                            FAQs
+                                        </p> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script lang="javascript">
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    reader: '1'
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
