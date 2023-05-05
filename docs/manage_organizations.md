@@ -1,7 +1,7 @@
 ---
 title: Manage Organizations
 excerpt: This tutorial guides you through how to manage organizations.
-category: 642f92917dee450065e34297
+category: 642e25fca949170a5eda921e
 ---
 
 Zilliz Cloud allows users to create and manage organizations, and each organization can contain one or more projects. By grouping projects under a single organization, it's easy to manage users and permissions across multiple projects. Each project in an organization uses the same billing method, so you don't need to worry about keeping track of multiple billing configurations.

@@ -1,7 +1,7 @@
 ---
 title: Manage Users and Roles
 excerpt: This tutorial guides you through how to manage users and roles.
-category: 
+category: 642e25fca949170a5eda921e
 ---
 
 In an organization, Zilliz Cloud provides the following types of user roles:
