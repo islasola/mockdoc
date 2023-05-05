@@ -1,7 +1,7 @@
 ---
 title: Insert Entities
 excerpt: This guide walks you through how to insert entities.
-category: 
+category: 644ba9105afa34006010ac54
 ---
 An entity is a basic data unit of a collection. It represents a member of a class, like a book in a library or a gene in a genome. Entities in a collection share the same set of attributes termed schema. You can insert one or more entities by sending API requests.
 

@@ -1,7 +1,7 @@
 ---
 title: Manage Collections
 excerpt: Similar to a table in a relational database, a collection in a vector database consists of two dimensions, and they are a fixed number of columns defined in the schema and a variable number of rows corresponding to the inserted entities. In this guide, you are about to create and manage a collection.
-category: 
+category: 644ba9105afa34006010ac54
 ---
 
 ## Create a collection

@@ -1,7 +1,7 @@
 ---
 title: Search for Entities
 excerpt: The database processes vector search requests using approximate nearest neighbor (ANN) search algorithms.
-category: 
+category: 644ba9105afa34006010ac54
 ---
 
 When searching for entities on Zilliz Cloud, there are three main search techniques that can be employed. These are:
