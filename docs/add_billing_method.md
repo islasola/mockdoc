@@ -1,6 +1,6 @@
 ---
-title: Add Billing Method
-excerpt: Add credit card as a billing method or Use the AWS / CGP marketplace instead
+title: Add Payment Method
+excerpt: Add credit card as a payment method or Use the AWS marketplace instead
 category: 642e3e62099279002b0a9d59
 ---
 
@@ -14,4 +14,4 @@ To add a credit card, click **Billing** in the left navigation pane. Then click 
 
 ## Use AWS marketplace
 
-You can also subscribe to [Zilliz Cloud on AWS marketplace](https://aws.amazon.com/marketplace/pp/prodview-iqbidum7feuio).
+You can also subscribe to [Zilliz Cloud on AWS marketplace](https://aws.amazon.com/marketplace/pp/prodview-iqbidum7feuio). For details on how to subscribe to our service on AWS Marketplace, see [Subscribe on AWS Marketplace](#)

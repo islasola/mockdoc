@@ -15,18 +15,18 @@ This tutorial guides you through
 
 ## Before you start
 
-We will use the [Milvus Python SDK (PyMilvus)](https://milvus.io/api-reference/pymilvus/v2.2.4/About.md) throughout this guide. If Python is not your programming language of choice, there are also SDKs available in [JAVA](https://milvus.io/api-reference/java/v2.2.4/About.md), [Go](https://milvus.io/api-reference/go/v2.2.1/About.md), and [Node.js](https://milvus.io/api-reference/node/v2.2.x/About.md) as well.
+We will use the [Milvus Python SDK (PyMilvus)](https://milvus.io/api-reference/pymilvus/v2.2.8/About.md) throughout this guide. If Python is not your programming language of choice, there are also SDKs available in [JAVA](https://milvus.io/api-reference/java/v2.2.5/About.md), [Go](https://milvus.io/api-reference/go/v2.2.2/About.md), and [Node.js](https://milvus.io/api-reference/node/v2.2.x/About.md) as well.
 
 Zilliz Cloud will always upgrade all hosted databases to the latest Milvus version. Therefore, you should install or upgrade PyMilvus to a compatible version. Before installing PyMilvus, ensure your Python version is above 3.7. To install PyMilvus of a recommended version, run the following command:
 
 ```shell
-python -m pip install pymilvus==2.2.4
+python -m pip install pymilvus==2.2.8
 ```
 
 If you already have PyMilvus installed and need to upgrade to the recommended version, run the following command:
 
 ```shell
-python -m pip install --upgrade pymilvus==2.2.4
+python -m pip install --upgrade pymilvus==2.2.8
 ```
 
 For details on the recommended version of PyMilvus for use with a specific version of Milvus, refer to [Which PyMilvus version should I use?](faq#Which-PyMilvus-version-should-I-use)

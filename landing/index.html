@@ -12,20 +12,24 @@
     <div id="app" class="container">
         <div class="columns">
             <div class="column is-10 is-offset-1">
-                <section class="hero is-info">
+                <section class="hero is-info is-medium">
                     <div class="hero-body">
-                        <p class="title">Zilliz Cloud Docs</p>
+                        <p class="title">Zilliz Cloud Developer Hub</p>
                         <p class="subtitle">A place to find all information you need to work with Zilliz Cloud</p>
+                        <div class="buttons">
+                            <button class="button is-normal">API Reference</button>
+                            <button class="button is-normal is-warning">FAQs</button>
+                        </div>
                     </div>
                 </section>
-                <div class="container" style="margin-top: 1rem">
+                <div class="container mt-5">
                     <div class="columns is-flex-direction-row is-flex-wrap-wrap">
                         <div class="column is-one-fourth">
                             <label class="role-container">
                                 <input type="radio" checked="checked" value="0" v-model="reader" name="category" />
                                 <div class="role">
-                                    <span class="role-head">AIGC developer</span>
-                                    <span class="role-desc">As an AIGC developer, you can use Zilliz Cloud as a vector store for similarity searches, choose this to start.</span>
+                                    <span class="role-head">Zilliz Cloud 101</span>
+                                    <span class="role-desc">A beginner's guide to using Zilliz Cloud for vector databases</span>
                                 </div>
                             </label>
                         </div>
@@ -33,8 +37,8 @@
                             <label class="role-container">
                                 <input type="radio" value="1" v-model="reader" name="category" />
                                 <div class="role">
-                                    <span class="role-head">Vector DB Starter</span>
-                                    <span class="role-desc">If you are new to the concept of vector databases and want to build your skills, start from here.</span>
+                                    <span class="role-head">AI Model Integrations</span>
+                                    <span class="role-desc">Learn how to integrate AI models with Zilliz Cloud vector databases.</span>
                                 </div>
                             </label>
                         </div>
@@ -42,8 +46,8 @@
                             <label class="role-container">
                                 <input type="radio" value="2" v-model="reader" name="category" />
                                 <div class="role">
-                                    <span class="role-head">Enterprise users</span>
-                                    <span class="role-desc">If you are already familiar with vector embeddings and need to process and store billion-scale data, choose this to start.</span>
+                                    <span class="role-head">Advanced User Guides</span>
+                                    <span class="role-desc">In-depth guides for advanced users of Zilliz Cloud vector databases</span>
                                 </div>
                             </label>
                         </div>
@@ -51,380 +55,654 @@
                             <label class="role-container">
                                 <input type="radio" value="3" v-model="reader" name="category" />
                                 <div class="role">
-                                    <span class="role-head">Milvus users</span>
-                                    <span class="role-desc">If you are already familiar with Milvus and want to migrate your data and services from self-hosting clusters to Zilliz Cloud, choose this to start.</span>
+                                    <span class="role-head">Migration from Milvus</span>
+                                    <span class="role-desc">Find out how to migrate data and services from self-hosted Milvus clusters to Zilliz Cloud vector databases.</span>
                                 </div>
                             </label>
                         </div>
                     </div>
                 <hr />
-                <section class="container">
-                    <div class="columns">
-                        <div class="column is-2">
-                            <p class="qtag">Before you start</p>
+                <section class="container"  v-if="reader === '0'">
+                    <p class="is-size-3 has-text-weight-bold has-text-right ml-2">Zilliz Cloud 101</p>
+                    <p class="mb-5 ml-2 has-text-right">A beginner's guide to using Zilliz Cloud for vector databases</p>
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Quick Start</p>
+                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn the basic vector database APIs in 5 minutes</p>
                         </div>
-                        <div class="column">
-                            <div class="box">
-                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                    <div class="column is-half" v-if="reader === '3'">
-                                        <p style="line-height: 2rem;">
-                                            Milvus v.s. Zilliz Cloud: Spec Differences
-                                        </p>
-                                    </div>
-                                    <div class="column is-half" v-if="reader === '3'">
-                                        <p style="line-height: 2rem;">
-                                            Make Your Code Runnable on Zilliz Cloud
-                                        </p>
-                                    </div>
-                                    <div class="column is-half">
-                                        <p style="line-height: 2rem;">
-                                            Know Pricing Plans
-                                        </p>
+                        <div class="column ml-5">
+                            <div class="columns">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Quick Start</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="columns">
-                        <div class="column is-2">
-                            <p class="qtag">Quick start</p>
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Serverless Cluster 101</p>
+                            <p class="is-size-7 mt-2" style="text-indent: 100px">An ordered guide for serverless cluster beginners</p>
                         </div>
-                        <div class="column">
-                            <div class="box">
-                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Quick Start <span class="tag is-info">API</span>
-                                        </p>  
+                        <div class="column ml-5">
+                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">01 Create first collection</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">02 Add members to project</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">03 Connect to Zilliz Cloud</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">04 Manage Collections</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">05 Manage Index</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">06 Insert Entities</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">07 Search and Query</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">08 Other Operations</p>
+                                    </div>                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Dedicated Cluster 101</p>
+                            <p class="is-size-7 mt-2" style="text-indent: 100px">An ordered guide for dedicated cluster beginners</p>
+                        </div>
+                        <div class="column ml-5">
+                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">01 Create first project</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">02 Create first cluster</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">03 Create first collection</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">04 Add members to project</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">05 Connect to Zilliz Cloud</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">06 Manage Collections</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">07 Manage Index</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">08 Insert Entities</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">09 Search and Query</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">10 Other Operations</p>
+                                    </div>                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Resource Planning</p>
+                            <p class="is-size-7 mt-2" style="text-indent: 100px">Help you gain a cost-effective balance on Zilliz Cloud.</p>
+                        </div>
+                        <div class="column ml-5">
+                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Resource Planning</p>
                                     </div>
-                                    <div class="column is-one-third" v-if="reader !== '1'">
-                                        <p style="line-height: 2rem;">
-                                            Quick Start <span class="tag is-info">SDK</span>
-                                        </p> 
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Price Calculator</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Concepts</p>
+                            <p class="is-size-7 mt-2" style="text-indent: 100px">Things you might want to know more about Zilliz Cloud</p>
+                        </div>
+                        <div class="column ml-5">
+                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">AUTOINDEX Explained</p>
+                                    </div>
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">CU Type Explained</p>
+                                    </div>
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Cluster, Collection & Entities</p>
+                                    </div>
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Shards, Partitions & Replicas</p>
+                                    </div>
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">ANN Search</p>
+                                    </div>
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Data Models</p>
+                                    </div>
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Instance Types</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="columns">
-                        <div class="column is-2">
-                            <p class="qtag">Concepts</p>
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Vector Database 101</p>
+                            <p class="is-size-7 mt-2" style="text-indent: 100px">Further readings about embedding, ANN search, index algorithms, etc.</p>
                         </div>
-                        <div class="column">
-                            <div class="box">
-                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Cluster, Collection, and Entities
-                                        </p> 
+                        <div class="column ml-5">
+                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Starter: What is a vector database?</p>
                                     </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            CU Explained
-                                        </p>  
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Hierarchical Navigable Small Worlds (HNSW)</p>
                                     </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            AUTOINDEX Explained
-                                        </p> 
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Scalar Quantization and Product Quantization</p>
                                     </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            ANN Search Explained
-                                        </p> 
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Vector Index Basics and the Inverted File Index</p>
                                     </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Consistency Explained
-                                        </p>
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Introduction to Vector Similarity Search</p>
+                                    </div>
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Introduction to Unstructured Data</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                     
+                    </div>
+                </section>        
+                <section class="container" v-if="reader==='1'">
+                    <p class="is-size-3 has-text-weight-bold has-text-right ml-2">AI Model Integrations</p>
+                    <p class="mb-5 ml-2 has-text-right">Learn how to integrate AI models with Zilliz Cloud vector databases.</p>     
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Embedding Models</p>
+                        </div>
+                        <div class="column ml-5">
+                            <div class="columns">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box" style="height: 150px">
+                                        <p class="my-4">Text Embedding</p>
+                                    </div>
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box" style="height: 150px">
+                                        <p class="my-4">Image Embedding</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Open Service</p>
+                        </div>
+                        <div class="column ml-5">
+                            <div class="columns">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box" style="height: 150px">
+                                        <div class="container mb-2 pl-4">
+                                            <img class="image" width="80" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHcAAAAXCAMAAAAGEyDiAAAAY1BMVEX///8AAAD19fVzc3ONjY3Pz8/U1NTv7+8+Pj5kZGRKSkrg4OCioqKpqan7+/vX19e9vb2zs7NtbW1EREQdHR0sLCyWlpZ8fHxdXV1QUFDIyMg1NTVWVlYiIiIWFhYRERGFhYXBWdJDAAADKElEQVRIib2ViY6jMAxAYwgFGo5wBSi05f+/cm0ngXSoprOj1UZqIZefb4SwQ68A+U28GU27wGOW6t3eD4aWUvp3I/0wbqWDtTAdxJGKXq8l4Mf4O26PVy/u/b4Le9iFCRJ6tLQ0h5Yxdh7bBz7W32DrUOVuGAac4n/mNjX+qwU9XTc9BO7GU9eUXhp8K3/B3eApAY55hXKcS9MWeiGiGIaa5zmk/lSxe4Rej+up2o+gKKWqEKXCWKGxaPJhSYRi7N0LGp4LBdCgiIIkHKHsAiNtnMYH1JeFnKXtcr2SJ68cwrmHqKTp5MkJMQHaM7eCTuS50ORxuoN0CQFrj/bEOsQAhcsN1khzluCP1Mj2zcFdislJ+FeduAbXJuS2or6vadTCojQEh3afjQCSZaButc7s/RQfGB3V84wWl6LIrPpW8Zx10yduhk4l7tTCtUPj6gWGD1x7j6fGETBYhtc6ml0ZZ73RMH06ccldxKV7GsaKUnf4lrt5kR0nQOQMW5mr3d6VV3O7PR1idm6PvLUVOqZJcyc1aijecDfPtS5UHETsBI2mgQ5mLudX4rh4f2axu98P7thTjegbp1xpoiwj097ba07cfu9ANPvK9bzI+T/kKrJCZcD2lhJzWoibr+Dn0eMoaM07bu5GfObOh1Ze4lG/I7QRhSSuMEsM2k5Z4qonZ9/uF5StI+Fko2eHoERO3CjAhqGz3HWxi5iarZHMLb0wfRRwzhziZj7cOa/aJpe+4WIttyWPwl5+4S4jNdFbOmObbCy339O+o1KsXFe6WC63s9K2Cu0y5wZzeuIuR9fJ+FUpRd+JCz7xI4SaKBu8amLudDSp6PHFU8hFXRbujewt7FbSkHrVVy5mQO/lFBywQBipTJ66ceFiM6VGF3yQqtgdvNtFnOqRF9xn0e1fKe8x2om1noIhfakL1gFesp/dwQ6/DPjZpxrfgm8NRa6R8Wh8WnM+12Yz9b5fyq2ws0uScNmlSVLz7JCUJGgZrrhB4qInjE05QaZYsUZ8N2L4cOBvhnmCS7ja591/4aLNlJnt1kFWfX/wH3MJbdau1Z9OyS77eOYn4w8JsySZKORA5QAAAABJRU5ErkJggg==" />
+                                        </div>
+                                        <p class="my-4">Similarity Search with Zilliz Cloud and OpenAI</p>
+                                    </div>
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box" style="height: 150px">
+                                        <div class="container pl-2">
+                                            <img class="image" width="100" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHcAAAAgCAMAAAAfbBf3AAAA7VBMVEX///8AAAD/0h7/1B7w8PCmp6mWl5mOj5P7+/uqqqtzdHf/lQD/1iD/1xzX19i4ubpqa24AABIAAArExcYqLjbo6On/nAv/4MT/nwD/vBH/sgX/2LT/xRn/pwCcnJ6Cg4VERkxYWV5OUFT/7dv/uB3/yx//pBP/qhr/rVX/tGT/5s//9ez/pj7/ojDUsSfzySDguidgVjkAAECGdTQAGT/GpipERDyUfzJwYjceJz62nC3/0KUQFCA1NzwdISvowSOnji9JSzo0PjwADkAAHz59MzyWNTylNzxgLT3/ypb/PDz/FT/8Wzf/u3H/vn15WejKAAADWUlEQVRIie2W2XabMBCGNRIkgECy2WxhzGKDlzhtkjZtujjuvqTb+z9OR8rSxHVOe05b3zRzIUBC+vj/GQGE3MX/FM5erzfeOrU34/3hpM/ne9ukLvb7ijLfZ1Tx+fawY64QaYKxLF1sCbvguU+vwlepsx3uPYVYdiEXwdl2rB70Nfa+lswODgNs+W/WdbT7J87s54wFRw8eBqj5+MEjnzF1KVjYEle3o1tmAtg/dwrbdd0N/eux4D7N2sdHJ8g9ePL0WZ5Ryi/GbKgI6cDuLVOlZ/3cuQs6fs3tDZGbH7BA+xy88JHrp+NL7ogQD7nSFsS2E2IVXuG6OIAHm0g3Iba0yhLxoixdY8wOVBLHErxTZyEqS0Ec23PXuc8zXVLMD5jmmgrzh70rvULUyK3ARVcjpwtLLeb0/LAC6ZizEYkAugCl4XawtbToWJsFOH2FrbfGPTPc4OSEBsGLJ6a8rnFxsRAnjkCSLogIahKDleCKNQg8RS4ULoRoirSgdgx3ueoWRCYiBCHwYQV26RXWcjJALhbWy+PjV6+P3xxiWTG/v3fJXXU68RU3QmDUBeJAN0L8BRcfA5wCvOJc0g50l4DcGJ9ZFDpRpA61enGTO07TNG+ag7fv3n/4eBQ0TZ6m3Lnk1uf5HaHPIUSkEyJZrw0rrPRrXNINobbIlc8RxCIGYcMp0WZ7mPI1vWe8afl0og4/ff78xW+mU9426dlaXXXgtEbLLPBEkuAGGgmR3OC64IrE+cF1oSpAGwQdL5Kwcgu5VlbDJmWNankQ5G3gc6oaljbD52awgEo/bUkwT3EH9cZgKqTWh4osDTfRXGF2j67nXe2RrquwwmuJvTUpTXszvX3WTtiETjPMrJ9N6YROWtYfmEHHQnMsC3UkuBksxO9IG0nLUsoQEj1yfgeqlNIzSs0cPAjH0RMdbQyxTHs99rOpok2bs1ThiypledvQZprNyKZA34saSgGnhaet+BEV1lUMt73YNsQ8o7mWytqU0rTV1Zzl9LZPw061qjFRdrUa3XwVJl4ce2LzpI2xr5TZwPiSamkamK9SptRmvX8xBhz91Spbnue89c2F4oN/zSV7Mz5Uea741/n8K9dnQz7byl/WYvBtNvtmPgVjfTbY1o/OXdzFX4vvAzJEBGo+eJAAAAAASUVORK5CYII=" />
+                                        </div>
+                                        <p class="my-4">Question Answering Using Zilliz Cloud and HuggingFace</p>
+                                    </div>
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box" style="height: 150px">
+                                        <div class="container pl-2">
+                                            <img class="image" width="80" src="https://cdn.sanity.io/images/rjtqmwfu/production/ae020d94b599cc453cc09ebc80be06d35d953c23-102x18.svg" />
+                                        </div>
+                                        <p class="my-4">Question Answering Using Zilliz Cloud and Cohere</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Opensource projects</p>
+                        </div>
+                        <div class="column ml-5">
+                            <div class="columns">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box" style="height: 150px">
+                                        <p class="my-4">Question Answering over Documents with Zilliz Cloud and LangChain</p>
+                                    </div>
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box" style="height: 150px">
+                                        <p class="my-4">Image Search with Zilliz Cloud</p>
+                                    </div>
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box" style="height: 150px">
+                                        <p class="my-4">Documentation QA using LlamaIndex and Zilliz Cloud</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>               
+                </section>
+                <section class="container" v-if="reader==='2'">
+                    <p class="is-size-3 has-text-weight-bold has-text-right ml-2">Advanced User Guides</p>
+                    <p class="mb-5 ml-2 has-text-right">In-depth guides for advanced Zilliz Cloud vector database users.</p>  
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Get Started</p>
+                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn basic operations and APIs of Zilliz Cloud.</p>
+                        </div>
+                        <div class="column ml-5">
+                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">01 Create first project</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">02 Create first cluster</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">03 Create first collection</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">04 Add members to project</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">05 Connect to Zilliz Cloud</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">06 Manage Collections</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">07 Manage Index</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">08 Insert Entities</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">09 Search and Query</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">10 Other Operations</p>
+                                    </div>                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Performance Optimizing</p>
+                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn the ways to optimize the performance of your clusters.</p>
+                        </div>
+                        <div class="column ml-5">
+                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Scale Cluster</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Tune Performance</p>
+                                    </div>                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Basic Access Control</p>
+                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn how to implement protected connections and access control.</p>
+                        </div>
+                        <div class="column ml-5">
+                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Whitelist IP Access</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Manage API keys</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Cluster Access Credentials</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Set up Private Link</p>
+                                    </div>                            
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Bulk Insertion</p>
+                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn how to bulk insert data into your clusters.</p>
+                        </div>
+                        <div class="column ml-5">
+                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Bulk-Insert Data</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Check File Format</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Use Writer and Reader</p>
+                                    </div>                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Backup and Restore</p>
+                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn about backup and restore operations.</p>
+                        </div>
+                        <div class="column ml-5">
+                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Create Snapshot</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Schedule Automatic Backups</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Restore from Snapshot</p>
+                                    </div>                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Users & Roles</p>
+                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn how to implement role-based access control.</p>
+                        </div>
+                        <div class="column ml-5">
+                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Orgnization & Project</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Roles & Privileges</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Add Organization Members</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Remove Members</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Add Project Collaborators</p>
+                                    </div>                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Monitors & Metrics</p>
+                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn about system monitors and metrics.</p>
+                        </div>
+                        <div class="column ml-5">
+                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">CU Resource Monitor</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">QPS Monitor</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Latency Monitor</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4" style="line-height: 48px;">Storage Monitor</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Credit Card Expiration Monitor</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4" style="line-height: 48px;">Cluster Metrics</p>
+                                    </div>                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Billing</p>
+                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn everything about billing on Zilliz Cloud.</p>
+                        </div>
+                        <div class="column ml-5">
+                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Subscribe on AWS Marketplace</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Subscribe on GCP Marketplace</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Subscribe by Adding Credit Card</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Change Billing Plan</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">View Invoice</p>
+                                    </div>                            
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Reduce Your Costs</p>
+                                    </div>                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>        
+                </section>
+                <section class="container" v-if="reader==='3'">
+                    <p class="is-size-3 has-text-weight-bold has-text-right ml-2">Migration from Milvus</p>
+                    <p class="mb-5 ml-2 has-text-right">In-depth guides for advanced Zilliz Cloud vector database users.</p>  
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Migration Guides</p>
+                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn how to migrate your data to Zilliz Cloud.</p>
+                        </div>
+                        <div class="column ml-5">
+                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Migrate from Milvus 1.x</p>
+                                    </div>
+                                </div>
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Migrate from Milvus 2.x</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="columns">
-                        <div class="column is-2">
-                            <p class="qtag">Work with Zilliz Cloud</p>
+                    <div class="columns mb-5">
+                        <div class="column is-3 has-text-right">
+                            <p class="has-text-weight-semibold is-size-5">Zilliz Cloud v.s. Milvus</p>
+                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn the differences in terms of specifications between Zilliz Cloud and Milvus.</p>
                         </div>
-                        <div class="column">
-                            <div class="box">
-                                <div class="columns is-flex-direction-row is-flex-wrap-wrap" style="max-height: 1800;">
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Prepare Dataset
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Create Cluster
-                                        </p>
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Obtain API key
-                                        </p>
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Connect to Cluster
-                                        </p>  
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Create Collection
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Manage Collection
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Insert Entities
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Conduct ANN Searches
-                                        </p> 
+                        <div class="column ml-5">
+                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Index type and Search Parameters</p>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="columns">
-                        <div class="column is-2">
-                            <p class="qtag">Integrations</p>
-                        </div>
-                        <div class="column">
-                            <div class="box">
-                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            OpenAI <span class="tag is-info">API</span>
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            OpenAI <span class="tag is-info">SDK</span>
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            HuggingFace <span class="tag is-info">API</span>
-                                        </p>
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            HuggingFace <span class="tag is-info">SDK</span>
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Cohere <span class="tag is-info">API</span>
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Cohere <span class="tag is-info">SDK</span>
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            PyTorch <span class="tag is-info">API</span>
-                                        </p>  
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            PyTorch <span class="tag is-info">SDK</span>
-                                        </p>
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            SentenceTransformers <span class="tag is-info">API</span>
-                                        </p>
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            SentenceTransformers <span class="tag is-info">SDK</span>
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            LlamaIndex <span class="tag is-info">API</span>
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            LlamaIndex <span class="tag is-info">SDK</span>
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            LangChain <span class="tag is-info">API</span>
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            LangChain <span class="tag is-info">SDK</span>
-                                        </p> 
-                                    </div>
-                                </div>                          
-                            </div>
-                        </div>
-                    </div>
-                    <div class="columns">
-                        <div class="column is-2">
-                            <p class="qtag">Backup and Restore</p>
-                        </div>
-                        <div class="column">
-                            <div class="box">
-                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Create Snapshot
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Schedule Snapshot
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Restore from Snapshot
-                                        </p> 
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4" style="line-height: 48px;">CU Types</p>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="columns">
-                        <div class="column is-2">
-                            <p class="qtag">Migrate from Milvus</p>
-                        </div>
-                        <div class="column">
-                            <div class="box">
-                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Migrate from Milvus 2.x
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Migrate from Milvus 1.x
-                                        </p> 
-                                    </div>
-                                </div> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="columns">
-                        <div class="column is-2">
-                            <p class="qtag">Security</p>
-                        </div>
-                        <div class="column">
-                            <div class="box">
-                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Whitelist Network Access
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Set up Private Link
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Restore from Recycle Bin
-                                        </p> 
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4" style="line-height: 48px;">API Comparison</p>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="columns">
-                        <div class="column is-2">
-                            <p class="qtag">Usage & Billing</p>
-                        </div>
-                        <div class="column">
-                            <div class="box">
-                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Manage Account
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Add Billing Method
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Subscribe on AWS Marketplace
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            View Invoice
-                                        </p> 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="columns">
-                        <div class="column is-2">
-                            <p class="qtag">System Settings</p>
-                        </div>
-                        <div class="column">
-                            <div class="box">
-                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Manage Organization
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Manage API keys
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Set up Time Zone
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Set up Maintenance Window
-                                        </p> 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="columns">
-                        <div class="column is-2">
-                            <p class="qtag">Troubeshootings</p>
-                        </div>
-                        <div class="column">
-                            <div class="box">
-                                <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            Troubleshooting Guides
-                                        </p> 
-                                    </div>
-                                    <div class="column is-one-third">
-                                        <p style="line-height: 2rem;">
-                                            FAQs
-                                        </p> 
+                                <div class="column is-4 has-text-centered">
+                                    <div class="box">
+                                        <p class="my-4">Other Limits</p>
                                     </div>
                                 </div>
                             </div>
@@ -441,7 +719,7 @@
         createApp({
             data() {
                 return {
-                    reader: '1'
+                    reader: '3'
                 }
             }
         }).mount('#app')

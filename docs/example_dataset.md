@@ -8,13 +8,13 @@ category: 642e25b85291100124b05ef4
 
 This dataset is available in a public S3 storage bucket. 
 
-- For a database deployed on Amazon Web Service (AWS), copy the following S3 URL.
+- For a cluster deployed on Amazon Web Service (AWS), copy the following S3 URL.
 
   ```shell
   https://s3.us-west-2.amazonaws.com/publicdataset.zillizcloud.com/medium_articles_2020_dpr/medium_articles_2020_dpr.json
   ```
 
-- For a database deployed on Google Cloud Platform (GCP), copy the following Google Cloud Storage (GCS) URL.
+- For a cluster deployed on Google Cloud Platform (GCP), copy the following Google Cloud Storage (GCS) URL.
 
   ```shell
   https://storage.cloud.google.com/publicdataset-zillizcloud-com/medium_articles_2020.json
