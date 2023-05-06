@@ -10,9 +10,9 @@ on:
       # https://docs.github.com/actions/using-workflows/events-that-trigger-workflows
       - main
     paths:
-      - docs
-      - apis
-      - scripts
+      - docs/**
+      - apis/**
+      - scripts/**
 
 jobs:
   rdme-docs:
