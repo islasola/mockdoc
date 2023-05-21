@@ -4,7 +4,7 @@ excerpt: The database processes vector search requests using approximate nearest
 category: 642e25b85291100124b05ef4
 ---
 
-The database processes vector search requests using approximate nearest neighbor (ANN) search algorithms. Each request takes a query vector and returns the top-K entities that are the most similar to the input, where top-K is the number of expected results that you can set in each request.
+The database processes vector search requests using approximate nearest neighbor (ANN) search algorithms. Each request takes a query vector and returns the top-K entities that are the most similar to the input, where top-K is the number of expected results that you can set in each request. 
 
 Bulk search is available for throughput optimization, where multiple query vectors are searched in parallel. It offers much higher throughput but may have higher latency as a trade-off. In contrast, single-vector searches are suitable for applications that require low latency.
 
