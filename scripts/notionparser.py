@@ -435,7 +435,7 @@ class ReadmeOperator:
         self.headers = {
             "accept": "application/json",
             "content-type": "application/json",
-            "authorization": f"Basic {os.environ["readme_api"]}"
+            "authorization": f'Basic {os.environ["readme_api"]}'
         } 
         self.cat_url = "https://dash.readme.com/api/v1/categories"
         self.doc_url = "https://dash.readme.com/api/v1/docs"
