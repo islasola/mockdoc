@@ -18,8 +18,10 @@ env:
   readme_api: ${{secrets.README_API_KEY}}
   figma_api: ${{secrets.FIGMA_API}}
   notion_api: ${{secrets.NOTION_API}}
+  notion_version: ${{variables.NOTION_VERSION}}
   aws_ak: ${{secrets.AWS_AK}}
   aws_sk: ${{secrets.AWS_SK}}
+  
 
 jobs:
   rdme-docs:
