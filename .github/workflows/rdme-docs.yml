@@ -31,13 +31,18 @@ jobs:
       - name: Check out repo 📚
         uses: actions/checkout@v3
         
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+      
       - name: Update docs 📚
         run: |
+          python3 -m pip install boto3 requests
           python3 ./scripts/update_guides.py
 
       - name: Clean openapi specs 🧹
         run: |
-          python3 -m pip install boto3 requests 
           python3 ./scripts/clean.py
 
       - name: Run `openapi` command 🚀
