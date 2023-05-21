@@ -5,7 +5,7 @@ import os
 
 if __name__ == '__main__':
 
-    root = os.environ["ROOT_DATABASE"]
+    root = os.environ["root_database"]
 
     payload = {
         "filter": {
