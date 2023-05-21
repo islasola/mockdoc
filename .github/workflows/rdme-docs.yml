@@ -21,6 +21,7 @@ env:
   notion_version: ${{variables.NOTION_VERSION}}
   aws_ak: ${{secrets.AWS_AK}}
   aws_sk: ${{secrets.AWS_SK}}
+  root_database: ${{variables.ROOT_DATABASE}}
   
 
 jobs:
