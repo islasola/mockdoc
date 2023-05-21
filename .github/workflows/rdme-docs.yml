@@ -38,7 +38,7 @@ jobs:
       
       - name: Update docs 📚
         run: |
-          python3 -m pip install boto3 jinjia2 requests
+          python3 -m pip install boto3 Jinja2 requests
           python3 ./scripts/update_guides.py
 
       - name: Clean openapi specs 🧹
