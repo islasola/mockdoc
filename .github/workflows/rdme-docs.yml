@@ -19,8 +19,8 @@ env:
   figma_api: ${{secrets.FIGMA_API}}
   notion_api: ${{secrets.NOTION_API}}
   notion_version: ${{variables.NOTION_VERSION}}
-  aws_ak: ${{secrets.AWS_AK}}
-  aws_sk: ${{secrets.AWS_SK}}
+  AWS_ACCESS_KEY_ID: ${{secrets.AWS_AK}}
+  AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SK}}
   root_database: ${{variables.ROOT_DATABASE}}
   
 
