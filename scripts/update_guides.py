@@ -42,7 +42,7 @@ if __name__ == '__main__':
     results = dbparser.retrieve(root, payload)
     
     rdme = ReadmeOperator()
-    categories = list(filter(lambda x: x["title"] not in i["FAQs", "API REFERENCE"], rdme.retrieve_categories()))
+    categories = list(filter(lambda x: x["title"] not in ["FAQs", "API REFERENCE"], rdme.retrieve_categories()))
     category_names = [item["title"] for item in categories]
 
     for item in results:
