@@ -1,0 +1,3 @@
+requests
+Boto3
+Jinja2

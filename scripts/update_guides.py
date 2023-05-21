@@ -38,37 +38,46 @@ if __name__ == '__main__':
         ]
     }
 
+    # Retrieves categories from notion
     dbparser = NotionDatabaseParser()
     results = dbparser.retrieve(root, payload)
     
+    # Retrieves categories from readme
     rdme = ReadmeOperator()
     categories = list(filter(lambda x: x["title"] not in ["FAQs", "API REFERENCE"], rdme.retrieve_categories()))
     category_names = [item["title"] for item in categories]
 
+    # Adds new category to readme
     for item in results:
         if item["page_title"] not in category_names:
             rdme.add_category(item["page_title"])
 
-    categories = rdme.retrieve_categories()
+    # Retrieves categories from readme again
+    categories = list(filter(lambda x: x["title"] not in ["FAQs", "API REFERENCE"], rdme.retrieve_categories()))
     category_slugs = [item["slug"] for item in categories]
-            
+    
+    # Grabs books in each category
     for idx, item in enumerate(results):
         category = categories[idx]
         category_slug = category_slugs[idx]
 
+        # Checks whether there are books in a category
         books = list(filter(lambda x: x["type"] == "child_database", item["children"].blocks))
 
         if books:
             category_id = category["id"]
+
+            # Iterates over the books
             for book in books:
                 title = dbparser.book_title(book["id"])
                 pages = dbparser.retrieve(book["id"], payload)
                 body = dbparser.overview(pages)
 
-                docs = list(filter(lambda x: x['title'] == title, rdme.retrieve_docs_in_category(category_slug)))
+                # Updates existing book contents in or adds new book contents to the current category
+                contents = list(filter(lambda x: x['title'] == title, rdme.retrieve_docs_in_category(category_slug)))
 
-                if docs:
-                    r = rdme.update_page(docs[0]['slug'])
+                if contents:
+                    r = rdme.update_page(contents[0]['slug'])
                     print(f"Updated {title} in {category_slug}!")
                     parent_id = r['_id']
                     parent_slug = r['slug']
@@ -78,6 +87,7 @@ if __name__ == '__main__':
                     parent_slug = r['slug']
                     print(f"Added {title} to {category_slug}!")
                 
+                # Update existing pages in or adds new pages to a book
                 for page in pages:
                     page_title = page["page_title"]
                     page_id = page["page_id"]
