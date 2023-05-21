@@ -13,6 +13,13 @@ on:
       - docs/**
       - apis/**
       - scripts/**
+      
+env:
+  readme_api: ${{secrets.README_API_KEY}}
+  figma_api: ${{secrets.FIGMA_API}}
+  notion_api: ${{secrets.NOTION_API}}
+  aws_ak: ${{secrets.AWS_AK}}
+  aws_sk: ${{secrets.AWS_SK}}
 
 jobs:
   rdme-docs:
@@ -20,11 +27,10 @@ jobs:
     steps:
       - name: Check out repo 📚
         uses: actions/checkout@v3
-
-      - name: Run `docs` command 🚀
-        uses: readmeio/rdme@v8
-        with:
-          rdme: docs ./docs --key=${{ secrets.README_API_KEY }} --version=1.0.0   
+        
+      - name: Update docs 📚
+        run: |
+          python3 ./scripts/update_guides.py
 
       - name: Clean openapi specs 🧹
         run: |
