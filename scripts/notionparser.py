@@ -13,12 +13,12 @@ class NotionPageParser:
     def __init__(self, page_id):
         self.notion_headers = {
             'Accept': 'application/json',
-            'Authorization': f'Bearer {os.environ["NOTION_API"]}',
-            'Notion-Version': os.environ["NOTION_VERSION"]
+            'Authorization': f'Bearer {os.environ["notion_api"]}',
+            'Notion-Version': os.environ["notion_version"]
         }
         self.figma_headers = {
             'Accept': 'application/json',
-            'X-Figma-Token': os.environ["FIGMA_API"]
+            'X-Figma-Token': os.environ["figma_api"]
         }
         self.page_id = page_id
         self.page = self.__retrieve_page()
@@ -347,8 +347,8 @@ class NotionDatabaseParser:
     def __init__(self):
         self.headers = {
             'Accept': 'application/json',
-            'Authorization': f'Bearer {os.environ["NOTION_API"]}',
-            'Notion-Version': '2022-06-28'
+            'Authorization': f'Bearer {os.environ["notion_api"]}',
+            'Notion-Version': os.environ['notion_version']
         }
 
     def retrieve(self, id, query=None):
@@ -435,7 +435,7 @@ class ReadmeOperator:
         self.headers = {
             "accept": "application/json",
             "content-type": "application/json",
-            "authorization": f"Basic {os.environ["README_API_KEY"]}"
+            "authorization": f"Basic {os.environ["readme_api"]}"
         } 
         self.cat_url = "https://dash.readme.com/api/v1/categories"
         self.doc_url = "https://dash.readme.com/api/v1/docs"
