@@ -18,10 +18,10 @@ env:
   readme_api: ${{secrets.README_API_KEY}}
   figma_api: ${{secrets.FIGMA_API}}
   notion_api: ${{secrets.NOTION_API}}
-  notion_version: ${{variables.NOTION_VERSION}}
+  notion_version: ${{vars.NOTION_VERSION}}
   AWS_ACCESS_KEY_ID: ${{secrets.AWS_AK}}
   AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SK}}
-  root_database: ${{variables.ROOT_DATABASE}}
+  root_database: ${{vars.ROOT_DATABASE}}
   
 
 jobs:
