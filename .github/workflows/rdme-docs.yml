@@ -48,7 +48,7 @@ jobs:
       - name: Run `openapi` command 🚀
         uses: readmeio/rdme@v8
         with:
-          rdme: openapi ./apis/clean.json --key=${{ secrets.README_API_KEY }} --id=64368bb63b18090510bad282 --useSpecVersion --update
+          rdme: openapi ./apis/clean.json --key=${{ secrets.README_API_KEY }} --id=6469976038567202ff4296a1 --useSpecVersion --update
 
       - name: Generate restful reference 🚀
         run: |
