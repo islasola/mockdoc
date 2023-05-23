@@ -10,7 +10,7 @@ Bulk search is available for throughput optimization, where multiple query vecto
 
 Optionally, you can apply filters to narrow down the scope of ANN searches. Filters can be defined with boolean expressions. Once filters are given, the ANN search will be performed among entities that satisfy the conditions.
 
-This guide illustrates entity searches with a sample collection created using the [example dataset](example_dataset).
+This guide illustrates entity searches with a sample collection created using the [example dataset](example_dataset). 
 
 ## Single-vector search
 
