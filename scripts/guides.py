@@ -27,14 +27,11 @@ def search_zdoc_by_url(zdoc, search_term):
                     
 def search_zdoc_by_id(zdoc, page_id):
     print(page_id)
-    with open('zdoc.json', 'r') as f:
-        zdoc = json.loads(f.read())
-        
-        for c in zdoc:
-            for b in c['books']:
-                for p in b['pages']:
-                    if p['id'] == page_id:
-                        return p['title'], p['slug']
+    for c in zdoc:
+        for b in c['books']:
+            for p in b['pages']:
+                if p['id'] == page_id:
+                    return p['title'], p['slug']
 
 async def main():
     notion_headers = {
@@ -147,9 +144,6 @@ async def main():
         "title": x,
         "books": child_databases[i]
     } for i, x in enumerate(page_titles)]
-
-    with open('zdoc.json', 'w') as f:
-        json.dump(zdoc, f)
 
     # 06 Added empty pages to readme
     rdme_headers = {
