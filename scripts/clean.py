@@ -31,6 +31,9 @@ if __name__ == '__main__':
                     if 'anyOf' in schema:
                         for req_body in schema['anyOf']:
                             del_examples(req_body)
+                    elif 'oneOf' in schema:
+                        for req_body in schema['oneOf']:
+                            del_examples(req_body)
                     else:
                         del_examples(schema)
 

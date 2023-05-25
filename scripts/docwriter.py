@@ -233,11 +233,10 @@ class DocWriter:
             page_title = page['title']
             page_excerpt = self.__markdown(blocks=[page['blocks'][0]])
 
-            paragraphs.append(f"""
-            ## [{page_title}](doc:{page_slug})
+            paragraphs.append(f"""## [{page_title}](doc:{page_slug})
 
-            {page_excerpt}
-            """)
+{page_excerpt}
+""")
 
         paragraphs = '\n'.join(paragraphs)
 
