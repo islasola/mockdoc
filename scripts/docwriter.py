@@ -219,7 +219,7 @@ class DocWriter:
         return list(cells)    
 
     def __overview(self, category, book):
-        title = book['title']
+        title = book['title'][3:]
         slug = book['slug']
         description = book['description']
         if description:
