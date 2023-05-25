@@ -84,8 +84,11 @@ def res_format(res_body):
     
 def list_error(page_title):
     errgen = ErrorGenerator()
-    group = errgen.grouping[''.join(page_title.split(' '))]
-    return ''.join([ f'| {x} | {errgen.get_errorcode_desc(x)} |\n' for x in group])
+    if ''.join(page_title.split(' ')) in errgen.groups:
+        group = errgen.groups[''.join(page_title.split(' '))]
+        return ''.join([ f'| {x} | {errgen.get_errorcode_desc(x)} |\n' for x in group])
+    else:
+        return '|  | (to be added) |\n'
 
 if __name__ == '__main__':
     api_key = sys.argv[1]

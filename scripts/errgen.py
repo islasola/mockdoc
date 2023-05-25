@@ -5,7 +5,7 @@ class ErrorGenerator:
         self.errcode = './erroref/errcode.csv'
         self.grouping = './erroref/grouping.csv'
         self.errors = self.__prepare_errorcode()
-        self.grouping = self.__prepare_grouping()
+        self.groups = self.__prepare_grouping()
 
     def __prepare_errorcode(self):
         errors = {}
