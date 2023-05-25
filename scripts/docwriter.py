@@ -3,8 +3,9 @@ import re
 
 class DocWriter:
 
-    def __init__(self, docs):
+    def __init__(self, docs, output='docs'):
         self.docs = docs
+        self.output = output
 
     def write_docs(self):
         for category in self.docs:
@@ -13,17 +14,27 @@ class DocWriter:
                     self.__page(category['rid'], book['rid'], page)
                 self.__overview(category['rid'], book)
 
+    def write_page(self, page_slug):
+        for category in self.docs:
+            for book in category['books']:
+                if book['slug'] == page_slug:
+                    self.__overview(category['rid'], book)
+
+                for page in book['pages']:
+                    if page['slug'] == page_slug:
+                        self.__page(category['rid'], book['rid'], page)
+
     def __markdown(self, blocks=None):
         markdown = []
         prev_block_type = None
         for block in blocks:
             if prev_block_type == 'quote' and block['type'] != 'quote':
                 markdown.append('\n')
-            elif prev_block_type == 'bulleted_list_item' and block['type'] != 'bulleted_list_item':
+            if prev_block_type == 'bulleted_list_item' and block['type'] != 'bulleted_list_item':
                 markdown.append('\n')
-            elif prev_block_type == 'numbered_list_item' and block['type'] != 'numbered_list_item':
+            if prev_block_type == 'numbered_list_item' and block['type'] != 'numbered_list_item':
                 markdown.append('\n')
-            elif block['type'].startswith('heading'):
+            if block['type'].startswith('heading'):
                 markdown.append(self.__header(block))
                 prev_block_type = block['type']
             elif block['type'] == 'paragraph':
@@ -105,9 +116,14 @@ class DocWriter:
     def __header(self, block):
         if block['type'] == 'heading_1' or block['type'] == 'heading_2':
             type = block['type']
-            return f"## {block[type]['rich_text'][0]['plain_text']}\n\n"
+            segments = block[type]['rich_text']
+            segments = ''.join([ x['plain_text'] for x in segments])
+            return f"## {segments}\n\n"
         if block['type'] == 'heading_3':
-            return f"### {block['heading_3']['rich_text'][0]['plain_text']}\n\n"
+            type = block['type']
+            segments = block[type]['rich_text']
+            segments = ''.join([ x['plain_text'] for x in segments])
+            return f"### {segments}\n\n"
         
     def __code(self, block, tabSize=4):
         caption = block['code']['caption']
@@ -240,7 +256,7 @@ class DocWriter:
 
         paragraphs = '\n'.join(paragraphs)
 
-        with open(f"docs/{slug}.md", 'w') as f:
+        with open(f"{self.output}/{slug}.md", 'w') as f:
             f.write(f"""---
 title: {title}
 excerpt: {description}
@@ -257,7 +273,7 @@ slug: {slug}
         slug = page['slug']
         blocks = page['blocks']
 
-        with open(f"docs/{slug}.md", 'w') as f:
+        with open(f"{self.output}/{slug}.md", 'w') as f:
             f.write(f"""---
 title: {title}
 category: {category}
