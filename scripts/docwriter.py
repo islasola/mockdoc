@@ -192,7 +192,7 @@ class DocWriter:
         else:
             caption = block['id']
 
-        return f'![{caption}]({url} "@embed")\n\n'
+        return f'[{caption}]({url} "@embed")\n\n'
     
     def __equation(self, block):
         expression = block['equation']['expression']
