@@ -338,7 +338,7 @@ async def main():
                                     bl['synced_block']['children'] = x['children']
                                     break
                             else:
-                                if bl['id'] == x['sid']:
+                                if bl['id'] == x['id']:
                                     bl['synced_block']['children'] = x['children']
                                     break
 
