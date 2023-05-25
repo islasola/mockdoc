@@ -15,15 +15,12 @@ from docwriter import DocWriter
 def canonical_id(p):
     return p["id"] if 'Reuse' not in [ t['name'] for t in p['properties']['Tags']['multi_select'] ] else p['properties']['Title']['title'][0]['mention']['page']['id']         
     
-def search_zdoc_by_url(zdoc, search_term):
-    with open('zdoc.json', 'r') as f:
-        zdoc = json.loads(f.read())
-        
-        for c in zdoc:
-            for b in c['books']:
-                for p in b['pages']:
-                    if search_term in p['url']:
-                        return p['slug']
+def search_zdoc_by_url(zdoc, search_term):  
+    for c in zdoc:
+        for b in c['books']:
+            for p in b['pages']:
+                if search_term in p['url']:
+                    return p['slug']
                     
 def search_zdoc_by_id(zdoc, page_id):
     print(page_id)
