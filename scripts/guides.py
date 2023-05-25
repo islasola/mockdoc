@@ -173,12 +173,15 @@ async def main():
         pages = json.loads(await rdme_client.get(f"/api/v1/categories/{z['slug']}/docs"))
         titles = [x['title'] for x in pages]
         for b in z['books']:
-            if b['title'][3:] not in titles:
-                await rdme_client.post(f"/api/v1/docs", json={"title": b['title'][3:], "order": int(b['title'][:2]), "category": z['rid']})
+            title = b['title'][3:]
+            order = int(b['title'][:2])
+            if title not in titles:
+                await rdme_client.post(f"/api/v1/docs", json={"title": title, "order": order, "category": z['rid']})
 
         pages = json.loads(await rdme_client.get(f"/api/v1/categories/{z['slug']}/docs"))
         for b in z['books']:
-            t = [x for x in pages if x['title'] == b['title'][3:]]
+            title = b['title'][3:]
+            t = [x for x in pages if x['title'] == title]
             if t:
                 b['slug'] = t[0]['slug']
                 b['rid'] = t[0]['_id']
@@ -194,7 +197,8 @@ async def main():
     for z in zdoc:
         pages = json.loads(await rdme_client.get(f"/api/v1/categories/{z['slug']}/docs"))
         for b in z['books']:
-            child_pages = [ x for x in pages if x['title'] == b['title'][3:] ][0]['children']
+            book_title = b['title'][3:]
+            child_pages = [ x for x in pages if x['title'] == book_title ][0]['children']
             titles = [x['title'] for x in child_pages]
             for p in b['pages']:
                 if p['title'] not in titles:
@@ -202,7 +206,8 @@ async def main():
 
         pages = json.loads(await rdme_client.get(f"/api/v1/categories/{z['slug']}/docs"))
         for b in z['books']:
-            child_pages = [ x for x in pages if x['title'] == b['title'][3:] ][0]['children']
+            book_title = b['title'][3:]
+            child_pages = [ x for x in pages if x['title'] == book_title ][0]['children']
             for p in b['pages']:
                 t = [x for x in child_pages if x['title'] == p['title']]
                 if t:
