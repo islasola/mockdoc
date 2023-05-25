@@ -991,6 +991,10 @@
           "shardsNum": {
             "type": "integer",
             "description": "The number of shards in the collection."
+          },
+          "enableDynamic": {
+            "type": "boolean",
+            "description": "Whether the dynamic JSON feature is enabled for this collection."
           }
         },
         "x-apifox-orders": [
@@ -1000,7 +1004,11 @@
           "fields",
           "indexes",
           "load",
-          "shardsNum"
+          "shardsNum",
+          "enableDynamic"
+        ],
+        "required": [
+          "enableDynamic"
         ],
         "x-apifox-ignore-properties": [],
         "x-apifox-folder": "Schemas"
