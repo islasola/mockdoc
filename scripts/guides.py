@@ -200,6 +200,8 @@ async def main():
                 if p['title'] not in titles:
                     await rdme_client.post(f"/api/v1/docs", json={"title": p['title'], "order": p['seq'], "category": z['rid'], "parentDoc": b['rid']})
 
+        pages = json.loads(await rdme_client.get(f"/api/v1/categories/{z['slug']}/docs"))
+        for b in z['books']:
             child_pages = [ x for x in pages if x['title'] == b['title'][3:] ][0]['children']
             for p in b['pages']:
                 t = [x for x in child_pages if x['title'] == p['title']]
