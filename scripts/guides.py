@@ -148,6 +148,9 @@ async def main():
         "books": child_databases[i]
     } for i, x in enumerate(page_titles)]
 
+    with open('zdoc.json', 'w') as f:
+        json.dump(zdoc, f)
+
     # 06 Added empty pages to readme
     rdme_headers = {
             "accept": "application/json",
