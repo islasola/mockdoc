@@ -333,9 +333,14 @@ async def main():
                 for bl in p['blocks']:
                     if bl['type'] == 'synced_block':
                         for x in synced_blocks:
-                            if x['id'] == sid:
-                                bl['synced_block']['children'] = x['children']
-                                break
+                            if bl['synced_block']['synced_from']:
+                                if bl['synced_block']['synced_from']['block_id'] == x['id']:
+                                    bl['synced_block']['children'] = x['children']
+                                    break
+                            else:
+                                if bl['id'] == x['sid']:
+                                    bl['synced_block']['children'] = x['children']
+                                    break
 
     end = time.time()
     print(f"Took {end-start} seconds to retrieve synced blocks")
