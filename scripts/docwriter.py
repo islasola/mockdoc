@@ -203,7 +203,7 @@ class DocWriter:
         }
 
         return f"""[block:embed]
-{json.dumps(block, indent=4))}
+{json.dumps(block, indent=4)}
 [/block]                
 """
     
