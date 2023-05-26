@@ -193,11 +193,11 @@ class DocWriter:
 
         return f"""[block:embed]
 {
-    "html": {html},
+    "html": "{html}",
     "url": "{url}",
     "title": "{title}",
     "favicon": "https://www.google.com/favicon.ico",
-    "image": "{image}
+    "image": "{image}"
     "provider": "https://www.youtube.com/",
     "href": "{url}",
     "typeOfEmbed": "youtube"
