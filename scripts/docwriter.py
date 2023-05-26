@@ -1,4 +1,5 @@
 import re
+import json
 
 
 class DocWriter:
@@ -190,18 +191,19 @@ class DocWriter:
         title = block['video']['external']['meta']['title']
         html = block['video']['external']['meta']['html']
         image = block['video']['external']['meta']['thumbnail_url']
+        block = {
+            "html": html,
+            "url": url,
+            "title": title,
+            "favicon": "https://www.google.com/favicon.ico",
+            "image": image,
+            "provider": "https://www.youtube.com/",
+            "href": url,
+            "typeOfEmbed": "youtube"
+        }
 
         return f"""[block:embed]
-{
-    "html": "{html}",
-    "url": "{url}",
-    "title": "{title}",
-    "favicon": "https://www.google.com/favicon.ico",
-    "image": "{image}",
-    "provider": "https://www.youtube.com/",
-    "href": "{url}",
-    "typeOfEmbed": "youtube"
-}
+{json.dumps(block, indent=4))}
 [/block]                
 """
     
