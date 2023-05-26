@@ -470,8 +470,8 @@ async def main():
                                 "id": bl['id'],
                                 "uri": f"https://youtube.com/watch?v={bl['video']['external']['url'].split('/')[-1]}"
                             })
-
-    video_metas = await asyncio.gather(*[client.get("https://www.youtube.com/oembed?url=" + x['uri']  + "&format=json") for x in video_blocks])
+    youtube_client = AsyncClient()
+    video_metas = await asyncio.gather(*[youtube_client.get("https://www.youtube.com/oembed?url=" + x['uri']  + "&format=json") for x in video_blocks])
 
     for c in zdoc:
         for bk in c['books']:
