@@ -192,7 +192,7 @@ class DocWriter:
         html = block['video']['external']['meta']['html']
         image = block['video']['external']['meta']['thumbnail_url']
         block = {
-            "html": html,
+            "html": re.sub('height="[0-9]{3}"', 'height="450"', html),
             "url": url,
             "title": title,
             "favicon": "https://www.google.com/favicon.ico",
