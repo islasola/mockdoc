@@ -187,12 +187,23 @@ class DocWriter:
     
     def __video_external(self, block):
         url = block['video']['external']['url']
-        if block['video']['caption']:
-            caption = block['video']['caption'][0]['plain_text']
-        else:
-            caption = block['id']
+        title = block['video']['external']['meta']['title']
+        html = block['video']['external']['meta']['html']
+        image = block['video']['external']['meta']['thumbnail_url']
 
-        return f'[{caption}]({url} "@embed")\n\n'
+        return f"""[block:embed]
+{
+    "html": {html},
+    "url": "{url}",
+    "title": "{title}",
+    "favicon": "https://www.google.com/favicon.ico",
+    "image": "{image}
+    "provider": "https://www.youtube.com/",
+    "href": "{url}",
+    "typeOfEmbed": "youtube"
+}
+[/block]                
+"""
     
     def __equation(self, block):
         expression = block['equation']['expression']

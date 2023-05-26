@@ -457,6 +457,32 @@ async def main():
 
     print(f"Took {end-start} seconds to upload images to s3")
 
+    # 09 Retrieve video embeds
+    start = time.time()
+    video_blocks = []
+    for c in zdoc:
+        for bk in c['books']:
+            for p in bk['pages']:
+                for bl in p['blocks']:
+                    if bl['type'] == 'video':
+                        if bl['video']['type'] == 'external':
+                            video_blocks.append({
+                                "id": bl['id'],
+                                "uri": f"https://youtube.com/watch?v={bl['video']['external']['url'].split('/')[-1]}"
+                            })
+
+    video_metas = await asyncio.gather(*[client.get("https://www.youtube.com/oembed?url=" + x['uri']  + "&format=json") for x in video_blocks])
+
+    for c in zdoc:
+        for bk in c['books']:
+            for p in bk['pages']:
+                for bl in p['blocks']:
+                    if bl['type'] == 'video':
+                        for i, x in enumerate(video_blocks):
+                            if x['id'] == bl['id']:
+                                bl['video']['external']['meta'] = json.loads(video_metas[i])
+                                break
+
     with open("zdoc.json", "w") as f:
         json.dump(zdoc, f, indent=4)
 
