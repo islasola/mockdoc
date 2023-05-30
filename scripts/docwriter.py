@@ -96,10 +96,6 @@ class DocWriter:
         if segment['type'] == 'text':
             if segment['text']['link']:
                 url = segment['text']['link']['url']
-                if re.match('/[a-z0-9]', url):
-                    url = self.__retrieve_page(page_id=url[1:])
-                    url = url['properties']['Title']['title'][0]['text']['content']
-                    url = f"docs:{self.__page_slug(url)}"
                 return f"[{segment['plain_text']}]({url})"
             elif segment['annotations']['bold']:
                 return f"**{segment['plain_text']}**"
