@@ -327,7 +327,7 @@
       }
     },
     "/vector/query": {
-      "get": {
+      "post": {
         "summary": "Query",
         "x-apifox-folder": "Vector Operations",
         "x-apifox-status": "released",
