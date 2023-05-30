@@ -1,728 +1,734 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="main.css">
-    <title>Zilliz Cloud Developer Hub</title>
+    <title>Zilliz Cloud Developer hub</title>
 </head>
+
 <body>
-    <div id="app" class="container">
-        <div class="columns">
-            <div class="column is-10 is-offset-1">
-                <section class="hero is-info is-medium">
-                    <div class="hero-body">
-                        <p class="title">Zilliz Cloud Developer Hub</p>
-                        <p class="subtitle">A place to find all information you need to work with Zilliz Cloud</p>
-                        <div class="buttons">
-                            <button class="button is-normal">API Reference</button>
-                            <button class="button is-normal is-warning">FAQs</button>
+    <div id="app">
+        <!--header-->
+        <div style="display: flex; flex-direction: row; gap: 2%;">
+            <div style="display: block; flex: 20%; cursor: pointer;" @click="this.group=0">
+                <div :class="{active_group: group==0, inactive_group: group!=0}">
+                    <div style="display: flex; flex-direction: column; row-gap: 0.4em; margin: 1.5em;">
+                        <div style="display:block; width: 40px; height: 40px; margin: auto;">
+                            <img src="https://assets.zilliz.com/zilli-cloud-101.png">
+                        </div>
+                        <div style="text-align: center;">
+                            <span :class="{active_group_caption: group==0, inactive_group_caption: group!=0}">Zilliz Cloud 101</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <span style="font-size: 0.8em; color: #647489;">A beginner's guide to using Zilliz Cloud for
+                                vector databases.</span>
                         </div>
                     </div>
-                </section>
-                <div class="container mt-5">
-                    <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                        <div class="column is-one-fourth">
-                            <label class="role-container">
-                                <input type="radio" checked="checked" value="0" v-model="reader" name="category" />
-                                <div class="role">
-                                    <span class="role-head">Zilliz Cloud 101</span>
-                                    <span class="role-desc">A beginner's guide to using Zilliz Cloud for vector databases</span>
-                                </div>
-                            </label>
+                </div>
+            </div>
+            <div style="display: block; flex: 20%; cursor: pointer;" @click="this.group=1">
+                <div :class="{active_group: group==1, inactive_group: group!=1}">
+                    <div style="display: flex; flex-direction: column; row-gap: 0.4em; margin: 1.5em;">
+                        <div style="display:block; width: 40px; height: 40px; margin: auto;">
+                            <img src="https://assets.zilliz.com/ai-model-integrations.png">
                         </div>
-                        <div class="column is-one-fourth">
-                            <label class="role-container">
-                                <input type="radio" value="1" v-model="reader" name="category" />
-                                <div class="role">
-                                    <span class="role-head">AI Model Integrations</span>
-                                    <span class="role-desc">Learn how to integrate AI models with Zilliz Cloud vector databases.</span>
-                                </div>
-                            </label>
+                        <div style="text-align: center;">
+                            <span :class="{active_group_caption: group==1, inactive_group_caption: group!=1}">AI Model Integrations</span>
                         </div>
-                        <div class="column is-one-fourth">
-                            <label class="role-container">
-                                <input type="radio" value="2" v-model="reader" name="category" />
-                                <div class="role">
-                                    <span class="role-head">Advanced User Guides</span>
-                                    <span class="role-desc">In-depth guides for advanced users of Zilliz Cloud vector databases</span>
-                                </div>
-                            </label>
-                        </div>
-                        <div class="column is-one-fourth">
-                            <label class="role-container">
-                                <input type="radio" value="3" v-model="reader" name="category" />
-                                <div class="role">
-                                    <span class="role-head">Migration from Milvus</span>
-                                    <span class="role-desc">Find out how to migrate data and services from self-hosted Milvus clusters to Zilliz Cloud vector databases.</span>
-                                </div>
-                            </label>
+                        <div style="text-align: center;">
+                            <span style="font-size: 0.8em; color: #647489;">Learn how to integrate AI models with Zilliz
+                                Cloud vector databases.</span>
                         </div>
                     </div>
-                <hr />
-                <section class="container"  v-if="reader === '0'">
-                    <p class="is-size-3 has-text-weight-bold has-text-right ml-2">Zilliz Cloud 101</p>
-                    <p class="mb-5 ml-2 has-text-right">A beginner's guide to using Zilliz Cloud for vector databases</p>
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Quick Start</p>
-                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn the basic vector database APIs in 5 minutes</p>
+                </div>
+            </div>
+            <div style="display: block; flex: 20%; cursor: pointer;" @click="this.group=2">
+                <div :class="{active_group: group==2, inactive_group: group!=2}">
+                    <div style="display: flex; flex-direction: column; row-gap: 0.4em; margin: 1.5em;">
+                        <div style="display:block; width: 40px; height: 40px; margin: auto;">
+                            <img src="https://assets.zilliz.com/advanced-user-guides.png">
                         </div>
-                        <div class="column ml-5">
-                            <div class="columns">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Quick Start</p>
-                                    </div>
-                                </div>
-                            </div>
+                        <div style="text-align: center;">
+                            <span :class="{active_group_caption: group==2, inactive_group_caption: group!=2}">Advanced User Guides</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <span style="font-size: 0.8em; color: #647489;">In-depth guides for advanced Zilliz Cloud
+                                vector
+                                database users.</span>
                         </div>
                     </div>
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Serverless Cluster 101</p>
-                            <p class="is-size-7 mt-2" style="text-indent: 100px">An ordered guide for serverless cluster beginners</p>
+                </div>
+            </div>
+            <div style="display: block; flex: 20%; cursor: pointer;" @click="this.group=3">
+                <div :class="{active_group: group==3, inactive_group: group!=3}">
+                    <div style="display: flex; flex-direction: column; row-gap: 0.4em; margin: 1.5em;">
+                        <div style="display:block; width: 40px; height: 40px; margin: auto;">
+                            <img src="https://assets.zilliz.com/migration-from-milvus.png">
                         </div>
-                        <div class="column ml-5">
-                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">01 Create first collection</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">02 Add members to project</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">03 Connect to Zilliz Cloud</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">04 Manage Collections</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">05 Manage Index</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">06 Insert Entities</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">07 Search and Query</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">08 Other Operations</p>
-                                    </div>                            
-                                </div>
-                            </div>
+                        <div style="text-align: center;">
+                            <span :class="{active_group_caption: group==3, inactive_group_caption: group!=3}">Migration from Milvus</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <span style="font-size: 0.8em; color: #647489;">Find out how to migrate data from
+                                self-hosted
+                                Milvus clusters to Zilliz Cloud.</span>
                         </div>
                     </div>
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Dedicated Cluster 101</p>
-                            <p class="is-size-7 mt-2" style="text-indent: 100px">An ordered guide for dedicated cluster beginners</p>
-                        </div>
-                        <div class="column ml-5">
-                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">01 Create first project</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">02 Create first cluster</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">03 Create first collection</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">04 Add members to project</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">05 Connect to Zilliz Cloud</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">06 Manage Collections</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">07 Manage Index</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">08 Insert Entities</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">09 Search and Query</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">10 Other Operations</p>
-                                    </div>                            
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Resource Planning</p>
-                            <p class="is-size-7 mt-2" style="text-indent: 100px">Help you gain a cost-effective balance on Zilliz Cloud.</p>
-                        </div>
-                        <div class="column ml-5">
-                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Resource Planning</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Price Calculator</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                        
-                    </div>
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Concepts</p>
-                            <p class="is-size-7 mt-2" style="text-indent: 100px">Things you might want to know more about Zilliz Cloud</p>
-                        </div>
-                        <div class="column ml-5">
-                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">AUTOINDEX Explained</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">CU Type Explained</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Cluster, Collection & Entities</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Shards, Partitions & Replicas</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">ANN Search</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Data Models</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Instance Types</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Vector Database 101</p>
-                            <p class="is-size-7 mt-2" style="text-indent: 100px">Further readings about embedding, ANN search, index algorithms, etc.</p>
-                        </div>
-                        <div class="column ml-5">
-                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Starter: What is a vector database?</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Hierarchical Navigable Small Worlds (HNSW)</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Scalar Quantization and Product Quantization</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Vector Index Basics and the Inverted File Index</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Introduction to Vector Similarity Search</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Introduction to Unstructured Data</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                     
-                    </div>
-                </section>        
-                <section class="container" v-if="reader==='1'">
-                    <p class="is-size-3 has-text-weight-bold has-text-right ml-2">AI Model Integrations</p>
-                    <p class="mb-5 ml-2 has-text-right">Learn how to integrate AI models with Zilliz Cloud vector databases.</p>     
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Embedding Models</p>
-                        </div>
-                        <div class="column ml-5">
-                            <div class="columns">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4" style="line-height: 48px;">Text Embedding</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4" style="line-height: 48px;">Image Embedding</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Open Service</p>
-                        </div>
-                        <div class="column ml-5">
-                            <div class="columns">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box" style="height: 150px">
-                                        <div class="container mb-2 pl-4">
-                                            <img class="image" width="80" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHcAAAAXCAMAAAAGEyDiAAAAY1BMVEX///8AAAD19fVzc3ONjY3Pz8/U1NTv7+8+Pj5kZGRKSkrg4OCioqKpqan7+/vX19e9vb2zs7NtbW1EREQdHR0sLCyWlpZ8fHxdXV1QUFDIyMg1NTVWVlYiIiIWFhYRERGFhYXBWdJDAAADKElEQVRIib2ViY6jMAxAYwgFGo5wBSi05f+/cm0ngXSoprOj1UZqIZefb4SwQ68A+U28GU27wGOW6t3eD4aWUvp3I/0wbqWDtTAdxJGKXq8l4Mf4O26PVy/u/b4Le9iFCRJ6tLQ0h5Yxdh7bBz7W32DrUOVuGAac4n/mNjX+qwU9XTc9BO7GU9eUXhp8K3/B3eApAY55hXKcS9MWeiGiGIaa5zmk/lSxe4Rej+up2o+gKKWqEKXCWKGxaPJhSYRi7N0LGp4LBdCgiIIkHKHsAiNtnMYH1JeFnKXtcr2SJ68cwrmHqKTp5MkJMQHaM7eCTuS50ORxuoN0CQFrj/bEOsQAhcsN1khzluCP1Mj2zcFdislJ+FeduAbXJuS2or6vadTCojQEh3afjQCSZaButc7s/RQfGB3V84wWl6LIrPpW8Zx10yduhk4l7tTCtUPj6gWGD1x7j6fGETBYhtc6ml0ZZ73RMH06ccldxKV7GsaKUnf4lrt5kR0nQOQMW5mr3d6VV3O7PR1idm6PvLUVOqZJcyc1aijecDfPtS5UHETsBI2mgQ5mLudX4rh4f2axu98P7thTjegbp1xpoiwj097ba07cfu9ANPvK9bzI+T/kKrJCZcD2lhJzWoibr+Dn0eMoaM07bu5GfObOh1Ze4lG/I7QRhSSuMEsM2k5Z4qonZ9/uF5StI+Fko2eHoERO3CjAhqGz3HWxi5iarZHMLb0wfRRwzhziZj7cOa/aJpe+4WIttyWPwl5+4S4jNdFbOmObbCy339O+o1KsXFe6WC63s9K2Cu0y5wZzeuIuR9fJ+FUpRd+JCz7xI4SaKBu8amLudDSp6PHFU8hFXRbujewt7FbSkHrVVy5mQO/lFBywQBipTJ66ceFiM6VGF3yQqtgdvNtFnOqRF9xn0e1fKe8x2om1noIhfakL1gFesp/dwQ6/DPjZpxrfgm8NRa6R8Wh8WnM+12Yz9b5fyq2ws0uScNmlSVLz7JCUJGgZrrhB4qInjE05QaZYsUZ8N2L4cOBvhnmCS7ja591/4aLNlJnt1kFWfX/wH3MJbdau1Z9OyS77eOYn4w8JsySZKORA5QAAAABJRU5ErkJggg==" />
-                                        </div>
-                                        <p class="my-4">Similarity Search with Zilliz Cloud and OpenAI</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box" style="height: 150px">
-                                        <div class="container pl-2">
-                                            <img class="image" width="100" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHcAAAAgCAMAAAAfbBf3AAAA7VBMVEX///8AAAD/0h7/1B7w8PCmp6mWl5mOj5P7+/uqqqtzdHf/lQD/1iD/1xzX19i4ubpqa24AABIAAArExcYqLjbo6On/nAv/4MT/nwD/vBH/sgX/2LT/xRn/pwCcnJ6Cg4VERkxYWV5OUFT/7dv/uB3/yx//pBP/qhr/rVX/tGT/5s//9ez/pj7/ojDUsSfzySDguidgVjkAAECGdTQAGT/GpipERDyUfzJwYjceJz62nC3/0KUQFCA1NzwdISvowSOnji9JSzo0PjwADkAAHz59MzyWNTylNzxgLT3/ypb/PDz/FT/8Wzf/u3H/vn15WejKAAADWUlEQVRIie2W2XabMBCGNRIkgECy2WxhzGKDlzhtkjZtujjuvqTb+z9OR8rSxHVOe05b3zRzIUBC+vj/GQGE3MX/FM5erzfeOrU34/3hpM/ne9ukLvb7ijLfZ1Tx+fawY64QaYKxLF1sCbvguU+vwlepsx3uPYVYdiEXwdl2rB70Nfa+lswODgNs+W/WdbT7J87s54wFRw8eBqj5+MEjnzF1KVjYEle3o1tmAtg/dwrbdd0N/eux4D7N2sdHJ8g9ePL0WZ5Ryi/GbKgI6cDuLVOlZ/3cuQs6fs3tDZGbH7BA+xy88JHrp+NL7ogQD7nSFsS2E2IVXuG6OIAHm0g3Iba0yhLxoixdY8wOVBLHErxTZyEqS0Ec23PXuc8zXVLMD5jmmgrzh70rvULUyK3ARVcjpwtLLeb0/LAC6ZizEYkAugCl4XawtbToWJsFOH2FrbfGPTPc4OSEBsGLJ6a8rnFxsRAnjkCSLogIahKDleCKNQg8RS4ULoRoirSgdgx3ueoWRCYiBCHwYQV26RXWcjJALhbWy+PjV6+P3xxiWTG/v3fJXXU68RU3QmDUBeJAN0L8BRcfA5wCvOJc0g50l4DcGJ9ZFDpRpA61enGTO07TNG+ag7fv3n/4eBQ0TZ6m3Lnk1uf5HaHPIUSkEyJZrw0rrPRrXNINobbIlc8RxCIGYcMp0WZ7mPI1vWe8afl0og4/ff78xW+mU9426dlaXXXgtEbLLPBEkuAGGgmR3OC64IrE+cF1oSpAGwQdL5Kwcgu5VlbDJmWNankQ5G3gc6oaljbD52awgEo/bUkwT3EH9cZgKqTWh4osDTfRXGF2j67nXe2RrquwwmuJvTUpTXszvX3WTtiETjPMrJ9N6YROWtYfmEHHQnMsC3UkuBksxO9IG0nLUsoQEj1yfgeqlNIzSs0cPAjH0RMdbQyxTHs99rOpok2bs1ThiypledvQZprNyKZA34saSgGnhaet+BEV1lUMt73YNsQ8o7mWytqU0rTV1Zzl9LZPw061qjFRdrUa3XwVJl4ce2LzpI2xr5TZwPiSamkamK9SptRmvX8xBhz91Spbnue89c2F4oN/zSV7Mz5Uea741/n8K9dnQz7byl/WYvBtNvtmPgVjfTbY1o/OXdzFX4vvAzJEBGo+eJAAAAAASUVORK5CYII=" />
-                                        </div>
-                                        <p class="my-4">Question Answering Using Zilliz Cloud and HuggingFace</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box" style="height: 150px">
-                                        <div class="container pl-2">
-                                            <img class="image" width="80" src="https://cdn.sanity.io/images/rjtqmwfu/production/ae020d94b599cc453cc09ebc80be06d35d953c23-102x18.svg" />
-                                        </div>
-                                        <p class="my-4">Question Answering Using Zilliz Cloud and Cohere</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Opensource projects</p>
-                        </div>
-                        <div class="column ml-5">
-                            <div class="columns">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box" style="height: 150px">
-                                        <p class="my-4">Question Answering over Documents with Zilliz Cloud and LangChain</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box" style="height: 150px">
-                                        <p class="my-4">Image Search with Zilliz Cloud</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box" style="height: 150px">
-                                        <p class="my-4">Documentation QA using LlamaIndex and Zilliz Cloud</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>               
-                </section>
-                <section class="container" v-if="reader==='2'">
-                    <p class="is-size-3 has-text-weight-bold has-text-right ml-2">Advanced User Guides</p>
-                    <p class="mb-5 ml-2 has-text-right">In-depth guides for advanced Zilliz Cloud vector database users.</p>  
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Get Started</p>
-                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn basic operations and APIs of Zilliz Cloud.</p>
-                        </div>
-                        <div class="column ml-5">
-                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">01 Create first project</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">02 Create first cluster</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">03 Create first collection</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">04 Add members to project</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">05 Connect to Zilliz Cloud</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">06 Manage Collections</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">07 Manage Index</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">08 Insert Entities</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">09 Search and Query</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">10 Other Operations</p>
-                                    </div>                            
-                                </div>
-                            </div>
-                        </div>
-                    </div>  
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Performance Optimizing</p>
-                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn the ways to optimize the performance of your clusters.</p>
-                        </div>
-                        <div class="column ml-5">
-                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Scale Cluster</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Tune Performance</p>
-                                    </div>                            
-                                </div>
-                            </div>
-                        </div>
-                    </div>    
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Basic Access Control</p>
-                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn how to implement protected connections and access control.</p>
-                        </div>
-                        <div class="column ml-5">
-                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Whitelist IP Access</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Manage API keys</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Cluster Access Credentials</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Set up Private Link</p>
-                                    </div>                            
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Bulk Insertion</p>
-                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn how to bulk insert data into your clusters.</p>
-                        </div>
-                        <div class="column ml-5">
-                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Bulk-Insert Data</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Check File Format</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Use Writer and Reader</p>
-                                    </div>                            
-                                </div>
-                            </div>
-                        </div>
-                    </div>  
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Backup and Restore</p>
-                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn about backup and restore operations.</p>
-                        </div>
-                        <div class="column ml-5">
-                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Create Snapshot</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Schedule Automatic Backups</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Restore from Snapshot</p>
-                                    </div>                            
-                                </div>
-                            </div>
-                        </div>
-                    </div>    
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Users & Roles</p>
-                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn how to implement role-based access control.</p>
-                        </div>
-                        <div class="column ml-5">
-                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Orgnization & Project</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Roles & Privileges</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Add Organization Members</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Remove Members</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Add Project Collaborators</p>
-                                    </div>                            
-                                </div>
-                            </div>
-                        </div>
-                    </div>   
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Monitors & Metrics</p>
-                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn about system monitors and metrics.</p>
-                        </div>
-                        <div class="column ml-5">
-                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">CU Resource Monitor</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">QPS Monitor</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Latency Monitor</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4" style="line-height: 48px;">Storage Monitor</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Credit Card Expiration Monitor</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4" style="line-height: 48px;">Cluster Metrics</p>
-                                    </div>                            
-                                </div>
-                            </div>
-                        </div>
-                    </div>    
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Billing</p>
-                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn everything about billing on Zilliz Cloud.</p>
-                        </div>
-                        <div class="column ml-5">
-                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Subscribe on AWS Marketplace</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Subscribe on GCP Marketplace</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Subscribe by Adding Credit Card</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Change Billing Plan</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">View Invoice</p>
-                                    </div>                            
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Reduce Your Costs</p>
-                                    </div>                            
-                                </div>
-                            </div>
-                        </div>
-                    </div>        
-                </section>
-                <section class="container" v-if="reader==='3'">
-                    <p class="is-size-3 has-text-weight-bold has-text-right ml-2">Migration from Milvus</p>
-                    <p class="mb-5 ml-2 has-text-right">In-depth guides for advanced Zilliz Cloud vector database users.</p>  
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Migration Guides</p>
-                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn how to migrate your data to Zilliz Cloud.</p>
-                        </div>
-                        <div class="column ml-5">
-                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Migrate from Milvus 1.x</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Migrate from Milvus 2.x</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="columns mb-5">
-                        <div class="column is-3 has-text-right">
-                            <p class="has-text-weight-semibold is-size-5">Zilliz Cloud v.s. Milvus</p>
-                            <p class="is-size-7 mt-2" style="text-indent: 100px">Learn the differences in terms of specifications between Zilliz Cloud and Milvus.</p>
-                        </div>
-                        <div class="column ml-5">
-                            <div class="columns is-flex-direction-row is-flex-wrap-wrap">
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Index type and Search Parameters</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4" style="line-height: 48px;">CU Types</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4" style="line-height: 48px;">API Comparison</p>
-                                    </div>
-                                </div>
-                                <div class="column is-4 has-text-centered">
-                                    <div class="box">
-                                        <p class="my-4">Other Limits</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                </div>
             </div>
         </div>
+        <!--header ends-->
+        <!--content-->
+        <div style="display: flex; flex-direction: column; row-gap: 3em; margin-top: 3em">
+            <!--Quick Start-->
+            <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==0">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <img src="https://assets.zilliz.com/quick-start.png" style="align-self: center;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.5em; font-weight: bold;">Quick Start</span>
+                            <span style="font-size: 0.8em;">Learn the basic vector database APIs in 5 minutes.</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Quick Start</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Register with Zilliz Cloud</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Free Trials</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Quick Start ends-->
+            <!--Serverless Cluster 101-->
+            <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==0">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <img src="https://assets.zilliz.com/serverless-cluster-101.png" style="align-self: center;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.5em; font-weight: bold;">Serverless Cluster 101</span>
+                            <span style="font-size: 0.8em;">An ordered guide for serverless cluster beginners</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>01 Create First Cluster</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>02 Example Dataset</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>03 Connect to Cluster</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>04 Create First Collection</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>05 Manage Collection</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>06 Insert Entities</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>07 Search and Query</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>08 Delete Entities</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>09 Other Operations</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Serverless cluster 101 ends-->
+            <!--Dedicated cluster 101-->
+            <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==0">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <img src="https://assets.zilliz.com/dedicated-cluster-101.png" style="align-self: center;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.5em; font-weight: bold;">Dedicated Cluster 101</span>
+                            <span style="font-size: 0.8em;">An ordered guide for dedicated cluster beginners</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>01 Create First Project</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>02 Add Project Collaborator</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>03 Create First Cluster</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>04 Example Dataset</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>05 Connect to Cluster</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>06 Create First Collection</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>07 Manage Collection</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>08 Manage Index</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>09 Insert Entities</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>10 Search and Query</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>11 Delete Entities</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>12 Other Operations</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Dedicated cluster 101 ends-->
+            <!--Concepts-->
+            <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==0">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <img src="https://assets.zilliz.com/concepts.png" style="align-self: center;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.5em; font-weight: bold;">Concepts</span>
+                            <span style="font-size: 0.8em;">Things you might want to know more about Zilliz Cloud</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>AUTOINDEX Explained</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>CU Types Explained</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Cluster, Collection, and Entity</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>ANN Search Explained</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Data Models Explained</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Cluster Types Explained</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>JSON: A New Data Type</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Cloud Providers and Regions</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--concepts ends-->
+            <!--Resource Planning-->
+            <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==0">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <img src="https://assets.zilliz.com/resource-planning.png" style="align-self: center;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.5em; font-weight: bold;">Resource Planning</span>
+                            <span style="font-size: 0.8em;">Help you gain a cost-effective balance on Zilliz
+                                Cloud.</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Pricing Calculator</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--resource planning ends-->
+            <!--Vector Database 101-->
+            <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==0">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <img src="https://assets.zilliz.com/vector-database-101.png" style="align-self: center;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.5em; font-weight: bold;">Vector Database 101</span>
+                            <span style="font-size: 0.8em;">Further readings about embedding, ANN search, index
+                                algorithms,
+                                etc.</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Introduction to Unstructured Data</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>What is a Vector Database?</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Introduction to Vector Similarity Search</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Vector Index Basics and the Inverted File Index</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Scalar Quantization and Product Quantization</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Hierarchical Navigable Small World (HNSW)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--vector database 101 ends-->
+            <!--Open Service starts-->
+            <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==1">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <img src="https://assets.zilliz.com/open-service.png" style="align-self: center;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.5em; font-weight: bold;">Open Services</span>
+                            <span style="font-size: 0.8em;">Open services for the integration with Zilliz Cloud</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            <div style="display: block; line-height: 32px; flex: 45%;">
+                                <span>Similarity Search with Zilliz Cloud and OpenAI</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 45%;">
+                                <span>Question Answering Using Zilliz Cloud and HuggingFace</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 45%;">
+                                <span>Introduction to Vector Similarity Search</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Open Service ends-->
+            <!--opensource project starts-->
+            <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==1">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <img src="https://assets.zilliz.com/open-source-projects.png" style="align-self: center;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.5em; font-weight: bold;">Open-source Projects</span>
+                            <span style="font-size: 0.8em;">Open-source projects for the integration with Zilliz
+                                Cloud</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            <div style="display: block; line-height: 32px; flex: 45%;">
+                                <span>Question Answering over Documents with Zilliz Cloud and LangChain</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 45%;">
+                                <span>Image Search with Zilliz Cloud and PyTorch</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 45%;">
+                                <span>Documentation QA using Zilliz Cloud and LlamaIndex</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 45%;">
+                                <span>Movie Search Using Zilliz Cloud and SentenceTransformers</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--opensource project ends-->
+            <!--Get started starts-->
+            <div style="display: flex; flex-direction: row; gap: 2%"  v-if="group==2">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <img src="https://assets.zilliz.com/quick-start.png" style="align-self: center;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.5em; font-weight: bold;">Get Started</span>
+                            <span style="font-size: 0.8em;">Learn basic operations and APIs of Zilliz Cloud</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>01 Create First Project</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>02 Add Project Collaborators</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>03 Create First Cluster</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>04 Example Dataset</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>05 Connect to Cluster</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>06 Create First Collection</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>07 Manage Collection</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>08 Manage Index</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>09 Insert Entities</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>10 Search and Query</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>11 Delete Entities</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>12 Use Dynamic Schema</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>13 Other Operations</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Get started ends-->
+            <!--Connection and acess control starts-->
+            <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==2">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <img src="https://assets.zilliz.com/conn-and-acl.png" style="align-self: center;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.5em; font-weight: bold;">Connection and Access Control</span>
+                            <span style="font-size: 0.8em;">Learn how to implement protected connections and access
+                                control.</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Manage API Keys</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Manage Cluster Credentials</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Set up a Whitelist</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Set up a Private Link</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Connection and acess control ends-->
+            <!--Backup and restore-->
+            <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==2">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <img src="https://assets.zilliz.com/backup-and-restore.png" style="align-self: center;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.5em; font-weight: bold;">Backup and Restore</span>
+                            <span style="font-size: 0.8em;">Learn about backup and restore operations.</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Create a Snapshot</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Schedule Automatic Backups</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>View Snapshot Details</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Restore from Snapshot</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Delete Snapshot</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Backup and restore ends-->
+            <!--users and roles start-->
+            <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==2">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <img src="https://assets.zilliz.com/users-and-roles.png" style="align-self: center;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.5em; font-weight: bold;">Users & Roles</span>
+                            <span style="font-size: 0.8em;">Learn how to implement role-based access control.</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Organization and Projects</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Roles & Privileges</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Add Organization Members</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Remove Members</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Add Project Collaborators</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--users and roles ends-->
+            <!--monitors and metrics-->
+            <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==2">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <img src="https://assets.zilliz.com/monitors-and-metrics.png" style="align-self: center;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.5em; font-weight: bold;">Monitors & Metrics</span>
+                            <span style="font-size: 0.8em;">Learn about system monitors and metrics.</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>CU Resource Monitor</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>QPS Resource Monitor</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Query Latency Monitor</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Load Capacity Resource Monitor</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Credit Card Expiration Monitor</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>View Cluster Metrics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--monitors and metrics ends-->
+            <!--payment and billing-->
+            <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==2">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <img src="https://assets.zilliz.com/monitors-and-metrics.png" style="align-self: center;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.5em; font-weight: bold;">Payment & Billing</span>
+                            <span style="font-size: 0.8em;">Learn everything about payment and billing on Zilliz
+                                Cloud.</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Subscribe on AWS Marketplace</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Subscribe by Adding Credit Card</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Edit Payment Method</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>View Invoice</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--payment and billing ends-->
+            <!--system settings-->
+            <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==2">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <img src="https://assets.zilliz.com/system-settings.png" style="align-self: center;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.5em; font-weight: bold;">System Settings</span>
+                            <span style="font-size: 0.8em;">Learn about system settings on Zilliz Cloud.</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Manage Timezone</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Set up Maintenance Window</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--system settings end-->
+            <!--migration guides-->
+            <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==3">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <img src="https://assets.zilliz.com/migration-guides.png" style="align-self: center;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.5em; font-weight: bold;">Migration Guides</span>
+                            <span style="font-size: 0.8em;">Learn how to migrate your data to Zilliz Cloud</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Migrate from Milvus 1.x</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>Migrate from Milvus 2.x</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--migration guides start-->
+            <!--vs starts-->
+            <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==3">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <img src="https://assets.zilliz.com/zilliz-cloud-vs-milvus.png" style="align-self: center;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.5em; font-weight: bold;">Zilliz Cloud v.s. Milvus</span>
+                            <span style="font-size: 0.8em;">Learn the differences in terms of specifications between
+                                Zilliz Cloud and Milvus</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>AUTOINDEX Explained</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span>CU Types Explained</span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--vs ends-->
+        </div>
+        <!--content ends-->
     </div>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script lang="javascript">
-        const { createApp } = Vue;
-
-        createApp({
-            data() {
-                return {
-                    reader: '0'
-                }
-            }
-        }).mount('#app')
-    </script>
 </body>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+    const { createApp } = Vue
+
+    createApp({
+        data() {
+            return {
+                group: 2
+            }
+        }
+    }).mount('#app')
+</script>
+
 </html>
