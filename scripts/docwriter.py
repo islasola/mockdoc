@@ -226,7 +226,7 @@ class DocWriter:
 
     def __table_row_cells(self, block):
         cells = block['table_row']['cells']
-        cells = map(lambda x:  self.__paragraph(segments=x)[:-2] if len(x) > 0 else '   ', cells)
+        cells = map(lambda x:  self.__paragraph(segments=x)[:-2].replace('\n', '<br>') if len(x) > 0 else '   ', cells)
         
         return list(cells)
     
