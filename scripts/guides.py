@@ -522,7 +522,7 @@ async def main():
         for bl in x['children']:
             for t in tables:
                 if bl['id'] == t['id']:
-                    bl['children'] == t['children']
+                    bl['children'] = t['children']
 
         print(x['children'])
 
