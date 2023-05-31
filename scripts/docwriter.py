@@ -56,7 +56,7 @@ class DocWriter:
                 markdown.append(indent * ' ' + self.__link_to_page(block))
                 prev_block_type = block['type']
             elif block['type'] == 'table':
-                markdown.append(indent * ' ' + self.__table(block))
+                markdown.append(self.__table(block, indent=indent))
                 prev_block_type = block['type']
             elif block['type'] == 'code':
                 markdown.append(indent * ' ' + self.__code(block))
@@ -219,14 +219,14 @@ class DocWriter:
 
         return f"[{title}](doc:{slug})\n\n"
     
-    def __table(self, block):
+    def __table(self, block, indent=0):
         rows = block['table']['children']
         rows_length_matrix = map(self.__table_row_cell_lengths, rows)
         rows_template = list(map(max, zip(*rows_length_matrix)))
         table_header_divider = list(map(lambda x: '-' * x, rows_template))
         rows = list(map(self.__table_row_cells, rows))
         rows.insert(1, table_header_divider)
-        rows = '\n'.join([ self.__format_table_row(x, rows_template) for x in rows ])
+        rows = '\n'.join([ self.__format_table_row(x, rows_template, indent=indent) for x in rows ])
 
         return f"{rows}\n\n"
 
@@ -236,12 +236,12 @@ class DocWriter:
         
         return list(cells)
     
-    def __format_table_row(self, row, temp):
+    def __format_table_row(self, row, temp, indent=0):
         for i in range(len(temp)):
             if len(row[i]) < temp[i]:
                 row[i] = row[i] + (temp[i] - len(row[i])) * ' '
 
-        return '| ' + ' | '.join(row) + ' |'
+        return indent * ' ' + '| ' + ' | '.join(row) + ' |'
     
     def __table_row_cell_lengths(self, block):
         cells = block['table_row']['cells']
