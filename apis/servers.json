@@ -42,7 +42,7 @@
               "description": "Indicates the port of your vector database."
             }
           }
-        },        
+        }      
       ],
     "components": {
       "securitySchemes": {
