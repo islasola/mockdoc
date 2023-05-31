@@ -2,3 +2,4 @@ requests
 Boto3
 Jinja2
 aiohttp
+python-dotenv

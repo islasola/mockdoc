@@ -29,6 +29,23 @@ def search_zdoc_by_id(zdoc, page_id):
             for p in b['pages']:
                 if p['id'] == page_id:
                     return p['title'], p['slug']
+                
+async def thru_blocks(client, blocks):
+    blocks_has_children = [ x for x in blocks if x['has_children'] ]
+
+    children = await asyncio.gather(*[client.get(f'/v1/blocks/{x["id"]}/children') for x in blocks_has_children])
+    children = [ json.loads(x)['results'] for x in children ]
+
+    for i, x in enumerate(blocks_has_children):
+        x['children'] = children[i]
+
+    for b in blocks:
+        for x in blocks_has_children:
+            if x['id'] == b['id']:
+                b['children'] = thru_blocks(client, x['children'])
+                break
+
+    return blocks
 
 async def main():
     notion_headers = {
@@ -504,18 +521,7 @@ async def main():
     children = await asyncio.gather(*[client.get(f'/v1/blocks/{x["id"]}/children') for x in list_items])
 
     for i, x in enumerate(list_items):
-        x['children'] = json.loads(children[i])['results']
-
-        parents = [ y for y in x['children'] if y['has_children'] ]
-
-        if parents:
-            children = await asyncio.gather(*[client.get(f'/v1/blocks/{y["id"]}/children') for y in parents])
-            parents = [ dict(x, children=json.loads(children[i])['results']) for i, x in enumerate(parents) ]
-
-        for t1 in x['children']:
-            for t2 in parents:
-                if t1['id'] == t2['id']:
-                    t1[t1['type']]['children'] = t2['children']
+        x['children'] = await thru_blocks(json.loads(children[i])['results'])
 
     for c in zdoc:
         for bk in c['books']:
@@ -537,6 +543,7 @@ async def main():
     print(f"Took {end-start} seconds to generate docs")
 
 if __name__ == "__main__":
+
     README_API_KEY = os.environ.get('README_API_KEY')
     FIGMA_API_KEY = os.environ.get('FIGMA_API_KEY')
     NOTION_API_KEY = os.environ.get('NOTION_API_KEY')
