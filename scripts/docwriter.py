@@ -220,15 +220,18 @@ class DocWriter:
         return f"[{title}](doc:{slug})\n\n"
     
     def __table(self, block, indent=0):
-        rows = block['table']['children']
-        rows_length_matrix = map(self.__table_row_cell_lengths, rows)
-        rows_template = list(map(max, zip(*rows_length_matrix)))
-        table_header_divider = list(map(lambda x: '-' * x, rows_template))
-        rows = list(map(self.__table_row_cells, rows))
-        rows.insert(1, table_header_divider)
-        rows = '\n'.join([ self.__format_table_row(x, rows_template, indent=indent) for x in rows ])
+        if 'children' in block['table']:
+            rows = block['table']['children']
+            rows_length_matrix = map(self.__table_row_cell_lengths, rows)
+            rows_template = list(map(max, zip(*rows_length_matrix)))
+            table_header_divider = list(map(lambda x: '-' * x, rows_template))
+            rows = list(map(self.__table_row_cells, rows))
+            rows.insert(1, table_header_divider)
+            rows = '\n'.join([ self.__format_table_row(x, rows_template, indent=indent) for x in rows ])
 
-        return f"{rows}\n\n"
+            return f"{rows}\n\n"
+        else:
+            return ''
     
     def __table_row_cells(self, block):
         cells = block['table_row']['cells']

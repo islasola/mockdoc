@@ -508,27 +508,6 @@ async def main():
     for i, x in enumerate(list_items):
         x['children'] = json.loads(children[i])['results']
 
-        tables = [ {
-            "id": y['id']
-        } for y in x['children'] if y['type'] == 'table' ]
-
-        table_children = await asyncio.gather(*[client.get(f'/v1/blocks/{x["id"]}/children') for x in tables])
-
-        tables = [ {
-            "id": y['id'],
-            "children": table_children[i]
-        } for i, y in enumerate(tables)]
-
-        l = []
-
-        for bl in x['children']:
-            for t in tables:
-                if bl['id'] == t['id']:
-                    bl['children'] = t['children']
-                    l.append(bl)
-
-        x['children'] = l
-
     for c in zdoc:
         for bk in c['books']:
             for p in bk['pages']:
