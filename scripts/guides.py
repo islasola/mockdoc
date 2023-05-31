@@ -42,7 +42,7 @@ async def thru_blocks(client, blocks):
     for b in blocks:
         for x in blocks_has_children:
             if x['id'] == b['id']:
-                b['children'] = thru_blocks(client, x['children'])
+                b['children'] = await thru_blocks(client, x['children'])
                 break
 
     return blocks
