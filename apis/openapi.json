@@ -639,21 +639,7 @@
         "tags": [
           "Collection Operations"
         ],
-        "parameters": [
-          {
-            "name": "collectionNames",
-            "in": "query",
-            "description": "An array containing the names of the collections to be listed.",
-            "required": false,
-            "example": "",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Returns an list of collections in the specified cluster.",
@@ -1177,12 +1163,14 @@
                     ],
                     "properties": {
                       "collectionName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The name of the collection to which entities will be inserted."
                       },
                       "data": {
                         "type": "object",
                         "properties": {},
                         "x-apifox-orders": [],
+                        "description": "An entity object. Note that the keys in the entity should match the collection schema.",
                         "x-apifox-ignore-properties": []
                       }
                     },
