@@ -36,51 +36,51 @@ class DocWriter:
             if prev_block_type == 'numbered_list_item' and block['type'] != 'numbered_list_item':
                 markdown.append('\n')
             if block['type'].startswith('heading'):
-                markdown.append(self.__header(block))
+                markdown.append(indent * ' ' + self.__header(block))
                 prev_block_type = block['type']
             elif block['type'] == 'paragraph':
-                markdown.append(self.__paragraph(block))
+                markdown.append(indent * ' ' + self.__paragraph(block))
                 prev_block_type = block['type']
             elif block['type'] == 'quote':
-                markdown.append(self.__quote(block))
+                markdown.append(indent * ' ' + self.__quote(block))
                 prev_block_type = block['type']
             elif block['type'] == 'bulleted_list_item':
-                markdown.append(self.__bullet_list_item(block))
+                markdown.append(indent * ' ' + self.__bullet_list_item(block))
             elif block['type'] == 'numbered_list_item':
-                markdown.append(self.__numbered_list_item(block))
+                markdown.append(indent * ' ' + self.__numbered_list_item(block))
                 prev_block_type = block['type']
             elif block['type'] == 'link_preview':
-                markdown.append(self.__link_preview(block))
+                markdown.append(indent * ' ' + self.__link_preview(block))
                 prev_block_type = block['type']
             elif block['type'] == 'link_to_page':
-                markdown.append(self.__link_to_page(block))
+                markdown.append(indent * ' ' + self.__link_to_page(block))
                 prev_block_type = block['type']
             elif block['type'] == 'table':
-                markdown.append(self.__table(block))
+                markdown.append(indent * ' ' + self.__table(block))
                 prev_block_type = block['type']
             elif block['type'] == 'code':
-                markdown.append(self.__code(block))
+                markdown.append(indent * ' ' + self.__code(block))
                 prev_block_type = block['type']
             elif block['type'] == 'synced_block':
-                markdown.append(self.__synced_block(block))
+                markdown.append(indent * ' ' + self.__synced_block(block))
                 prev_block_type = block['type']
             elif block['type'] == 'image':
                 if 'file' in block['image']:
-                    markdown.append(self.__image_file(block))
+                    markdown.append(indent * ' ' + self.__image_file(block))
                     prev_block_type = block['type']
                 if 'external' in block['image']:
-                    markdown.append(self.__image_external(block))
+                    markdown.append(indent * ' ' + self.__image_external(block))
                     prev_block_type = block['type']
             elif block['type'] == 'video':
                 if block['video']['type'] == 'external':
-                    markdown.append(self.__video_external(block))
+                    markdown.append(indent * ' ' + self.__video_external(block))
                     prev_block_type = block['type']
             elif block['type'] == 'equation':
-                markdown.append(self.__equation(block))
+                markdown.append(indent * ' ' + self.__equation(block))
             else:
                 print(block['type'])
 
-        return ''.join(indent*' ' + markdown)
+        return ''.join(markdown)
 
     def __paragraph(self, block=None, **kwargs):
         if 'segments' in kwargs:
@@ -156,14 +156,14 @@ class DocWriter:
     def __bullet_list_item(self, block):
         segments = block['bulleted_list_item']['rich_text']
         if block['has_children']:
-            children = self.__markdown(blocks=block['children'])
+            children = self.__markdown(blocks=block['children'], indent=4)
             return f"* {self.__paragraph(segments=segments)}\n\n{children}"
         return f"* {self.__paragraph(segments=segments)}"
 
     def __numbered_list_item(self, block):
         segments = block['numbered_list_item']['rich_text']
         if block['has_children']:
-            children = self.__markdown(blocks=block['children'])
+            children = self.__markdown(blocks=block['children'], indent=4)
             return f"* {self.__paragraph(segments=segments)}\n\n{children}"
         return f"1. {self.__paragraph(segments=segments)}" 
 
