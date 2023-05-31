@@ -191,7 +191,6 @@ async def main():
 
     print(f"Took {end-start} seconds to upsert books")
 
-
     # 06-3 Upsert pages
     start = time.time()
     for z in zdoc:
@@ -490,7 +489,6 @@ async def main():
         zdoc = json.loads(f.read())
 
     # 09 Retrieve list items
-
     start = time.time()
     list_items = []
     for c in zdoc:
@@ -508,6 +506,17 @@ async def main():
     for i, x in enumerate(list_items):
         x['children'] = json.loads(children[i])['results']
 
+        parents = [ y for y in x['children'] if y['has_children'] ]
+
+        if parents:
+            children = await asyncio.gather(*[client.get(f'/v1/blocks/{y["id"]}/children') for y in parents])
+            parents = [ dict(x, children=json.loads(children[i])['results']) for i, x in enumerate(parents) ]
+
+        for t1 in x['children']:
+            for t2 in parents:
+                if t1['id'] == t2['id']:
+                    t1[t1['type']]['children'] = t2['children']
+
     for c in zdoc:
         for bk in c['books']:
             for p in bk['pages']:
@@ -516,6 +525,9 @@ async def main():
                         if x['id'] == bl['id']:
                             bl['children'] = x['children']
                             break
+
+    end = time.time()
+    print(f"Took {end-start} seconds to retrieve list items")
                        
     # 10 Generate Docs
     start = time.time()
