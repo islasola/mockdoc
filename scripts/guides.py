@@ -508,6 +508,36 @@ async def main():
     for i, x in enumerate(list_items):
         x['children'] = json.loads(children[i])['results']
 
+        tables = [ {
+            "id": t['id']
+        } for t in x['children'] if t['type'] == 'table' ]
+
+        if tables:
+            table_children = await asyncio.gather(*[client.get(f'/v1/blocks/{t["id"]}/children') for t in tables])
+
+            for j, t in enumerate(tables):
+                t['children'] = json.loads(table_children[j])['results']
+
+        bullets = [ {
+            "id": t['id']
+        } for t in x['children'] if t['type'] == 'bulleted_list_item' ]
+
+        if bullets:
+            bullet_children = await asyncio.gather(*[client.get(f'/v1/blocks/{t["id"]}/children') for t in bullets])
+
+            for j, t in enumerate(bullets):
+                t['children'] = json.loads(bullet_children[j])['results']
+
+        numbers = [ {
+            "id": t['id']
+        } for t in x['children'] if t['type'] == 'numbered_list_item' ]
+
+        if numbers:
+            number_children = await asyncio.gather(*[client.get(f'/v1/blocks/{t["id"]}/children') for t in numbers])
+
+            for j, t in enumerate(numbers):
+                t['children'] = json.loads(number_children[j])['results']
+
     for c in zdoc:
         for bk in c['books']:
             for p in bk['pages']:
