@@ -519,12 +519,15 @@ async def main():
             "children": table_children[i]
         } for i, y in enumerate(tables)]
 
+        l = []
+
         for bl in x['children']:
             for t in tables:
                 if bl['id'] == t['id']:
                     bl['children'] = t['children']
+                    l.append(bl)
 
-        print(x['children'])
+        x['children'] = l
 
     for c in zdoc:
         for bk in c['books']:
