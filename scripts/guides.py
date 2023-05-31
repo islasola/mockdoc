@@ -489,7 +489,35 @@ async def main():
     with open("zdoc.json", "r") as f:
         zdoc = json.loads(f.read())
 
-    # 09 Generate Docs
+    # 09 Retrieve list items
+
+    start = time.time()
+    list_items = []
+    for c in zdoc:
+        for bk in c['books']:
+            for p in bk['pages']:
+                for bl in p['blocks']:
+                    if bl['has_children']:
+                        if 'bulleted_list_item' in bl or 'numbered_list_item' in bl:
+                            list_items.append({
+                                "id": bl['id']
+                            })
+
+    children = await asyncio.gather(*[client.get(f'/v1/blocks/{x["id"]}/children') for x in list_items])
+
+    for i, x in enumerate(list_items):
+        x['children'] = json.loads(children[i])['results']
+
+    for c in zdoc:
+        for bk in c['books']:
+            for p in bk['pages']:
+                for bl in p['blocks']:
+                    for x in list_items:
+                        if x['id'] == bl['id']:
+                            bl['children'] = x['children']
+                            break
+                       
+    # 10 Generate Docs
     start = time.time()
     DocWriter(zdoc).write_docs()
     end = time.time()

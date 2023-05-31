@@ -25,7 +25,7 @@ class DocWriter:
                     if page['slug'] == page_slug:
                         self.__page(category['rid'], book['rid'], page)
 
-    def __markdown(self, blocks=None):
+    def __markdown(self, blocks=None, indent=0):
         markdown = []
         prev_block_type = None
         for block in blocks:
@@ -80,7 +80,7 @@ class DocWriter:
             else:
                 print(block['type'])
 
-        return ''.join(markdown)
+        return ''.join(indent*' ' + markdown)
 
     def __paragraph(self, block=None, **kwargs):
         if 'segments' in kwargs:
@@ -155,11 +155,17 @@ class DocWriter:
 
     def __bullet_list_item(self, block):
         segments = block['bulleted_list_item']['rich_text']
+        if block['has_children']:
+            children = self.__markdown(blocks=block['children'])
+            return f"* {self.__paragraph(segments=segments)}\n\n{children}"
         return f"* {self.__paragraph(segments=segments)}"
 
     def __numbered_list_item(self, block):
         segments = block['numbered_list_item']['rich_text']
-        return f"1. {self.__paragraph(segments=segments)}"      
+        if block['has_children']:
+            children = self.__markdown(blocks=block['children'])
+            return f"* {self.__paragraph(segments=segments)}\n\n{children}"
+        return f"1. {self.__paragraph(segments=segments)}" 
 
     def __link_preview(self, block):
         title = block['link_preview']['title']
