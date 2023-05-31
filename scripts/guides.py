@@ -521,7 +521,7 @@ async def main():
     children = await asyncio.gather(*[client.get(f'/v1/blocks/{x["id"]}/children') for x in list_items])
 
     for i, x in enumerate(list_items):
-        x['children'] = await thru_blocks(json.loads(children[i])['results'])
+        x['children'] = await thru_blocks(client, json.loads(children[i])['results'])
 
     for c in zdoc:
         for bk in c['books']:
