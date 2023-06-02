@@ -98,13 +98,6 @@ class DocWriter:
         if segment['type'] == 'text':
             if segment['text']['link']:
                 url = segment['text']['link']['url']
-                m = re.match(r'[a-z0-9]{32}', url)
-                if m:
-                    i = list(filter(lambda x: ''.join(x['id'].split('-')) == m.group(0), self.pages))
-                    if len(i):
-                        url = f"doc:{i[0]['slug']}"
-                    else:
-                        url = 404
                 return f"[{segment['plain_text']}]({url})"
             elif segment['annotations']['bold']:
                 return f"**{segment['plain_text']}**"
@@ -186,7 +179,7 @@ class DocWriter:
         return f"1. {self.__paragraph(segments=segments)}" 
 
     def __link_preview(self, block):
-        title = block['link_preview']['caption']
+        title = block['link_preview']['title']
         url = block['link_preview']['url']
         
         return f"![{title}]({url})\n\n"  

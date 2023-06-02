@@ -281,6 +281,10 @@
                                     "type": "string",
                                     "description": "An optional description about the cluster."
                                   },
+                                  "regionId": {
+                                    "type": "string",
+                                    "description": "The ID of the region where the cluster exists."
+                                  },
                                   "clusterType": {
                                     "type": "string",
                                     "description": "The type of CU associated with the cluster. Possible values are **Performance-optimized** and **Capacity-optimized**."
@@ -310,12 +314,16 @@
                                   "clusterId",
                                   "clusterName",
                                   "description",
+                                  "regionId",
                                   "clusterType",
                                   "cuSize",
                                   "status",
                                   "connectAddress",
                                   "privateLinkAddress",
                                   "createTime"
+                                ],
+                                "required": [
+                                  "regionId"
                                 ],
                                 "x-apifox-ignore-properties": []
                               },
@@ -399,86 +407,151 @@
                     },
                     "data": {
                       "type": "object",
-                      "properties": {
-                        "clusters": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "clusterId": {
-                                "type": "string",
-                                "description": "The ID of the cluster."
-                              },
-                              "clusterName": {
-                                "type": "string",
-                                "description": "The Name of the cluster."
-                              },
-                              "clusterType": {
-                                "type": "string",
-                                "description": "The type of the CU associated with the cluster."
-                              },
-                              "connectAddress": {
-                                "type": "string",
-                                "description": "The public endpoint of the cluster. You can use this to connect to your cluster from public networks."
-                              },
-                              "createTime": {
-                                "type": "string",
-                                "description": "The time when this cluster has been creaated."
-                              },
-                              "cuSize": {
-                                "type": "integer",
-                                "description": "The size of the CU associated with the cluster."
-                              },
-                              "description": {
-                                "type": "string",
-                                "description": "An optional description of the cluster."
-                              },
-                              "privateLinkAddress": {
-                                "type": "string",
-                                "description": "The private endpoint of the cluster. You can use this to connect to your cluster from your VPSs in the same cloud region."
-                              },
-                              "status": {
-                                "type": "string",
-                                "description": "The current status of the cluster. Possible values are **CREATING**, **RUNNING**, **SUSPENDING**, and **RESUMING**."
-                              }
+                      "x-apifox-refs": {
+                        "01H1RF3YYDEJQV8V95B61TT8V7": {
+                          "x-apifox-overrides": {},
+                          "type": "object",
+                          "properties": {
+                            "clusterId": {
+                              "type": "string",
+                              "description": "The ID of the cluster."
                             },
-                            "x-apifox-orders": [
-                              "clusterId",
-                              "clusterName",
-                              "clusterType",
-                              "connectAddress",
-                              "createTime",
-                              "cuSize",
-                              "description",
-                              "privateLinkAddress",
-                              "status"
-                            ],
-                            "x-apifox-ignore-properties": [],
-                            "x-apifox-folder": "Schemas"
+                            "clusterName": {
+                              "type": "string",
+                              "description": "The Name of the cluster."
+                            },
+                            "description": {
+                              "type": "string",
+                              "description": "An optional description of the cluster."
+                            },
+                            "regionId": {
+                              "type": "string",
+                              "description": "The ID of the cloud region where the cluster exists."
+                            },
+                            "clusterType": {
+                              "type": "string",
+                              "description": "The type of the CU associated with the cluster."
+                            },
+                            "cuSize": {
+                              "type": "string",
+                              "description": "The size of the CU used by the cluster."
+                            },
+                            "status": {
+                              "type": "string",
+                              "description": "The current status of the cluster. Possible values are **CREATING**, **RUNNING**, **SUSPENDING**, and **RESUMING**."
+                            },
+                            "connectAddress": {
+                              "type": "string",
+                              "description": "The public endpoint of the cluster. You can use this to connect to your cluster from public networks."
+                            },
+                            "privateLinkAddress": {
+                              "type": "string",
+                              "description": "The private endpoint of the cluster. You can use this to connect to your cluster from your VPSs in the same cloud region."
+                            },
+                            "createTime": {
+                              "type": "string",
+                              "description": "The time when this cluster has been creaated."
+                            }
                           },
-                          "description": "An array of clusters in detail."
-                        },
-                        "count": {
-                          "type": "integer",
-                          "description": "The total number of clusters returned."
-                        },
-                        "currentPage": {
-                          "type": "integer",
-                          "description": "The current page of the returned results."
-                        },
-                        "pageSize": {
-                          "type": "integer",
-                          "description": "The number of clusters listed on each page."
+                          "x-apifox-orders": [
+                            "clusterId",
+                            "clusterName",
+                            "description",
+                            "regionId",
+                            "clusterType",
+                            "cuSize",
+                            "status",
+                            "connectAddress",
+                            "privateLinkAddress",
+                            "createTime"
+                          ],
+                          "required": [
+                            "regionId",
+                            "cuSize"
+                          ],
+                          "x-apifox-ignore-properties": [],
+                          "x-apifox-folder": "Schemas"
                         }
                       },
-                      "x-apifox-orders": [
-                        "clusters",
-                        "count",
-                        "currentPage",
-                        "pageSize"
+                      "properties": {
+                        "clusterId": {
+                          "type": "string",
+                          "description": "The ID of the cluster."
+                        },
+                        "clusterName": {
+                          "type": "string",
+                          "description": "The Name of the cluster."
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "An optional description of the cluster."
+                        },
+                        "regionId": {
+                          "type": "string",
+                          "description": "The ID of the cloud region where the cluster exists."
+                        },
+                        "clusterType": {
+                          "type": "string",
+                          "description": "The type of the CU associated with the cluster."
+                        },
+                        "cuSize": {
+                          "type": "string",
+                          "description": "The size of the CU used by the cluster."
+                        },
+                        "status": {
+                          "type": "string",
+                          "description": "The current status of the cluster. Possible values are **CREATING**, **RUNNING**, **SUSPENDING**, and **RESUMING**."
+                        },
+                        "connectAddress": {
+                          "type": "string",
+                          "description": "The public endpoint of the cluster. You can use this to connect to your cluster from public networks."
+                        },
+                        "privateLinkAddress": {
+                          "type": "string",
+                          "description": "The private endpoint of the cluster. You can use this to connect to your cluster from your VPSs in the same cloud region."
+                        },
+                        "createTime": {
+                          "type": "string",
+                          "description": "The time when this cluster has been creaated."
+                        },
+                        "storageSize": {
+                          "type": "string",
+                          "description": "The storage size of the cluster."
+                        },
+                        "snapshotNumber": {
+                          "type": "string",
+                          "description": "The number of snapshofts created from the cluster."
+                        },
+                        "createProgress": {
+                          "type": "string",
+                          "description": "The creation progress of the cluster."
+                        }
+                      },
+                      "required": [
+                        "storageSize",
+                        "snapshotNumber",
+                        "createProgress",
+                        "regionId",
+                        "cuSize"
                       ],
-                      "x-apifox-ignore-properties": [],
-                      "x-apifox-folder": "Schemas"
+                      "x-apifox-orders": [
+                        "01H1RF3YYDEJQV8V95B61TT8V7",
+                        "storageSize",
+                        "snapshotNumber",
+                        "createProgress"
+                      ],
+                      "x-apifox-ignore-properties": [
+                        "clusterId",
+                        "clusterName",
+                        "description",
+                        "regionId",
+                        "clusterType",
+                        "cuSize",
+                        "status",
+                        "connectAddress",
+                        "privateLinkAddress",
+                        "createTime"
+                      ]
                     }
                   },
                   "x-apifox-orders": [
@@ -799,10 +872,6 @@
                     "data": {
                       "type": "object",
                       "properties": {
-                        "collectionId": {
-                          "type": "integer",
-                          "description": "The ID of a collection."
-                        },
                         "collectionName": {
                           "type": "string",
                           "description": "The name of the collection."
@@ -891,7 +960,6 @@
                         }
                       },
                       "x-apifox-orders": [
-                        "collectionId",
                         "collectionName",
                         "description",
                         "fields",
@@ -1327,7 +1395,7 @@
                         },
                         "description": "An array of fields to return along with the search results."
                       },
-                      "{vectorField}": {
+                      "vector": {
                         "type": "string",
                         "description": "The label of this field should be the name of the indexed vector field in the collection. For example, if the name of the indexed vector field is **title_vector**, the label of this field should be **title_vector**."
                       }
@@ -1338,7 +1406,7 @@
                       "limit",
                       "offset",
                       "outputFields",
-                      "{vectorField}"
+                      "vector"
                     ],
                     "x-apifox-ignore-properties": [],
                     "x-apifox-folder": "Schemas"
@@ -1373,7 +1441,7 @@
                     },
                     "description": "An array of fields to return along with the search results."
                   },
-                  "{vectorField}": {
+                  "vector": {
                     "type": "string",
                     "description": "The label of this field should be the name of the indexed vector field in the collection. For example, if the name of the indexed vector field is **title_vector**, the label of this field should be **title_vector**."
                   }
@@ -1387,7 +1455,7 @@
                   "limit",
                   "offset",
                   "outputFields",
-                  "{vectorField}"
+                  "vector"
                 ]
               },
               "example": ""
@@ -1998,7 +2066,7 @@
             },
             "description": "An array of fields to return along with the search results."
           },
-          "{vectorField}": {
+          "vector": {
             "type": "string",
             "description": "The label of this field should be the name of the indexed vector field in the collection. For example, if the name of the indexed vector field is **title_vector**, the label of this field should be **title_vector**."
           }
@@ -2009,7 +2077,7 @@
           "limit",
           "offset",
           "outputFields",
-          "{vectorField}"
+          "vector"
         ],
         "required": [
           "collectionName"
@@ -2203,10 +2271,6 @@
           "data": {
             "type": "object",
             "properties": {
-              "collectionId": {
-                "type": "integer",
-                "description": "The ID of a collection."
-              },
               "collectionName": {
                 "type": "string",
                 "description": "The name of the collection."
@@ -2295,7 +2359,6 @@
               }
             },
             "x-apifox-orders": [
-              "collectionId",
               "collectionName",
               "description",
               "fields",
@@ -2321,10 +2384,6 @@
       "customer.DescCollectionResp": {
         "type": "object",
         "properties": {
-          "collectionId": {
-            "type": "integer",
-            "description": "The ID of a collection."
-          },
           "collectionName": {
             "type": "string",
             "description": "The name of the collection."
@@ -2413,7 +2472,6 @@
           }
         },
         "x-apifox-orders": [
-          "collectionId",
           "collectionName",
           "description",
           "fields",
@@ -2634,174 +2692,156 @@
           },
           "data": {
             "type": "object",
-            "properties": {
-              "clusters": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "clusterId": {
-                      "type": "string",
-                      "description": "The ID of the cluster."
-                    },
-                    "clusterName": {
-                      "type": "string",
-                      "description": "The Name of the cluster."
-                    },
-                    "clusterType": {
-                      "type": "string",
-                      "description": "The type of the CU associated with the cluster."
-                    },
-                    "connectAddress": {
-                      "type": "string",
-                      "description": "The public endpoint of the cluster. You can use this to connect to your cluster from public networks."
-                    },
-                    "createTime": {
-                      "type": "string",
-                      "description": "The time when this cluster has been creaated."
-                    },
-                    "cuSize": {
-                      "type": "integer",
-                      "description": "The size of the CU associated with the cluster."
-                    },
-                    "description": {
-                      "type": "string",
-                      "description": "An optional description of the cluster."
-                    },
-                    "privateLinkAddress": {
-                      "type": "string",
-                      "description": "The private endpoint of the cluster. You can use this to connect to your cluster from your VPSs in the same cloud region."
-                    },
-                    "status": {
-                      "type": "string",
-                      "description": "The current status of the cluster. Possible values are **CREATING**, **RUNNING**, **SUSPENDING**, and **RESUMING**."
-                    }
+            "x-apifox-refs": {
+              "01H1RF3YYDEJQV8V95B61TT8V7": {
+                "x-apifox-overrides": {},
+                "type": "object",
+                "properties": {
+                  "clusterId": {
+                    "type": "string",
+                    "description": "The ID of the cluster."
                   },
-                  "x-apifox-orders": [
-                    "clusterId",
-                    "clusterName",
-                    "clusterType",
-                    "connectAddress",
-                    "createTime",
-                    "cuSize",
-                    "description",
-                    "privateLinkAddress",
-                    "status"
-                  ],
-                  "x-apifox-ignore-properties": [],
-                  "x-apifox-folder": "Schemas"
+                  "clusterName": {
+                    "type": "string",
+                    "description": "The Name of the cluster."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "An optional description of the cluster."
+                  },
+                  "regionId": {
+                    "type": "string",
+                    "description": "The ID of the cloud region where the cluster exists."
+                  },
+                  "clusterType": {
+                    "type": "string",
+                    "description": "The type of the CU associated with the cluster."
+                  },
+                  "cuSize": {
+                    "type": "string",
+                    "description": "The size of the CU used by the cluster."
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "The current status of the cluster. Possible values are **CREATING**, **RUNNING**, **SUSPENDING**, and **RESUMING**."
+                  },
+                  "connectAddress": {
+                    "type": "string",
+                    "description": "The public endpoint of the cluster. You can use this to connect to your cluster from public networks."
+                  },
+                  "privateLinkAddress": {
+                    "type": "string",
+                    "description": "The private endpoint of the cluster. You can use this to connect to your cluster from your VPSs in the same cloud region."
+                  },
+                  "createTime": {
+                    "type": "string",
+                    "description": "The time when this cluster has been creaated."
+                  }
                 },
-                "description": "An array of clusters in detail."
-              },
-              "count": {
-                "type": "integer",
-                "description": "The total number of clusters returned."
-              },
-              "currentPage": {
-                "type": "integer",
-                "description": "The current page of the returned results."
-              },
-              "pageSize": {
-                "type": "integer",
-                "description": "The number of clusters listed on each page."
+                "x-apifox-orders": [
+                  "clusterId",
+                  "clusterName",
+                  "description",
+                  "regionId",
+                  "clusterType",
+                  "cuSize",
+                  "status",
+                  "connectAddress",
+                  "privateLinkAddress",
+                  "createTime"
+                ],
+                "required": [
+                  "regionId",
+                  "cuSize"
+                ],
+                "x-apifox-ignore-properties": [],
+                "x-apifox-folder": "Schemas"
               }
             },
-            "x-apifox-orders": [
-              "clusters",
-              "count",
-              "currentPage",
-              "pageSize"
+            "properties": {
+              "clusterId": {
+                "type": "string",
+                "description": "The ID of the cluster."
+              },
+              "clusterName": {
+                "type": "string",
+                "description": "The Name of the cluster."
+              },
+              "description": {
+                "type": "string",
+                "description": "An optional description of the cluster."
+              },
+              "regionId": {
+                "type": "string",
+                "description": "The ID of the cloud region where the cluster exists."
+              },
+              "clusterType": {
+                "type": "string",
+                "description": "The type of the CU associated with the cluster."
+              },
+              "cuSize": {
+                "type": "string",
+                "description": "The size of the CU used by the cluster."
+              },
+              "status": {
+                "type": "string",
+                "description": "The current status of the cluster. Possible values are **CREATING**, **RUNNING**, **SUSPENDING**, and **RESUMING**."
+              },
+              "connectAddress": {
+                "type": "string",
+                "description": "The public endpoint of the cluster. You can use this to connect to your cluster from public networks."
+              },
+              "privateLinkAddress": {
+                "type": "string",
+                "description": "The private endpoint of the cluster. You can use this to connect to your cluster from your VPSs in the same cloud region."
+              },
+              "createTime": {
+                "type": "string",
+                "description": "The time when this cluster has been creaated."
+              },
+              "storageSize": {
+                "type": "string",
+                "description": "The storage size of the cluster."
+              },
+              "snapshotNumber": {
+                "type": "string",
+                "description": "The number of snapshofts created from the cluster."
+              },
+              "createProgress": {
+                "type": "string",
+                "description": "The creation progress of the cluster."
+              }
+            },
+            "required": [
+              "storageSize",
+              "snapshotNumber",
+              "createProgress",
+              "regionId",
+              "cuSize"
             ],
-            "x-apifox-ignore-properties": [],
-            "x-apifox-folder": "Schemas"
+            "x-apifox-orders": [
+              "01H1RF3YYDEJQV8V95B61TT8V7",
+              "storageSize",
+              "snapshotNumber",
+              "createProgress"
+            ],
+            "x-apifox-ignore-properties": [
+              "clusterId",
+              "clusterName",
+              "description",
+              "regionId",
+              "clusterType",
+              "cuSize",
+              "status",
+              "connectAddress",
+              "privateLinkAddress",
+              "createTime"
+            ]
           }
         },
         "x-apifox-orders": [
           "code",
           "data"
-        ],
-        "x-apifox-ignore-properties": [],
-        "x-apifox-folder": "Schemas"
-      },
-      "resp.ListClusterResp": {
-        "type": "object",
-        "properties": {
-          "clusters": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "clusterId": {
-                  "type": "string",
-                  "description": "The ID of the cluster."
-                },
-                "clusterName": {
-                  "type": "string",
-                  "description": "The Name of the cluster."
-                },
-                "clusterType": {
-                  "type": "string",
-                  "description": "The type of the CU associated with the cluster."
-                },
-                "connectAddress": {
-                  "type": "string",
-                  "description": "The public endpoint of the cluster. You can use this to connect to your cluster from public networks."
-                },
-                "createTime": {
-                  "type": "string",
-                  "description": "The time when this cluster has been creaated."
-                },
-                "cuSize": {
-                  "type": "integer",
-                  "description": "The size of the CU associated with the cluster."
-                },
-                "description": {
-                  "type": "string",
-                  "description": "An optional description of the cluster."
-                },
-                "privateLinkAddress": {
-                  "type": "string",
-                  "description": "The private endpoint of the cluster. You can use this to connect to your cluster from your VPSs in the same cloud region."
-                },
-                "status": {
-                  "type": "string",
-                  "description": "The current status of the cluster. Possible values are **CREATING**, **RUNNING**, **SUSPENDING**, and **RESUMING**."
-                }
-              },
-              "x-apifox-orders": [
-                "clusterId",
-                "clusterName",
-                "clusterType",
-                "connectAddress",
-                "createTime",
-                "cuSize",
-                "description",
-                "privateLinkAddress",
-                "status"
-              ],
-              "x-apifox-ignore-properties": [],
-              "x-apifox-folder": "Schemas"
-            },
-            "description": "An array of clusters in detail."
-          },
-          "count": {
-            "type": "integer",
-            "description": "The total number of clusters returned."
-          },
-          "currentPage": {
-            "type": "integer",
-            "description": "The current page of the returned results."
-          },
-          "pageSize": {
-            "type": "integer",
-            "description": "The number of clusters listed on each page."
-          }
-        },
-        "x-apifox-orders": [
-          "clusters",
-          "count",
-          "currentPage",
-          "pageSize"
         ],
         "x-apifox-ignore-properties": [],
         "x-apifox-folder": "Schemas"
@@ -2817,45 +2857,54 @@
             "type": "string",
             "description": "The Name of the cluster."
           },
+          "description": {
+            "type": "string",
+            "description": "An optional description of the cluster."
+          },
+          "regionId": {
+            "type": "string",
+            "description": "The ID of the cloud region where the cluster exists."
+          },
           "clusterType": {
             "type": "string",
             "description": "The type of the CU associated with the cluster."
+          },
+          "cuSize": {
+            "type": "string",
+            "description": "The size of the CU used by the cluster."
+          },
+          "status": {
+            "type": "string",
+            "description": "The current status of the cluster. Possible values are **CREATING**, **RUNNING**, **SUSPENDING**, and **RESUMING**."
           },
           "connectAddress": {
             "type": "string",
             "description": "The public endpoint of the cluster. You can use this to connect to your cluster from public networks."
           },
-          "createTime": {
-            "type": "string",
-            "description": "The time when this cluster has been creaated."
-          },
-          "cuSize": {
-            "type": "integer",
-            "description": "The size of the CU associated with the cluster."
-          },
-          "description": {
-            "type": "string",
-            "description": "An optional description of the cluster."
-          },
           "privateLinkAddress": {
             "type": "string",
             "description": "The private endpoint of the cluster. You can use this to connect to your cluster from your VPSs in the same cloud region."
           },
-          "status": {
+          "createTime": {
             "type": "string",
-            "description": "The current status of the cluster. Possible values are **CREATING**, **RUNNING**, **SUSPENDING**, and **RESUMING**."
+            "description": "The time when this cluster has been creaated."
           }
         },
         "x-apifox-orders": [
           "clusterId",
           "clusterName",
-          "clusterType",
-          "connectAddress",
-          "createTime",
-          "cuSize",
           "description",
+          "regionId",
+          "clusterType",
+          "cuSize",
+          "status",
+          "connectAddress",
           "privateLinkAddress",
-          "status"
+          "createTime"
+        ],
+        "required": [
+          "regionId",
+          "cuSize"
         ],
         "x-apifox-ignore-properties": [],
         "x-apifox-folder": "Schemas"
@@ -2898,6 +2947,10 @@
                       "type": "string",
                       "description": "An optional description about the cluster."
                     },
+                    "regionId": {
+                      "type": "string",
+                      "description": "The ID of the region where the cluster exists."
+                    },
                     "clusterType": {
                       "type": "string",
                       "description": "The type of CU associated with the cluster. Possible values are **Performance-optimized** and **Capacity-optimized**."
@@ -2927,12 +2980,16 @@
                     "clusterId",
                     "clusterName",
                     "description",
+                    "regionId",
                     "clusterType",
                     "cuSize",
                     "status",
                     "connectAddress",
                     "privateLinkAddress",
                     "createTime"
+                  ],
+                  "required": [
+                    "regionId"
                   ],
                   "x-apifox-ignore-properties": []
                 },
