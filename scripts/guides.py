@@ -47,7 +47,20 @@ async def thru_blocks(client, blocks):
 
     return blocks
 
-async def get_child_blocks(root_block):
+async def get_child_blocks(root_block, has_children, block_type):
+    if block_type == page:
+        blocks = await asyncio.gather(*[client.get(f"/v1/blocks/{root_block['id']}/children")])
+        root_block['blocks'] = json.load(blocks)['results']
+        root_block['blocks'] = [ await get_child_blocks(x, x['has_children'], x['type']) for x in root_block['blocks'] ]   
+    else:
+        if has_children:
+            children = await asyncio.gather(*[client.get(f"/v1/blocks/{root_block['id']}/children")])
+            root_block[block_type]['children'] = json.load(blocks)['results']
+            root_block[block_type]['children'] = [ await get_child_blocks(x, x['has_children'], x['type']) for x in root_block['blocks'] ]  
+    
+    return root_block
+       
+async def get_child_blocks(root_block, has_children, block_type):
     if root_block['has_children']:
         children = await asyncio.gather(*[client.get(f"/v1/blocks/{root_block['id']}/children")])
         root_block['children'] = json.loads(children)['results']
@@ -135,6 +148,7 @@ async def main():
         "description": json.loads(child_database_descriptions[j][i][0])['description'],
         "pages": [{
             "id": canonical_id(p),
+            "has_children": true
         } for p in json.loads(child_pages[j][i][0])['results']]
     } for i, d in enumerate(x)] for j, x in enumerate(child_databases)]
 
