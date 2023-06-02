@@ -296,8 +296,7 @@ async def main():
 
                 print(f"Time elapsed for retrieving blocks on page {pg['title']}: {end - start:0.4f} seconds")
 
-        with open(f"books/{c['title']}.json", 'w') as f:
-            json.dump(c, f, indent=4)
+    DocWriter(categories).write_docs()
 
 if __name__ == '__main__':
     load_dotenv()
