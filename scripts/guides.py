@@ -147,12 +147,11 @@ async def main():
         "title": d["child_database"]["title"],
         "description": json.loads(child_database_descriptions[j][i][0])['description'],
         "pages": [{
-            "id": canonical_id(p),
-            "has_children": true
+            "id": canonical_id(p)
         } for p in json.loads(child_pages[j][i][0])['results']]
     } for i, d in enumerate(x)] for j, x in enumerate(child_databases)]
 
-    page_blocks = [[[ await get_child_blocks(b) for b in d['pages']] for d in x] for x in child_databases]
+    page_blocks = [[[ await get_child_blocks(b，True, 'page') for b in d['pages']] for d in x] for x in child_databases]
 
     end = time.time()
     print(f"Took {end-start} seconds to pull abundant blocks")
