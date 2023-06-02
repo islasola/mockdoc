@@ -1,198 +1,67 @@
-import os
-import time
+import asyncio
+import requests
 import boto3
 import json
-import requests as req
-import concurrent.futures
+import re
+import os
+
+import time
+
 from urllib import parse
 from io import BytesIO
-from dotenv import load_dotenv
+from asyncclient import AsyncClient
 from docwriter import DocWriter
 
-def get_children(blocks):
-    start = time.perf_counter()
-    b = []
-    for group in blocks:
-        if group:
-            for block in group:
-                if block['has_children']:
-                    block[block['type']]['children'] = f"https://api.notion.com/v1/blocks/{block['id']}/children"
-
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                children = [ executor.submit(req.get, block[block['type']]['children'], headers=notion_headers) if block['has_children'] else None for block in group ]
-                children = [ x.result().json()['results'] if x else x for x in children ]
-
-            children = get_children(children)
-            for block, child in zip(group, children):
-                if block['has_children']:
-                    block[block['type']]['children'] = child
-
-        b.append(group)
-
-    end = time.perf_counter()
-
-    print(f"Time elapsed for retrieving children recursively: {end - start:0.4f} seconds")
-    return b
-
-def get_synced_blocks(blocks):
-    start = time.perf_counter()
-    b = []
-    for group in blocks:
-        if group and 'results' in group:
-            for block in group:
-                if block['type'] == 'synced_block':
-                    if block['synced_block']['synced_from']:
-                        sid = block['synced_block']['synced_from']
-                    else:
-                        sid = block['id']
-
-                    block['synced_block']['children'] = f"https://api.notion.com/v1/blocks/{sid}/children"
-            
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                children = [ executor.submit(req.get, block['synced_block']['children'], headers=notion_headers) if block['type'] == 'synced_block' else None for block in group ]
-                children = [ x.result().json()['results'] if x else x for x in children ]
-
-            children = get_synced_blocks(children)
-            for block, child in zip(group, children):
-                if block['type'] == 'synced_block':
-                    block['synced_block']['children'] = child
-
-        b.append(group)
+def canonical_id(p):
+    return p["id"] if 'Reuse' not in [ t['name'] for t in p['properties']['Tags']['multi_select'] ] else p['properties']['Title']['title'][0]['mention']['page']['id']         
     
-    end = time.perf_counter()
+def search_zdoc_by_url(zdoc, search_term):  
+    for c in zdoc:
+        for b in c['books']:
+            for p in b['pages']:
+                if search_term in p['url']:
+                    return p['slug']
+                    
+def search_zdoc_by_id(zdoc, page_id):
+    print(page_id)
+    for c in zdoc:
+        for b in c['books']:
+            for p in b['pages']:
+                if p['id'] == page_id:
+                    return p['title'], p['slug']
+                
+async def thru_blocks(client, blocks):
+    blocks_has_children = [ x for x in blocks if x['has_children'] ]
 
-    print(f"Time elapsed for retrieving synced blocks: {end - start:0.4f} seconds")
-    return b
+    children = await asyncio.gather(*[client.get(f'/v1/blocks/{x["id"]}/children') for x in blocks_has_children])
+    children = [ json.loads(x)['results'] for x in children ]
 
-def get_video_meta(blocks):
-    b = []
-    v = []
-    for group in blocks:
-        if group:
-            for block in group:
-                if block['type'] == 'video':
-                    v.append(f"https://youtube.com/watch?v={block['video']['external']['url'].split('/')[-1]}")
+    for i, x in enumerate(blocks_has_children):
+        x['children'] = children[i]
+
+    for b in blocks:
+        for x in blocks_has_children:
+            if x['id'] == b['id']:
+                b['children'] = await thru_blocks(client, x['children'])
+                break
+
+    return blocks
+
+async def get_child_blocks(root_block):
+    if root_block['has_children']:
+        children = await asyncio.gather(*[client.get(f"/v1/blocks/{root_block['id']}/children")])
+        root_block['children'] = json.loads(children)['results']
+        root_block['children'] = [ await get_child_blocks(x) for x in root_block['children'] ]
+        
+    return root_block
     
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                meta = [ executor.submit(req.get, f"https://www.youtube.com/oembed?url={url}&format=json") for url in v ]
-                meta = [ x.result().json() for x in meta ]
-
-            for block, m in zip(group, meta):
-                if block['type'] == 'video':
-                    block['video']['external']['meta'] = m
-
-        b.append(group)
-    
-    return b
-
-def upload_images(blocks):
-    start = time.perf_counter()
-    b = []
-    i = []
-    l = []
-
-    s3 = boto3.resource('s3')
-    bucket = s3.Bucket("assets.zilliz.com")
-
-    for group in blocks:
-        if group:
-            for block in group:
-                if block['type'] == 'image':
-                    if 'file' in block['image']:
-                        i.append({
-                            "id": block['id'],
-                            "url": block['image']['file']['url'],
-                            "title": block['image']['caption'][0]['plain_text'] if len(block['image']['caption']) > 0 else block['id']
-                        })
-
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                images = [ executor.submit(req.get, x['url']) for x in i ]
-                images = [ x.result().content for x in images ]
-
-
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                for itm, image in zip(i, images):
-                    executor.submit(bucket.put_object, Key=f"zdoc/{itm['title']}", Body=image, ACL='public-read')
-
-            for block in group:
-                for itm, image in zip(i, images):
-                    if block['type'] == 'image':
-                        block['image']['file']['url'] = f"https://assets.zilliz.com/zdoc/{itm['title']}"
-                        block['image']['file']['title'] = itm['title']
-
-            for block in group:
-                if block['type'] == 'link_preview':
-                    url = block['link_preview']['url']
-                    key = parse.urlsplit(url).path.split('/')[2]
-                    node = ':'.join(parse.parse_qs(url)['node-id'][0].split('-'))
-                    l.append(
-                        (
-                            key,
-                            node,
-                            f"https://api.figma.com/v1/images/{key}?ids={node}&scale=2&format=png",
-                            f"https://api.figma.com/v1/files/{key}/nodes?ids={node}"
-                        )
-                    )
-
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                previews = [ executor.submit(req.get, x[2], headers=figma_headers) for x in l ]
-                previews = [ executor.submit(req.get, x.result().json()['images'][itm[1]]) for x, itm in zip(previews, l) ]
-                previews = [ BytesIO(x.result().content) for x in previews ]
-                captions = [ executor.submit(req.get, x[3], headers=figma_headers) for x in l ]
-                captions = [ x.result().json()['nodes'][itm[1]]['document']['name'] for x, itm in zip(captions, l) ]
-
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                for itm, preview, caption in zip(l, previews, captions):
-                    executor.submit(bucket.put_object, Key=f"zdoc/{itm[0]}/{itm[1]}", Body=preview.getvalue(), ACL='public-read')
-
-            for block in group:
-                for itm, preview, caption in zip(l, previews, captions):
-                    if block['type'] == 'link_preview':
-                        block['link_preview']['url'] = f"https://assets.zilliz.com/zdoc/{itm[0]}/{itm[1]}"
-                        block['link_preview']['caption'] = caption
-
-        b.append(group)
-
-    end = time.perf_counter()
-
-    print(f"Time elapsed for uploading images: {end - start:0.4f} seconds")
-    return b
-
-def get_mention_page(page_meta):
-    id = page_meta['id']
-
-    if page_meta['properties']['Title']['title'][0]['type'] == 'mention':
-        id = page_meta['properties']['Title']['title'][0]['mention']['page']['id']
-
-    return id
-
-if __name__ == '__main__':
-    load_dotenv()
-
-    README_API_KEY = os.environ.get('README_API_KEY')
-    FIGMA_API_KEY = os.environ.get('FIGMA_API_KEY')
-    NOTION_API_KEY = os.environ.get('NOTION_API_KEY')
-    NOTION_VERSION = os.environ.get('NOTION_VERSION')
-    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-    ROOT_DATABASE_ID = os.environ.get('ROOT_DATABASE_ID')    
-
+async def main():
     notion_headers = {
         "Authorization": f"Bearer {NOTION_API_KEY}",
         "NOTION-VERSION": NOTION_VERSION
     }
-
-    figma_headers = {
-        'Accept': 'application/json',
-        'X-Figma-Token': FIGMA_API_KEY
-    } 
-
-    rdme_headers = {
-       "accept": "application/json",
-       "content-type": "application/json",
-       "authorization": f"Basic {README_API_KEY}"
-    }
-
+    start = time.time()
+    client = AsyncClient("https://api.notion.com", headers=notion_headers)
     payload = {
         "filter": {
             "and": [
@@ -234,168 +103,461 @@ if __name__ == '__main__':
         ]
     }
 
-    # retrieve categories
-    start = time.perf_counter()
+    # 01 Read the root database
+    start = time.time()
+    response = requests.post(f"https://api.notion.com/v1/databases/{ROOT_DATABASE_ID}/query", headers=notion_headers, json=payload)
+    results = response.json()['results']
+    end = time.time()
+    print(f"Took {end-start} seconds to pull {len(results)} pages")
 
-    categories = req.post(f"https://api.notion.com/v1/databases/{ROOT_DATABASE_ID}/query", headers=notion_headers, json=payload)
-    categories = categories.json()['results']
+    # 02 Read child databases
+    start = time.time()
+    page_metas = await asyncio.gather(*[client.get(f'/v1/pages/{x["id"]}') for x in results])
+    page_titles = [json.loads(x)['properties']['Title']['title'][0]['plain_text'] for x in page_metas ]
+    pages = await asyncio.gather(*[client.get(f'/v1/blocks/{x["id"]}/children') for x in results])
+    blocks = [json.loads(x)['results'] for x in pages]
+    child_databases = [list(filter(lambda x: x['type'] == 'child_database', x)) for x in blocks ]
+    child_database_descriptions = [[await asyncio.gather(*[client.get(f"/v1/databases/{d['id']}")]) for d in x] for x in child_databases]
+    end = time.time()
+    print(f"Took {end-start} seconds to find some child databases")
 
-    remote_categories = req.get("https://dash.readme.com/api/v1/categories", headers=rdme_headers).json()
-    remote_category_titles = [ x['title'] for x in remote_categories ]
-    category_titles = [ x['properties']['Title']['title'][0]['plain_text'] for x in categories ]
+    # 03 Read child pages
+    start= time.time()
+    child_pages = [[await asyncio.gather(*[client.post(f"/v1/databases/{d['id']}/query", json=payload)]) for d in x] for x in child_databases]
+    end = time.time()
+    print(f"Took {end-start} seconds to pull several child pages")
 
-    # upsert categories
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        for x in category_titles:
-            if x not in remote_category_titles:
-                executor.submit(req.put, f"https://dash.readme.com/api/v1/categories", headers=rdme_headers, json=dict(title=x))
+    # 04 Read abundant blocks
+    start = time.time()
+    child_databases = [[{
+        "id": d["id"],
+        "title": d["child_database"]["title"],
+        "description": json.loads(child_database_descriptions[j][i][0])['description'],
+        "pages": [{
+            "id": canonical_id(p),
+        } for p in json.loads(child_pages[j][i][0])['results']]
+    } for i, d in enumerate(x)] for j, x in enumerate(child_databases)]
 
-    remote_categories = req.get("https://dash.readme.com/api/v1/categories", headers=rdme_headers).json()
+    page_blocks = [[[ await get_child_blocks(b) for b in d['pages']] for d in x] for x in child_databases]
 
-    for c in categories:
-        for r in remote_categories:
-            if c['properties']['Title']['title'][0]['plain_text'] == r['title']:
-                c['rid'] = r['_id']
-                c['slug'] = r['slug']
-                c['title'] = r['title'] 
+    end = time.time()
+    print(f"Took {end-start} seconds to pull abundant blocks")
 
-    end = time.perf_counter()
-
-    print(f"Time elapsed for retrieving categories: {end - start:0.4f} seconds")        
-
-    # retrieve books
-    start = time.perf_counter()
-
-    categories = [ dict(
-        id=x['id'],
-        rid=x['rid'],
-        title=x['title'], 
-        slug=x['slug'],
-        books=f"https://api.notion.com/v1/blocks/{x['id']}/children"
-    ) for x in categories ]
-
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        books = [ executor.submit(req.get, x['books'], headers=notion_headers) for x in categories ]
+    # 05 Contatenate everything to form zdoc
+    child_databases = [[{
+        "id": d["id"],
+        "title": d["title"],
+        "description": d["description"],
+        "pages": [{
+            "id": canonical_id(p),
+            "title": p["properties"]["Title"]["title"][0]["plain_text"],
+            "url": p["url"],
+            "created_time": p["created_time"],
+            "last_edited_time": p["last_edited_time"],
+            "seq": p['properties']['Seq. ID']['number'],
+            "progress": p['properties']['Progress']['select']['name'],
+            "version": p['properties']['Version']['rich_text'][0]['plain_text'],
+            "tags": [ t['name'] for t in p['properties']['Tags']['multi_select'] ],
+            "blocks": json.loads(page_blocks[j][i][k][0])['results'], 
+        } for k, p in enumerate(json.loads(child_pages[j][i][0])['results'])]
+    } for i, d in enumerate(x)] for j, x in enumerate(child_databases)]
     
-    categories = [ dict(
-        id=x['id'],
-        rid=x['rid'],
-        title=x['title'], 
-        slug=x['slug'],
-        books=[z for z in y.result().json()['results'] if z['type']=='child_database']
-    ) for x, y in zip(categories, books) ]
+    zdoc = [ {
+        "title": x,
+        "books": child_databases[i]
+    } for i, x in enumerate(page_titles)]
 
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        # get remote books
-        remote_books = [ executor.submit(req.get, f"https://dash.readme.com/api/v1/categories/{x['slug']}/docs", headers=rdme_headers) for x in categories ]
-        remote_books = [ x.result().json() for x in remote_books ]
+    # 06 Added empty pages to readme
+    rdme_headers = {
+            "accept": "application/json",
+            "content-type": "application/json",
+            "authorization": f"Basic {README_API_KEY}"
+        }
+    rdme_client = AsyncClient("https://dash.readme.com", headers=rdme_headers) 
 
-    for i, c in enumerate(categories):
-        c['books'] = [ dict(
-            id=x['id'],
-            rid=y['_id'],
-            title=x['child_database']['title'][3:],
-            seq=int(x['child_database']['title'][:2]),
-            slug=y['slug'],
-            pages=f"https://api.notion.com/v1/databases/{x['id']}/query",
-            description=f"https://api.notion.com/v1/databases/{x['id']}"
-        ) if x['child_database']['title'][3:] == y['title'] else dict(
-            id=x['id'],
-            title=x['child_database']['title'][3:],
-            seq=int(x['child_database']['title'][:2]),
-            pages=f"https://api.notion.com/v1/databases/{x['id']}/query",
-            description=f"https://api.notion.com/v1/databases/{x['id']}"
-        ) for x, y in zip(c['books'], remote_books[i]) ]
+    # 06-1 Upsert categories
+    start = time.time()
+    categories = [ x['title'] for x in json.loads(await rdme_client.get("/api/v1/categories"))]
+    [ await asyncio.gather(*[rdme_client.post("/api/v1/categories", json={"title": x['title']})]) for x in zdoc if x['title'] not in categories ]
+    categories = [ x for x in json.loads(await rdme_client.get("/api/v1/categories"))]
+    for z in zdoc:
+        t = [x for x in categories if x['title'] == z['title']]
+        if t:
+            z['slug'] = t[0]['slug']
+            z['rid'] = t[0]['_id']
 
-        # add books
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            for x in c['books']:
-                if 'rid' not in x:
-                    executor.submit(req.post, f"https://dash.readme.com/api/v1/categories/{c['slug']}/docs", headers=rdme_headers, json=dict(title=x['title']))
+    print([x['slug'] for x in zdoc])
+    end = time.time()
 
-        # get remote books
-        remote_books[i] = req.get(f"https://dash.readme.com/api/v1/categories/{c['slug']}/docs", headers=rdme_headers).json()
+    print(f"Took {end-start} seconds to upsert categories")
 
-        for x in c['books']:
-            for y in remote_books[i]:
-                if x['title'] == y['title']:
-                    x['rid'] = y['_id']
-                    x['slug'] = y['slug']
+    # 06-2 Upsert books
+    start = time.time()
+    # retrieve direct pages of all categories and compare the titles with those in zdoc to find the ones that need to be created
+    for z in zdoc:
+        pages = json.loads(await rdme_client.get(f"/api/v1/categories/{z['slug']}/docs"))
+        titles = [x['title'] for x in pages]
+        for b in z['books']:
+            title = b['title'][3:]
+            order = int(b['title'][:2])
+            if title not in titles:
+                await rdme_client.post(f"/api/v1/docs", json={"title": title, "order": order, "category": z['rid']})
 
-        end = time.perf_counter()
+        pages = json.loads(await rdme_client.get(f"/api/v1/categories/{z['slug']}/docs"))
+        for b in z['books']:
+            title = b['title'][3:]
+            t = [x for x in pages if x['title'] == title]
+            if t:
+                b['slug'] = t[0]['slug']
+                b['rid'] = t[0]['_id']
 
-        print(f"Time elapsed for retrieving books in category {c['title']}: {end - start:0.4f} seconds")
+    print([[y['slug'] for y in x['books']] for x in zdoc])        
+    end = time.time()
 
-        # retrieve pages
-        start = time.perf_counter()
+    print(f"Took {end-start} seconds to upsert books")
 
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            pages = [ executor.submit(req.post, bk['pages'], headers=notion_headers, json=payload) for bk in c['books'] ]
-            pages = [ x.result().json()['results'] for x in pages ]
-            description = [ executor.submit(req.get, bk['description'], headers=notion_headers) for bk in c['books'] ]
-            description = [ x.result().json() for x in description ]
+    # 06-3 Upsert pages
+    start = time.time()
+    for z in zdoc:
+        pages = json.loads(await rdme_client.get(f"/api/v1/categories/{z['slug']}/docs"))
+        for b in z['books']:
+            book_title = b['title'][3:]
+            child_pages = [ x for x in pages if x['title'] == book_title ][0]['children']
+            titles = [x['title'] for x in child_pages]
+            for p in b['pages']:
+                if p['title'] not in titles:
+                    await rdme_client.post(f"/api/v1/docs", json={"title": p['title'], "order": p['seq'], "category": z['rid'], "parentDoc": b['rid']})
 
+        pages = json.loads(await rdme_client.get(f"/api/v1/categories/{z['slug']}/docs"))
+        for b in z['books']:
+            book_title = b['title'][3:]
+            child_pages = [ x for x in pages if x['title'] == book_title ][0]['children']
+            for p in b['pages']:
+                t = [x for x in child_pages if x['title'] == p['title']]
+                if t:
+                    p['slug'] = t[0]['slug']
+                    p['rid'] = t[0]['_id']
+    
+    print([[[z['slug'] for z in y['pages']] for y in x['books']] for x in zdoc])
+    end = time.time()
+
+    print(f"Took {end-start} seconds to upsert pages")
+
+    # 06-4 Replace internal links
+    text = json.dumps(zdoc, indent=4)
+    internal_links = list(set(re.findall(r'/[a-z0-9]{32}', text)))
+    for page_link in internal_links:
+        slug = search_zdoc_by_url(zdoc, page_link[1:])
+
+        if not slug:
+            slug = 'doc: 404'
+        else:
+            slug = 'doc:' + slug
+            
+        text = re.sub(page_link, slug, text)
+
+    zdoc = json.loads(text)
+
+    # 06-5 Replace link previews
+    link_previews = []
+    for c in zdoc:
         for bk in c['books']:
-            bk['description'] = [ x for x in description if x['id'] == bk['id'] ][0]['description']
+            for p in bk['pages']:
+                for bl in p['blocks']:
+                    if bl['type'] == 'link_preview':
+                        link_previews.append(bl['link_preview']['url'])
+                        
+    link_previews = [ {
+        "raw": x,
+        "key": parse.urlsplit(x).path.split('/')[2],
+        "node": ":".join(parse.parse_qs(x)['node-id'][0].split("-")),
+        
+    } for x in list(set(link_previews)) ]
 
-            bk['pages'] = [ dict(
-                id=get_mention_page(y),
-                title=y['properties']['Title']['title'][0]['plain_text'],
-                url=y['url'],
-                created_time=y['created_time'],
-                last_edited_time=y['last_edited_time'],
-                seq=y['properties']['Seq. ID']['number'],
-                progress=y['properties']['Progress']['select']['name'],
-                version=y['properties']['Version']['rich_text'][0]['plain_text'],
-                tags=[ t['name'] for t in y['properties']['Tags']['multi_select'] ],
-                blocks=[],
-            ) for x in pages for y in x if y['parent']['database_id'] == bk['id'] ]
+    figma_headers = {
+        'Accept': 'application/json',
+        'X-Figma-Token': FIGMA_API_KEY
+    } 
 
+    figma_client = AsyncClient("https://api.figma.com", headers=figma_headers)
 
-            remote_pages = req.get(f"https://dash.readme.com/api/v1/categories/{c['slug']}/docs", headers=rdme_headers).json()
-            remote_pages = list(filter(lambda x: x['title'] == bk['title'], remote_pages))[0]['children']
-            remote_page_titles = [ x['title'] for x in remote_pages ]
+    # 06-5-1 Retrieve image content
+    start = time.time()
+    image_contents = await asyncio.gather(*[figma_client.get(f"/v1/images/{x['key']}?ids={x['node']}&scale=2&format=png") for x in link_previews])
+    end = time.time()
+    print(f"Took {end-start} seconds to retrieve image content")
 
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                for pg in bk['pages']:
-                    if pg['title'] not in remote_page_titles:
-                        executor.submit(req.post, f"https://dash.readme.com/api/v1/docs", headers=rdme_headers, json=dict(title=pg['title'], order=pg['seq'], category=c['rid'], parentDoc=bk['rid']))
+    # 06-5-2 Retrieve image title
+    start = time.time()
+    image_titles = await asyncio.gather(*[figma_client.get(f"/v1/files/{x['key']}/nodes?ids={x['node']}") for x in link_previews])
+    end = time.time()
+    print(f"Took {end-start} seconds to retrieve image title")
 
-            remote_pages = req.get(f"https://dash.readme.com/api/v1/categories/{c['slug']}/docs", headers=rdme_headers).json()
-            remote_pages = list(filter(lambda x: x['title'] == bk['title'], remote_pages))[0]['children']
+    s3 = boto3.resource('s3')
+    bucket = "assets.zilliz.com"
 
-            for pg in bk['pages']:
-                for r in remote_pages:
-                    if pg['title'] == r['title']:
-                        pg['rid'] = r['_id']
-                        pg['slug'] = r['slug']
+    start = time.time()
+    for i, x in enumerate(link_previews):
+        x['title'] = json.loads(image_titles[i])['nodes'][x['node']]['document']['name']
+        x['content'] = json.loads(image_contents[i])['images'][x['node']]
+        
+        image = BytesIO(requests.get(x['content'], headers=figma_headers).content)
 
-            # retrieve blocks
-            for pg in bk['pages']:
-                pg['blocks'] = f"https://api.notion.com/v1/blocks/{pg['id']}/children"
+        try:
+            s3.Bucket(bucket).put_object(Key=f'zdoc/{x["title"]}.png', Body=image, ACL='public-read')
+        except Exception as e:
+            raise Exception(f'Failed to upload to s3: {e}')
+        
+        x['content'] = f'https://assets.zilliz.com/zdoc/{x["title"]}.png'
+    end = time.time()
 
-            end = time.perf_counter()
+    print(f"Took {end-start} seconds to upload to s3")
 
-            print(f"Time elapsed for retrieving pages in book {bk['title']}: {end - start:0.4f} seconds")
+    print(link_previews)
 
-            # retrieve blocks
-            start = time.perf_counter()
+    for c in zdoc:
+        for bk in c['books']:
+            for p in bk['pages']:
+                for bl in p['blocks']:
+                    if bl['type'] == 'link_preview':
+                        for x in link_previews:
+                            if x['raw'] == bl['link_preview']['url']:
+                                bl['link_preview']['url'] = x['content']
+                                bl['link_preview']['title'] = x['title']
+                                break
 
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                blocks = [ executor.submit(req.get, pg['blocks'], headers=notion_headers) for pg in bk['pages'] ]
-                blocks = [ x.result().json()['results'] for x in blocks ]
+    # zdoc = json.loads(text)
 
-            blocks = get_children(blocks)
-            blocks = get_synced_blocks(blocks)
-            blocks = upload_images(blocks)
-            blocks = get_video_meta(blocks)
+    ## 06-6 Retrieve synced blocks
+    start = time.time()
+    synced_blocks = []
+    for c in zdoc:
+        for bk in c['books']:
+            for p in bk['pages']:
+                for bl in p['blocks']:
+                    if bl['type'] == 'synced_block':
+                        if bl['synced_block']['synced_from']:
+                            sid = bl['synced_block']['synced_from']['block_id']
+                        else:
+                            sid = bl['id']
 
-            for pg in bk['pages']:
-                pg['blocks'] = [ y for x in blocks for y in x if y['parent']['page_id'] == pg['id'] ] 
+                        synced_blocks.append({
+                            "id": sid,
+                            "uri": f'/v1/blocks/{sid}/children'
+                        })
 
-            end = time.perf_counter()
+    children = await asyncio.gather(*[client.get(x['uri']) for x in synced_blocks])
+    
+    for i, x in enumerate(synced_blocks):
+        x['children'] = json.loads(children[i])['results']
 
-            print(f"Time elapsed for retrieving blocks: {end - start:0.4f} seconds")
+    for c in zdoc:
+        for bk in c['books']:
+            for p in bk['pages']:
+                for bl in p['blocks']:
+                    if bl['type'] == 'synced_block':
+                        for x in synced_blocks:
+                            if bl['synced_block']['synced_from']:
+                                if bl['synced_block']['synced_from']['block_id'] == x['id']:
+                                    bl['synced_block']['children'] = x['children']
+                                    break
+                            else:
+                                if bl['id'] == x['id']:
+                                    bl['synced_block']['children'] = x['children']
+                                    break
 
-        with open(f"books/{c['title']}.json", 'w') as f:
-            json.dump(c, f, indent=4)
+    end = time.time()
+    print(f"Took {end-start} seconds to retrieve synced blocks")
+
+    # 06-7 Retrieve table children
+    start = time.time()
+    table_blocks = []
+    for c in zdoc:
+        for bk in c['books']:
+            for p in bk['pages']:
+                for bl in p['blocks']:
+                    if bl['type'] == 'table':
+                        table_blocks.append({
+                            "id": bl['id'],
+                            "uri": f'/v1/blocks/{bl["id"]}/children'
+                        })
+
+    children = await asyncio.gather(*[client.get(x['uri']) for x in table_blocks])
+
+    for i, x in enumerate(table_blocks):
+        x['children'] = json.loads(children[i])['results']
+
+    for c in zdoc:
+        for bk in c['books']:
+            for p in bk['pages']:
+                for bl in p['blocks']:
+                    if bl['type'] == 'table':
+                        for x in table_blocks:
+                            if x['id'] == bl['id']:
+                                bl['table']['children'] = x['children']
+                                break
+    end = time.time()
+    print(f"Took {end-start} seconds to retrieve table children")
+
+    # 07 Retrieve links to pages
+    text = json.dumps(zdoc, indent=4)
+
+    start = time.time()
+    link_to_pages = []
+    for c in zdoc:
+        for bk in c['books']:
+            for p in bk['pages']:
+                for bl in p['blocks']:
+                    if bl['type'] == 'link_to_page':
+                        lid = bl['link_to_page']['page_id']
+                        link_to_pages.append(lid)
+                            
+    
+    link_to_pages = list(set(link_to_pages))
+    link_to_pages = [ {
+        "id": x,
+        "title_slug": search_zdoc_by_id(zdoc, x),
+    } for x in link_to_pages ]
+
+    for c in zdoc:
+        for bk in c['books']:
+            for p in bk['pages']:
+                for bl in p['blocks']:
+                    if bl['type'] == 'link_to_page':
+                        for x in link_to_pages:
+                            if x['id'] == bl['link_to_page']['page_id']:
+                                if x['title_slug']:
+                                    bl['link_to_page']['title'] = x['title_slug'][0]
+                                    bl['link_to_page']['slug'] = x['title_slug'][1]
+                                else:
+                                    bl['link_to_page']['title'] = '404'
+                                    bl['link_to_page']['slug'] = '404'
+                                break
+
+    end = time.time()
+    print(f"Took {end-start} seconds to retrieve links to pages")
+
+    # 08 Retrieve images
+    start = time.time()
+    image_blocks = []
+    for c in zdoc:
+        for bk in c['books']:
+            for p in bk['pages']:
+                for bl in p['blocks']:
+                    if bl['type'] == 'image':
+                        if 'file' in bl['image']:
+                            image_blocks.append({
+                                "id": bl['id'],
+                                "url": bl['image']['file']['url'],
+                                "title": bl['image']['caption'] if len(bl['image']['caption']) > 0 else bl['id']
+                            })
+
+    s3 = boto3.resource('s3')
+    bucket = "assets.zilliz.com"
+
+    start = time.time()
+    for i, x in enumerate(image_blocks):
+        image = requests.get(x['url']).content
+
+        try:
+            s3.Bucket(bucket).put_object(Key=f'zdoc/{x["title"]}.png', Body=image, ACL='public-read')
+        except Exception as e:
+            raise Exception(f'Failed to upload to s3: {e}')
+        
+        x['content'] = f'https://assets.zilliz.com/zdoc/{x["title"]}.png'
+
+    
+    for c in zdoc:
+        for bk in c['books']:
+            for p in bk['pages']:
+                for bl in p['blocks']:
+                    if bl['type'] == 'image':
+                        for x in image_blocks:
+                            if x['id'] == bl['id']:
+                                bl['image']['file']['url'] = x['content']
+                                bl['image']['file']['title'] = x['title']
+                                break
+    end = time.time()
+
+    print(f"Took {end-start} seconds to upload images to s3")
+
+    # 09 Retrieve video embeds
+    start = time.time()
+    video_blocks = []
+    for c in zdoc:
+        for bk in c['books']:
+            for p in bk['pages']:
+                for bl in p['blocks']:
+                    if bl['type'] == 'video':
+                        if bl['video']['type'] == 'external':
+                            video_blocks.append({
+                                "id": bl['id'],
+                                "uri": f"https://youtube.com/watch?v={bl['video']['external']['url'].split('/')[-1]}"
+                            })
+    youtube_client = AsyncClient()
+    video_metas = await asyncio.gather(*[youtube_client.get("https://www.youtube.com/oembed?url=" + x['uri']  + "&format=json") for x in video_blocks])
+
+    for c in zdoc:
+        for bk in c['books']:
+            for p in bk['pages']:
+                for bl in p['blocks']:
+                    if bl['type'] == 'video':
+                        for i, x in enumerate(video_blocks):
+                            if x['id'] == bl['id']:
+                                bl['video']['external']['meta'] = json.loads(video_metas[i])
+                                break
+
+    with open("zdoc.json", "w") as f:
+        json.dump(zdoc, f, indent=4)
+
+    with open("zdoc.json", "r") as f:
+        zdoc = json.loads(f.read())
+
+    # 09 Retrieve list items
+    start = time.time()
+    list_items = []
+    for c in zdoc:
+        for bk in c['books']:
+            for p in bk['pages']:
+                for bl in p['blocks']:
+                    if bl['has_children']:
+                        if 'bulleted_list_item' in bl or 'numbered_list_item' in bl:
+                            list_items.append({
+                                "id": bl['id']
+                            })
+
+    children = await asyncio.gather(*[client.get(f'/v1/blocks/{x["id"]}/children') for x in list_items])
+
+    for i, x in enumerate(list_items):
+        x['children'] = await thru_blocks(client, json.loads(children[i])['results'])
+
+    for c in zdoc:
+        for bk in c['books']:
+            for p in bk['pages']:
+                for bl in p['blocks']:
+                    for x in list_items:
+                        if x['id'] == bl['id']:
+                            bl['children'] = x['children']
+                            break
+
+    end = time.time()
+    print(f"Took {end-start} seconds to retrieve list items")
+                       
+    # 10 Generate Docs
+    start = time.time()
+    DocWriter(zdoc).write_docs()
+    end = time.time()
+
+    print(f"Took {end-start} seconds to generate docs")
+
+if __name__ == "__main__":
+
+    README_API_KEY = os.environ.get('README_API_KEY')
+    FIGMA_API_KEY = os.environ.get('FIGMA_API_KEY')
+    NOTION_API_KEY = os.environ.get('NOTION_API_KEY')
+    NOTION_VERSION = os.environ.get('NOTION_VERSION')
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    ROOT_DATABASE_ID = os.environ.get('ROOT_DATABASE_ID')
+
+    asyncio.run(main())
