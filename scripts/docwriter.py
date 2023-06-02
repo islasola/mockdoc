@@ -1,13 +1,14 @@
 import re
 import json
-import requests
 
 
 class DocWriter:
 
-    def __init__(self, docs, output='docs'):
+    def __init__(self, docs, output='docs', indent=0):
         self.docs = docs
         self.output = output
+        self.indent = indent
+        self.pages = [ p for c in docs for b in c['books'] for p in b['pages'] ]
 
     def write_docs(self):
         for category in self.docs:
@@ -46,9 +47,9 @@ class DocWriter:
                 markdown.append(indent * ' ' + self.__quote(block))
                 prev_block_type = block['type']
             elif block['type'] == 'bulleted_list_item':
-                markdown.append(indent * ' ' + self.__bullet_list_item(block))
+                markdown.append(indent * ' ' + self.__bullet_list_item(block, indent=indent))
             elif block['type'] == 'numbered_list_item':
-                markdown.append(indent * ' ' + self.__numbered_list_item(block))
+                markdown.append(indent * ' ' + self.__numbered_list_item(block, indent=indent))
                 prev_block_type = block['type']
             elif block['type'] == 'link_preview':
                 markdown.append(indent * ' ' + self.__link_preview(block))
@@ -60,7 +61,7 @@ class DocWriter:
                 markdown.append(self.__table(block, indent=indent))
                 prev_block_type = block['type']
             elif block['type'] == 'code':
-                markdown.append(indent * ' ' + self.__code(block))
+                markdown.append(self.__code(block, indent=indent))
                 prev_block_type = block['type']
             elif block['type'] == 'synced_block':
                 markdown.append(indent * ' ' + self.__synced_block(block))
@@ -97,6 +98,13 @@ class DocWriter:
         if segment['type'] == 'text':
             if segment['text']['link']:
                 url = segment['text']['link']['url']
+                m = re.match(r'[a-z0-9]{32}', url)
+                if m:
+                    i = list(filter(lambda x: ''.join(x['id'].split('-')) == m.group(0), self.pages))
+                    if len(i):
+                        url = f"doc:{i[0]['slug']}"
+                    else:
+                        url = 404
                 return f"[{segment['plain_text']}]({url})"
             elif segment['annotations']['bold']:
                 return f"**{segment['plain_text']}**"
@@ -122,8 +130,17 @@ class DocWriter:
             segments = block[type]['rich_text']
             segments = ''.join([ x['plain_text'] for x in segments])
             return f"### {segments}\n\n"
+
+    def __place_indent_in_code(self, code_lines, indent, tabSize):
+        code_lines = [ x['plain_text'] for x in code_lines ]
+        code_lines = ''.join(code_lines)
+        code_lines = code_lines.split('\n')
+        code_lines = [ indent * ' ' + x.replace('\t', tabSize * ' ') for x in code_lines ]
         
-    def __code(self, block, tabSize=4):
+        return '\n'.join(code_lines)
+
+
+    def __code(self, block, indent, tabSize=4):
         caption = block['code']['caption']
 
         if len(caption):
@@ -134,13 +151,13 @@ class DocWriter:
         code = block['code']['rich_text']
 
         if len(code):
-            code = code[0]['plain_text'].replace('\t', ' ' * tabSize)
+            code = self.__place_indent_in_code(code, indent, tabSize)
         else:
             code = ''
 
         lang = block['code']['language']
 
-        return f"```{lang}{caption}\n{code}\n```\n\n" 
+        return f"{indent*' '}```{lang}{caption}\n{code}\n{indent*' '}```\n\n" 
     
     def __synced_block(self, block):
         blocks = block['synced_block']['children']
@@ -154,22 +171,22 @@ class DocWriter:
             segments = block['quote']['rich_text']
             return f"> {self.__paragraph(segments=segments)[:-2]}\n"    
 
-    def __bullet_list_item(self, block):
+    def __bullet_list_item(self, block, indent):
         segments = block['bulleted_list_item']['rich_text']
         if block['has_children']:
-            children = self.__markdown(blocks=block['children'], indent=4)
+            children = self.__markdown(indent=indent+4, blocks=block['bulleted_list_item']['children'])
             return f"* {self.__paragraph(segments=segments)}\n\n{children}"
         return f"* {self.__paragraph(segments=segments)}"
 
-    def __numbered_list_item(self, block):
+    def __numbered_list_item(self, block, indent):
         segments = block['numbered_list_item']['rich_text']
         if block['has_children']:
-            children = self.__markdown(blocks=block['children'], indent=4)
+            children = self.__markdown(indent=indent+4, blocks=block['numbered_list_item']['children'])
             return f"* {self.__paragraph(segments=segments)}\n\n{children}"
         return f"1. {self.__paragraph(segments=segments)}" 
 
     def __link_preview(self, block):
-        title = block['link_preview']['title']
+        title = block['link_preview']['caption']
         url = block['link_preview']['url']
         
         return f"![{title}]({url})\n\n"  
@@ -215,12 +232,14 @@ class DocWriter:
         return f"$${expression}$$\n\n"
     
     def __link_to_page(self, block):
-        title = block['link_to_page']['title']
-        slug = block['link_to_page']['slug']
-
-        return f"[{title}](doc:{slug})\n\n"
+        page_id = block['link_to_page']['page_id']
+        page = list(filter(lambda x: ''.join(x['id'].split('-')) == page_id, self.pages))
+        if len(page):
+            return f"[{page['title']}](doc:{page['slug']})\n\n"
+        else:
+            return f"[{page_id}](doc:{page_id})\n\n"
     
-    def __table(self, block, indent=0):
+    def __table(self, block, indent):
         rows = block['table']['children']
         rows_length_matrix = map(self.__table_row_cell_lengths, rows)
         rows_template = list(map(max, zip(*rows_length_matrix)))
@@ -237,7 +256,7 @@ class DocWriter:
         
         return list(cells)
     
-    def __format_table_row(self, row, temp, indent=0):
+    def __format_table_row(self, row, temp, indent):
         for i in range(len(temp)):
             if len(row[i]) < temp[i]:
                 row[i] = row[i] + (temp[i] - len(row[i])) * ' '
@@ -251,7 +270,7 @@ class DocWriter:
         return list(cells)    
 
     def __overview(self, category, book):
-        title = book['title'][3:]
+        title = book['title']
         slug = book['slug']
         description = book['description']
         if description:
