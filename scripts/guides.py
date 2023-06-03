@@ -213,12 +213,12 @@ async def main():
     categories = categories.json()['results']
     category_titles = [ x['properties']['Title']['title'][0]['plain_text'] for x in categories ]
 
-    remote_categories = req.get("https://dash.readme.com/api/v1/categories", headers=rdme_headers).json()
+    remote_categories = req.get("https://dash.readme.com/api/v1/categories?perPage=20", headers=rdme_headers).json()
     remote_category_titles = [ x['title'] for x in remote_categories ]
 
     [ await rdme_client.post('/api/v1/categories', json={"title": x}) if x not in remote_category_titles else x for x in category_titles ]
 
-    remote_categories = req.get("https://dash.readme.com/api/v1/categories", headers=rdme_headers).json()
+    remote_categories = req.get("https://dash.readme.com/api/v1/categories?perPage=20", headers=rdme_headers).json()
 
     for c in categories:
         for r in remote_categories:
