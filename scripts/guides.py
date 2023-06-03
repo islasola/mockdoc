@@ -173,7 +173,7 @@ async def faqs(category):
         faqs_category = dict(category=faqs_category, questions=questions)
 
     remotes = await rdme_client.get(f"/api/v1/categories/{category['slug']}/docs")
-    remote_titles = [ x['title'].split(": ")[1] for x in remotes ]
+    remote_titles = [ x['title'].split(": ")[1] for x in json.loads(remotes) ]
 
     faqs_categories_to_add = []
     for remote in remotes:
@@ -188,7 +188,7 @@ async def faqs(category):
 
     [ await rdme_client.post('/api/v1/docs', json={"title": f"FAQs: {x['category']}", "category": category['id']}) for x in faqs_categories_to_add ]
 
-    remote = await rdme_client.get(f"/api/v1/categories/{category['slug']}/docs")
+    remote = json.loads(await rdme_client.get(f"/api/v1/categories/{category['slug']}/docs"))
 
     for faqs_category in faqs_categories:
         if 'rid' not in faqs_category:
