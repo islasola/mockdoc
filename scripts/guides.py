@@ -192,8 +192,10 @@ async def faqs(category):
                 faqs_categories_to_add.append(faqs_category['category'])
 
     faqs_categories_to_add = list(set(faqs_categories_to_add))
+    print(faqs_categories_to_add)
 
-    [ await rdme_client.post('/api/v1/docs', json={"title": f"FAQs: {x}", "category": category['rid']}) for x in faqs_categories_to_add ]
+    if faqs_categories_to_add:
+        [ await rdme_client.post('/api/v1/docs', json={"title": f"FAQs: {x}", "category": category['rid']}) for x in faqs_categories_to_add ]
 
     remote = json.loads(await rdme_client.get(f"/api/v1/categories/{category['slug']}/docs"))
 
@@ -291,6 +293,9 @@ async def main():
     remote_books = [ json.loads(x) for x in remote_books ]
 
     for i, c in enumerate(categories):
+        if book['title'] == 'FAQs':
+            continue
+
         docs_to_create = []
         for book in c['books']:
             book['id'] = book['id']
