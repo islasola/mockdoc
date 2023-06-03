@@ -300,7 +300,7 @@ async def main():
             try:
                 book['seq'] = int(book['child_database']['title'][:2])
             except:
-                continue
+                break
             book['pages']=f"/v1/databases/{book['id']}/query"
             book['description']=f"/v1/databases/{book['id']}"
             if book['title'] not in [x['title'] for x in remote_books[i]]:
