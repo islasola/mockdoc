@@ -3,3 +3,4 @@ restref/*.md
 docs/*.md
 vscode
 .env
+faqs.json

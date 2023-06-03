@@ -4,17 +4,21 @@ import json
 
 class DocWriter:
 
-    def __init__(self, docs, output='docs', indent=0):
+    def __init__(self, docs, type='guides', output='docs', indent=0):
         self.docs = docs
         self.output = output
         self.indent = indent
         self.vault = []
-        self.pages = [ dict(
-            id=''.join(p['id'].split('-')),
-            title=p['title'],
-            slug=p['slug'],
-        ) for c in docs for b in c['books'] for p in b['pages'] ]
-        self.__replace_links()
+        
+        if type == 'guides':
+            self.pages = [ dict(
+                id=''.join(p['id'].split('-')),
+                title=p['title'],
+                slug=p['slug'],
+            ) for c in docs for b in c['books'] for p in b['pages'] ]
+            self.__replace_links()
+        elif type == 'faqs':
+            self.pages = docs
 
     def write_docs(self):
         for category in self.docs:
@@ -36,8 +40,9 @@ class DocWriter:
                     if page['slug'] == page_slug:
                         self.__page(category['rid'], book['rid'], page)
 
-    def write_faqs(self, faqs_id, faqs_category):
-        self.__faqs(faqs_id, faqs_category)
+    def write_faqs(self, faqs_id):
+        for page in self.pages:
+            self.__faqs(faqs_id, page)
 
     def __replace_links(self):
         for category in self.docs:
@@ -352,18 +357,22 @@ parentDoc: {book}
 
 """)
             
-    def __faqs(self, faqs_id, faqs_category):
-        question_text = [ '-' + x['question'] for x in faqs_category['questions'] ]
-        answer_blocks = [ y for x in faqs_category['questions'] for y in x['answer'] ]
+    def __faqs(self, faqs_id, page):
+        question_text = [ '- ' + x['question'] for x in page['questions'] ]
+        answer_blocks = [ y for x in page['questions'] for y in x['answer'] ]
 
-        with open(f"{self.output}/{faqs_category['slug']}.md", 'w') as f:
+        with open(f"{self.output}/{page['slug']}.md", 'w') as f:
             f.write(f"""---
-title: {faqs_category['title']}
+title: {page['category']}
 category: {faqs_id}
-slug: {faqs_category['slug']}
+slug: {page['slug']}
 ---
 
+## Contents
+
 {'/n'.join(question_text)}
+
+## FAQs
 
 {self.__markdown(blocks=answer_blocks)}
 

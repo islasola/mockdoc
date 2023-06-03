@@ -155,38 +155,45 @@ async def faqs(category):
         }
     }
 
+    print(category['id'])
+
     faqs = await notion_client.post(f"/v1/databases/{FAQS_DATABASE_ID}/query", json=query)
     faqs = json.loads(faqs)
 
     faqs_categories = list(set([ x['properties']['Category']['multi_select'][0]['name'] for x in faqs['results'] ]))
     faqs_questions = [ dict(category=x['properties']['Category']['multi_select'][0]['name'], question=x['properties']['Question']['title'][0]['plain_text']) for x in faqs['results'] ]
-    faqs_answers = [ await notion_client.get(f"/v1/blocks/{x['id']}/children") for x in faqs['results'] ]
+    faqs_answers = [ json.loads(await notion_client.get(f"/v1/blocks/{x['id']}/children"))['results'] for x in faqs['results'] ]
+    faqs_answers = await upload_images(faqs_answers)
+    faqs_answers = await get_video_meta(faqs_answers)
+    faqs_answers = await get_synced_blocks(faqs_answers)
+    faqs_answers = await get_children(faqs_answers)
     
     faqs_questions = [ dict(category=question['category'], question=question['question'], answer=answer) for question, answer in zip(faqs_questions, faqs_answers) ]
 
-    for faqs_category in faqs_categories:
+    for i, faqs_category in enumerate(faqs_categories):
         questions = []
         for faqs_question in faqs_questions:
             if faqs_question['category'] == faqs_category:
                 questions.append(faqs_question)
 
-        faqs_category = dict(category=faqs_category, questions=questions)
+        faqs_categories[i] = dict(category=faqs_category, questions=questions)
 
-    remotes = await rdme_client.get(f"/api/v1/categories/{category['slug']}/docs")
-    remote_titles = [ x['title'].split(": ")[1] for x in json.loads(remotes) ]
+    remotes = json.loads(await rdme_client.get(f"/api/v1/categories/{category['slug']}/docs"))
 
     faqs_categories_to_add = []
-    for remote in remotes:
-        for faqs_category in faqs_categories:
-            if faqs_category['category'] in remote_titles:
+    
+    for faqs_category in faqs_categories:
+        for remote in remotes:
+            if faqs_category['category'] == remote['title'].split(": ")[1]:
                 faqs_category['rid'] = remote['_id']
                 faqs_category['slug'] = remote['slug']
+                break
             else:
                 faqs_categories_to_add.append(faqs_category['category'])
 
     faqs_categories_to_add = list(set(faqs_categories_to_add))
 
-    [ await rdme_client.post('/api/v1/docs', json={"title": f"FAQs: {x['category']}", "category": category['id']}) for x in faqs_categories_to_add ]
+    [ await rdme_client.post('/api/v1/docs', json={"title": f"FAQs: {x}", "category": category['rid']}) for x in faqs_categories_to_add ]
 
     remote = json.loads(await rdme_client.get(f"/api/v1/categories/{category['slug']}/docs"))
 
@@ -194,9 +201,11 @@ async def faqs(category):
         if 'rid' not in faqs_category:
             faqs_category['rid'] = [ x['_id'] for x in remote if x['title'].split(": ")[1] == faqs_category['category'] ][0]
 
+    with open('faqs.json', 'w') as f:
+        json.dump(faqs_categories, f, indent=4)
+
     ## Generate doc pages
-    for faqs_category in faqs_categories:
-        DocWriter.write_faqs(category['id'], faqs_category)
+    DocWriter(faqs_categories, type="faqs").write_faqs(category['id'])
 
 def get_mention_page(page_meta):
     id = page_meta['id']
@@ -260,100 +269,99 @@ async def main():
     for i, c in enumerate(categories):
         if c['title'] == 'FAQs':
             await faqs(c)
-            continue
+        else:
+            docs_to_create = []
+            for book in c['books']:
+                book['id'] = book['id']
+                book['title'] = book['child_database']['title'][3:]
+                book['seq'] = int(book['child_database']['title'][:2])
+                book['pages']=f"/v1/databases/{book['id']}/query"
+                book['description']=f"/v1/databases/{book['id']}"
+                if book['title'] not in [x['title'] for x in remote_books[i]]:
+                    docs_to_create.append({"title": book['title'], "order": book['seq'], "category": c['rid']})
 
-        docs_to_create = []
-        for book in c['books']:
-            book['id'] = book['id']
-            book['title'] = book['child_database']['title'][3:]
-            book['seq'] = int(book['child_database']['title'][:2])
-            book['pages']=f"/v1/databases/{book['id']}/query"
-            book['description']=f"/v1/databases/{book['id']}"
-            if book['title'] not in [x['title'] for x in remote_books[i]]:
-                docs_to_create.append({"title": book['title'], "order": book['seq'], "category": c['rid']})
+            [ await rdme_client.post('/api/v1/docs', json=x) for x in docs_to_create ]
 
-        [ await rdme_client.post('/api/v1/docs', json=x) for x in docs_to_create ]
+            # get remote books
+            remote_books[i] = req.get(f"https://dash.readme.com/api/v1/categories/{c['slug']}/docs", headers=rdme_headers).json()
 
-        # get remote books
-        remote_books[i] = req.get(f"https://dash.readme.com/api/v1/categories/{c['slug']}/docs", headers=rdme_headers).json()
-
-        for x in c['books']:
-            for y in remote_books[i]:
-                if x['title'] == y['title']:
-                    x['rid'] = y['_id']
-                    x['slug'] = y['slug']
-
-        end = time.perf_counter()
-
-        print(f"Time elapsed for retrieving books in category {c['title']}: {end - start:0.4f} seconds")
-
-        # retrieve pages
-        start = time.perf_counter()
-
-        pages = [ await notion_client.post(bk['pages'], json=payload) for bk in c['books'] ]
-        pages = [ json.loads(x)['results'] for x in pages]
-        description = [ await notion_client.get(bk['description']) for bk in c['books']]
-        description = [ json.loads(x) for x in description ]
-
-        for bk in c['books']:
-            bk['description'] = [ x for x in description if x['id'] == bk['id'] ][0]['description']
-
-            bk['pages'] = [ dict(
-                id=get_mention_page(y),
-                title=y['properties']['Title']['title'][0]['plain_text'],
-                url=y['url'],
-                created_time=y['created_time'],
-                last_edited_time=y['last_edited_time'],
-                seq=y['properties']['Seq. ID']['number'],
-                progress=y['properties']['Progress']['select']['name'],
-                version=y['properties']['Version']['rich_text'][0]['plain_text'],
-                tags=[ t['name'] for t in y['properties']['Tags']['multi_select'] ],
-                blocks=[],
-            ) for x in pages for y in x if y['parent']['database_id'] == bk['id'] ]
-
-
-            remote_pages = req.get(f"https://dash.readme.com/api/v1/categories/{c['slug']}/docs", headers=rdme_headers).json()
-            remote_pages = list(filter(lambda x: x['title'] == bk['title'], remote_pages))[0]['children']
-            remote_page_titles = [ x['title'] for x in remote_pages ]
-
-            [ await rdme_client.post('/api/v1/docs', json=dict(title=x['title'], order=x['seq'], category=c['rid'], parentDoc=bk['rid'])) for x in bk['pages'] if x['title'] not in remote_page_titles ]
-
-            remote_pages = req.get(f"https://dash.readme.com/api/v1/categories/{c['slug']}/docs", headers=rdme_headers).json()
-            remote_pages = list(filter(lambda x: x['title'] == bk['title'], remote_pages))[0]['children']
-
-            for pg in bk['pages']:
-                for r in remote_pages:
-                    if pg['title'] == r['title']:
-                        pg['rid'] = r['_id']
-                        pg['slug'] = r['slug']
-
-            # retrieve blocks
-            for pg in bk['pages']:
-                pg['blocks'] = f"/v1/blocks/{pg['id']}/children"
+            for x in c['books']:
+                for y in remote_books[i]:
+                    if x['title'] == y['title']:
+                        x['rid'] = y['_id']
+                        x['slug'] = y['slug']
 
             end = time.perf_counter()
 
-            print(f"Time elapsed for retrieving pages in book {bk['title']}: {end - start:0.4f} seconds")
+            print(f"Time elapsed for retrieving books in category {c['title']}: {end - start:0.4f} seconds")
 
-            # retrieve blocks
+            # retrieve pages
             start = time.perf_counter()
 
-            blocks = [ await notion_client.get(pg['blocks']) for pg in bk['pages'] ]
-            blocks = [ json.loads(x)['results'] for x in blocks ]
+            pages = [ await notion_client.post(bk['pages'], json=payload) for bk in c['books'] ]
+            pages = [ json.loads(x)['results'] for x in pages]
+            description = [ await notion_client.get(bk['description']) for bk in c['books']]
+            description = [ json.loads(x) for x in description ]
 
-            blocks = await upload_images(blocks)
-            blocks = await get_video_meta(blocks)
-            blocks = await get_synced_blocks(blocks)
-            blocks = await get_children(blocks)
+            for bk in c['books']:
+                bk['description'] = [ x for x in description if x['id'] == bk['id'] ][0]['description']
 
-            for pg in bk['pages']:
-                pg['blocks'] = [ y for x in blocks for y in x if y['parent']['page_id'] == pg['id'] ] 
+                bk['pages'] = [ dict(
+                    id=get_mention_page(y),
+                    title=y['properties']['Title']['title'][0]['plain_text'],
+                    url=y['url'],
+                    created_time=y['created_time'],
+                    last_edited_time=y['last_edited_time'],
+                    seq=y['properties']['Seq. ID']['number'],
+                    progress=y['properties']['Progress']['select']['name'],
+                    version=y['properties']['Version']['rich_text'][0]['plain_text'],
+                    tags=[ t['name'] for t in y['properties']['Tags']['multi_select'] ],
+                    blocks=[],
+                ) for x in pages for y in x if y['parent']['database_id'] == bk['id'] ]
+
+
+                remote_pages = req.get(f"https://dash.readme.com/api/v1/categories/{c['slug']}/docs", headers=rdme_headers).json()
+                remote_pages = list(filter(lambda x: x['title'] == bk['title'], remote_pages))[0]['children']
+                remote_page_titles = [ x['title'] for x in remote_pages ]
+
+                [ await rdme_client.post('/api/v1/docs', json=dict(title=x['title'], order=x['seq'], category=c['rid'], parentDoc=bk['rid'])) for x in bk['pages'] if x['title'] not in remote_page_titles ]
+
+                remote_pages = req.get(f"https://dash.readme.com/api/v1/categories/{c['slug']}/docs", headers=rdme_headers).json()
+                remote_pages = list(filter(lambda x: x['title'] == bk['title'], remote_pages))[0]['children']
+
+                for pg in bk['pages']:
+                    for r in remote_pages:
+                        if pg['title'] == r['title']:
+                            pg['rid'] = r['_id']
+                            pg['slug'] = r['slug']
+
+                # retrieve blocks
+                for pg in bk['pages']:
+                    pg['blocks'] = f"/v1/blocks/{pg['id']}/children"
 
                 end = time.perf_counter()
 
-                print(f"Time elapsed for retrieving blocks on page {pg['title']}: {end - start:0.4f} seconds")
+                print(f"Time elapsed for retrieving pages in book {bk['title']}: {end - start:0.4f} seconds")
 
-    DocWriter(categories).write_docs()
+                # retrieve blocks
+                start = time.perf_counter()
+
+                blocks = [ await notion_client.get(pg['blocks']) for pg in bk['pages'] ]
+                blocks = [ json.loads(x)['results'] for x in blocks ]
+
+                blocks = await upload_images(blocks)
+                blocks = await get_video_meta(blocks)
+                blocks = await get_synced_blocks(blocks)
+                blocks = await get_children(blocks)
+
+                for pg in bk['pages']:
+                    pg['blocks'] = [ y for x in blocks for y in x if y['parent']['page_id'] == pg['id'] ] 
+
+                    end = time.perf_counter()
+
+                    print(f"Time elapsed for retrieving blocks on page {pg['title']}: {end - start:0.4f} seconds")
+
+            DocWriter(categories).write_docs()
 
 if __name__ == '__main__':
     load_dotenv()
