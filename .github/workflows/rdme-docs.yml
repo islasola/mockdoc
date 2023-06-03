@@ -53,10 +53,10 @@ jobs:
         run: |
           python3 ./scripts/clean.py
 
-      - name: Run `openapi` command 🚀
-        uses: readmeio/rdme@v8
-        with:
-          rdme: openapi ./apis/clean.json --key=${{ secrets.README_API_KEY }} --id=646c6839f37b8702cd86a6fe --useSpecVersion --update
+      # - name: Run `openapi` command 🚀
+      #   uses: readmeio/rdme@v8
+      #   with:
+      #     rdme: openapi ./apis/clean.json --key=${{ secrets.README_API_KEY }} --id=646c6839f37b8702cd86a6fe --useSpecVersion --update
 
       - name: Generate restful reference 🚀
         run: |
