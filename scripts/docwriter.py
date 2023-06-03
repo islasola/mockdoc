@@ -226,7 +226,7 @@ class DocWriter:
     
     def __link_to_page(self, block):
         page_id = block['link_to_page']['page_id']
-        page = list(filter(lambda x: ''.join(x['id'].split('-')) == page_id, self.pages))
+        page = list(filter(lambda x: ''.join(x['id'].split('-') == page_id), self.pages))
         if len(page):
             return f"[{page['title']}](doc:{page['slug']})\n\n"
         else:
