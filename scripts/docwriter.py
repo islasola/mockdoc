@@ -51,16 +51,15 @@ class DocWriter:
                                                 page_id = re.search(r'[a-f0-9]{32}#[a-f0-9]{32}$', url).group().split('#')[0]
                                                 section_id = re.search(r'[a-f0-9]{32}#[a-f0-9]{32}$', url).group().split('#')[1]
 
-                                            page = self.__get_page_slug_by_id(page_id)
-                                            section = self.__get_section_by_id(page_id, section_id)
-                                            if page:
-                                                if section:
-                                                    segment['text']['link']['url'] = f"doc:{page['slug']}#{section}"
+                                            page_slug = self.__get_page_slug_by_id(page_id)
+                                            section_slug = self.__get_section_by_id(page_id, section_id)
+                                            if page_slug:
+                                                if section_slug:
+                                                    segment['text']['link']['url'] = f"doc:{page_slug}#{section_slug}"
                                                 else:
-                                                    segment['text']['link']['url'] = f"doc:{page['slug']}"
+                                                    segment['text']['link']['url'] = f"doc:{page_slug}"
                                             else:
-                                                segment['text']['link']['url'] = None
-     
+                                                print(page['title'])
                                                 self.vault.append(f"[WARNING] Link to {page_id} on page {page['title']} not found, link to it will be broken!")
 
     def __get_page_slug_by_id(self, page_id):
@@ -279,11 +278,11 @@ class DocWriter:
     
     def __link_to_page(self, block):
         page_id = ''.join(block['link_to_page']['page_id'].split('-'))
-        page = self.__get_page_slug_by_id(page_id)
+        page = [ p for p in self.pages if ''.join(p['id'].split('-')) == page_id ]
         if page:
-            return f"[{page['title']}](doc:{page['slug']})\n\n"
+            return f"[{page[0]['title']}](doc:{page[0]['slug']})\n\n"
         else:
-            self.vault.append(f"[WARNING] Link to {page_id} on page {page['title']} not found, link to it will be broken!")
+            self.vault.append(f"[WARNING] Link to {page_id} on {self.current_page['title']} not found, link to it will be broken!")
     
     def __table(self, block, indent):
         rows = block['table']['children']
@@ -350,6 +349,7 @@ slug: {slug}
 """)
 
     def __page(self, category, book, page):
+        self.current_page = page
         title = page['title']
         slug = page['slug']
         blocks = page['blocks']
