@@ -1,5 +1,6 @@
 import re
 import json
+from slugify import slugify
 
 
 class DocWriter:
@@ -9,11 +10,7 @@ class DocWriter:
         self.output = output
         self.indent = indent
         self.vault = []
-        self.pages = [ dict(
-            id=''.join(p['id'].split('-')),
-            title=p['title'],
-            slug=p['slug'],
-        ) for c in docs for b in c['books'] for p in b['pages'] ]
+        self.pages = [ p for c in docs for b in c['books'] for p in b['pages'] ]
         self.__replace_links()
 
     def write_docs(self):
@@ -47,20 +44,40 @@ class DocWriter:
                                     if segment['text']['link']:
                                         url = segment['text']['link']['url']
                                         if url.startswith('https://www.notion.so/') or url.startswith('/'):
-                                            page_id = url.split('/')[-1]
+                                            if '#' not in url:
+                                                page_id = re.search(r'[a-f0-9]{32}$', url).group()
+                                                section_id = None
+                                            else:
+                                                page_id = re.search(r'[a-f0-9]{32}#[a-f0-9]{32}$', url).group().split('#')[0]
+                                                section_id = re.search(r'[a-f0-9]{32}#[a-f0-9]{32}$', url).group().split('#')[1]
+
                                             page = self.__get_page_slug_by_id(page_id)
+                                            section = self.__get_section_by_id(page_id, section_id)
                                             if page:
-                                                segment['text']['link']['url'] = f"doc:{page['slug']}"
+                                                if section:
+                                                    segment['text']['link']['url'] = f"doc:{page['slug']}#{section}"
+                                                else:
+                                                    segment['text']['link']['url'] = f"doc:{page['slug']}"
                                             else:
                                                 segment['text']['link']['url'] = None
-                                                self.vault.append(f"[WARNING] {page_id} not found, link to it will be broken\n\n")
+     
+                                                self.vault.append(f"[WARNING] Link to {page_id} on page {page['title']} not found, link to it will be broken!")
 
     def __get_page_slug_by_id(self, page_id):
-        page = list(filter(lambda x: x['id'] == page_id, self.pages))
+        page = list(filter(lambda x: ''.join(x['id'].split('-')) == page_id, self.pages))
         if page:
             return page[0]
-        else:
-            self.vault.append(f"[WARNING] {page_id} not found, link to it will be broken\n\n")
+    
+    def __get_section_by_id(self, page_id, section_id):
+        page = list(filter(lambda x: ''.join(x['id'].split('-')) == page_id, self.pages))
+        if page:
+            page = page[0]
+            section = list(filter(lambda x: ''.join(x['id'].split('-')) == page_id == section_id, page['blocks']))
+            if section:
+                try:
+                    section = slugify(section[0][section[0]['type']]['rich_text'][0]['plain_text'].lower())
+                except:
+                    self.vault.append(f"[WARNING] Section {section_id} on page {page['title']} not found, link to it will be broken!") 
 
     def __markdown(self, blocks=None, indent=0):
         markdown = []
@@ -266,7 +283,7 @@ class DocWriter:
         if page:
             return f"[{page['title']}](doc:{page['slug']})\n\n"
         else:
-            self.vault.append(f"[WARNING] {page_id} not found, link to it will be broken\n\n")
+            self.vault.append(f"[WARNING] Link to {page_id} on page {page['title']} not found, link to it will be broken!")
     
     def __table(self, block, indent):
         rows = block['table']['children']
