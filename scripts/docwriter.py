@@ -350,7 +350,7 @@ slug: {page['slug']}
 
 ## Contents
 
-{'/n'.join(question_text)}
+{'\n'.join(question_text)}
 
 ## FAQs
 
