@@ -49,6 +49,7 @@ class DocWriter:
                                             if page:
                                                 segment['text']['link']['url'] = f"doc:{page['slug']}"
                                             else:
+                                                segment['text']['link']['url'] = None
                                                 self.vault.append(f"[WARNING] {page_id} not found, link to it will be broken\n\n")
 
     def __get_page_slug_by_id(self, page_id):
@@ -86,7 +87,9 @@ class DocWriter:
                 markdown.append(indent * ' ' + self.__link_preview(block))
                 prev_block_type = block['type']
             elif block['type'] == 'link_to_page':
-                markdown.append(indent * ' ' + self.__link_to_page(block))
+                link_to_page = self.__link_to_page(block)
+                if link_to_page:
+                    markdown.append(indent * ' ' + link_to_page)
                 prev_block_type = block['type']
             elif block['type'] == 'table':
                 markdown.append(self.__table(block, indent=indent))
