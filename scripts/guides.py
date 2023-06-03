@@ -205,7 +205,7 @@ async def get_faqs(category):
         json.dump(faqs_categories, f, indent=4)
 
     ## Generate doc pages
-    DocWriter(faqs_categories, type="faqs").write_faqs(category['id'])
+    DocWriter(faqs_categories, type="faqs").write_faqs(category['rid'])
 
 def get_mention_page(page_meta):
     id = page_meta['id']
