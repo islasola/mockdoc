@@ -180,11 +180,12 @@ async def get_faqs(category):
         faqs_categories[i] = dict(category=faqs_category, questions=questions)
 
     remotes = json.loads(await rdme_client.get(f"/api/v1/categories/{category['slug']}/docs"))
+    remote_titles = [ x['title'].split(": ")[1] for x in remotes ]
 
     faqs_categories_to_add = []
     
     for faqs_category in faqs_categories:
-        if not [ x for x in remotes if x['title'].split(": ")[1] == faqs_category['category'] ]:
+        if faqs_category['category'] not in remote_titles:
             faqs_categories_to_add.append(faqs_category['category'])
 
     faqs_categories_to_add = list(set(faqs_categories_to_add))
