@@ -146,7 +146,7 @@ async def upload_images(blocks):
     print(f"Time elapsed for uploading images: {end - start:0.4f} seconds")
     return b
 
-async def faqs(category):
+async def get_faqs(category):
     query = {
         "filter": {
             "property": "Added to FAQ?",
@@ -184,13 +184,8 @@ async def faqs(category):
     faqs_categories_to_add = []
     
     for faqs_category in faqs_categories:
-        for remote in remotes:
-            if faqs_category['category'] == remote['title'].split(": ")[1]:
-                faqs_category['rid'] = remote['_id']
-                faqs_category['slug'] = remote['slug']
-                break
-            else:
-                faqs_categories_to_add.append(faqs_category['category'])
+        if not [ x for x in remotes if x['title'].split(": ")[1] == faqs_category['category'] ]:
+            faqs_categories_to_add.append(faqs_category['category'])
 
     faqs_categories_to_add = list(set(faqs_categories_to_add))
     print(faqs_categories_to_add)
@@ -198,11 +193,13 @@ async def faqs(category):
     if faqs_categories_to_add:
         [ await rdme_client.post('/api/v1/docs', json={"title": f"FAQs: {x}", "category": category['rid']}) for x in faqs_categories_to_add ]
 
-    remote = json.loads(await rdme_client.get(f"/api/v1/categories/{category['slug']}/docs"))
+    remotes = json.loads(await rdme_client.get(f"/api/v1/categories/{category['slug']}/docs"))
 
     for faqs_category in faqs_categories:
-        if 'rid' not in faqs_category:
-            faqs_category['rid'] = [ x['_id'] for x in remote if x['title'].split(": ")[1] == faqs_category['category'] ][0]
+        for remote in remotes:
+            if remote['title'].split(": ")[1] == faqs_category['category']:
+                faqs_category['rid'] = remote['_id']
+                faqs_category['slug'] = remote['slug']
 
     with open('faqs.json', 'w') as f:
         json.dump(faqs_categories, f, indent=4)
@@ -241,6 +238,8 @@ def replace_links(pages, flat_pages, work_type='blocks'):
                     replace_links(block['children'], flat_pages, work_type='children')
                 else:
                     print(f"Block has children but no children: {block['id']}") 
+
+    return pages
 
 async def main():
     # retrieve categories
@@ -388,28 +387,28 @@ async def main():
 
                 print(f"Time elapsed for retrieving blocks on page {pg['title']}: {end - start:0.4f} seconds")
 
+    guides = [ c for c in categories if c['title'] != 'FAQs' ]
+
     flat_pages = [ dict(
         id=p['id'],
         title=p['title'],
         rid=p['rid'],
         slug=p['slug'],
         blocks=p['blocks'],
-    ) for c in categories if c['title'] != 'FAQs' for b in c['books'] for p in b['pages']]
+    ) for c in guides for b in c['books'] for p in b['pages']]
 
-    for c in categories:
-        if c['title'] == 'FAQs':
-            break;
-
+    for c in guides:
         for b in c['books']:
             b['pages'] = replace_links(b['pages'], flat_pages)
 
-    guides = [ c for c in categories if c['title'] != 'FAQs' ]
+    with open('guides.json', 'w') as f:
+        json.dump(guides, f, indent=4)    
 
     DocWriter(guides).write_docs()
 
     faqs = [ c for c in categories if c['title'] == 'FAQs' ][0]
 
-    await faqs(c)
+    await get_faqs(faqs)
 
 if __name__ == '__main__':
     load_dotenv()

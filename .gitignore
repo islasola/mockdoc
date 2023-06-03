@@ -4,3 +4,5 @@ docs/*.md
 vscode
 .env
 faqs.json
+guides.json
+categories.json

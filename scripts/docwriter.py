@@ -248,7 +248,14 @@ class DocWriter:
             return f"[{page['title']}](doc:{page['slug']})\n\n"
         else:
             self.vault.append(f"[WARNING] {page_id} not found, link to it will be broken\n\n")
-    
+
+    def __get_page_slug_by_id(self, page_id):
+        page = list(filter(lambda x: x['id'] == page_id, self.pages))
+        if page:
+            return page[0]
+        else:
+            self.vault.append(f"[WARNING] {page_id} not found, link to it will be broken\n\n")
+
     def __table(self, block, indent):
         rows = block['table']['children']
         rows_length_matrix = map(self.__table_row_cell_lengths, rows)
