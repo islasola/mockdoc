@@ -392,12 +392,6 @@ if __name__ == '__main__':
                 {
                     "property": "Title",
                     "rich_text": {
-                        "does_not_equal": "FAQs"
-                    }
-                },
-                {
-                    "property": "Title",
-                    "rich_text": {
                         "does_not_equal": "API Reference"
                     }
                 },
