@@ -269,6 +269,7 @@ async def main():
     for i, c in enumerate(categories):
         if c['title'] == 'FAQs':
             await faqs(c)
+            continue
 
         docs_to_create = []
         for book in c['books']:
