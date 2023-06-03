@@ -338,7 +338,7 @@ parentDoc: {book}
 """)
             
     def __faqs(self, faqs_id, page):
-        question_text = [ '- ' + x['question'] for x in page['questions'] ]
+        question_text = '\n'.join([ '- ' + x['question'] for x in page['questions'] ])
         answer_blocks = [ y for x in page['questions'] for y in x['answer'] ]
 
         with open(f"{self.output}/{page['slug']}.md", 'w') as f:
@@ -350,7 +350,7 @@ slug: {page['slug']}
 
 ## Contents
 
-{'\n'.join(question_text)}
+{question_text}
 
 ## FAQs
 
