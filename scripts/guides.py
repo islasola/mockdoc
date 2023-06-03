@@ -393,17 +393,22 @@ async def main():
         rid=p['rid'],
         slug=p['slug'],
         blocks=p['blocks'],
-    ) for c in categories for b in c['books'] for p in b['pages']]
-
-    for c in categories:
-        for b in c['books']:
-            b['pages'] = replace_links(b['pages'], flat_pages)
-
-    DocWriter(categories).write_docs()
+    ) for c in categories if c['title'] != 'FAQs' for b in c['books'] for p in b['pages']]
 
     for c in categories:
         if c['title'] == 'FAQs':
-            await faqs(c)
+            break;
+
+        for b in c['books']:
+            b['pages'] = replace_links(b['pages'], flat_pages)
+
+    guides = [ c for c in categories if c['title'] != 'FAQs' ]
+
+    DocWriter(guides).write_docs()
+
+    faqs = [ c for c in categories if c['title'] == 'FAQs' ][0]
+
+    await faqs(c)
 
 if __name__ == '__main__':
     load_dotenv()
