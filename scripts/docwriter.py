@@ -8,7 +8,13 @@ class DocWriter:
         self.docs = docs
         self.output = output
         self.indent = indent
-        self.pages = [ p for c in docs for b in c['books'] for p in b['pages'] ]
+        self.vault = []
+        self.pages = [ dict(
+            id=''.join(p['id'].split('-')),
+            title=p['title'],
+            slug=p['slug'],
+        ) for c in docs for b in c['books'] for p in b['pages'] ]
+        self.__replace_links()
 
     def write_docs(self):
         for category in self.docs:
@@ -26,6 +32,26 @@ class DocWriter:
                 for page in book['pages']:
                     if page['slug'] == page_slug:
                         self.__page(category['rid'], book['rid'], page)
+
+    def __replace_links(self):
+        for category in self.docs:
+            for book in category['books']:
+                for page in book['pages']:
+                    for block in page['blocks']:
+                        if 'rich_text' in block[block['type']]:
+                            for segment in block[block['type']]['rich_text']:
+                                if segment['type'] == 'text':
+                                    if segment['text']['link']:
+                                        url = segment['text']['link']['url']
+                                        segment['text']['link']['url'] = re.sub(r'^/([a-z0-9]{32})', f'doc:{self.__get_page_slug_by_id(r'\1')['slug']}', url)
+                                        segment['text']['link']['url'] = re.sub(r'-([a-z0-9]{32}$)', f'doc:{self.__get_page_slug_by_id(r'\1')['slug']}', url)
+
+    def __get_page_slug_by_id(self, page_id):
+        page = list(filter(lambda x: x['id'] == page_id, self.pages))
+        if page:
+            return page[0]
+        else:
+            self.vault.append(f"[WARNING] {page_id} not found, link to it will be broken\n\n")
 
     def __markdown(self, blocks=None, indent=0):
         markdown = []
@@ -132,7 +158,6 @@ class DocWriter:
         
         return '\n'.join(code_lines)
 
-
     def __code(self, block, indent, tabSize=4):
         caption = block['code']['caption']
 
@@ -226,11 +251,11 @@ class DocWriter:
     
     def __link_to_page(self, block):
         page_id = block['link_to_page']['page_id']
-        page = list(filter(lambda x: ''.join(x['id'].split('-') == page_id), self.pages))
-        if len(page):
+        page = self.__get_page_slug_by_id(page_id)
+        if page:
             return f"[{page['title']}](doc:{page['slug']})\n\n"
         else:
-            return f"[{page_id}](doc:{page_id})\n\n"
+            self.vault.append(f"[WARNING] {page_id} not found, link to it will be broken\n\n")
     
     def __table(self, block, indent):
         rows = block['table']['children']
