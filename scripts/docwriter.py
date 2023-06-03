@@ -16,7 +16,6 @@ class DocWriter:
                 title=p['title'],
                 slug=p['slug'],
             ) for c in docs for b in c['books'] for p in b['pages'] ]
-            self.__replace_links()
         elif type == 'faqs':
             self.pages = docs
 
@@ -43,32 +42,6 @@ class DocWriter:
     def write_faqs(self, faqs_id):
         for page in self.pages:
             self.__faqs(faqs_id, page)
-
-    def __replace_links(self):
-        for category in self.docs:
-            for book in category['books']:
-                for page in book['pages']:
-                    for block in page['blocks']:
-                        if 'rich_text' in block[block['type']]:
-                            for segment in block[block['type']]['rich_text']:
-                                if segment['type'] == 'text':
-                                    if segment['text']['link']:
-                                        url = segment['text']['link']['url']
-                                        if url.startswith('https://www.notion.so/') or url.startswith('/'):
-                                            page_id = url.split('/')[-1]
-                                            page = self.__get_page_slug_by_id(page_id)
-                                            if page:
-                                                segment['text']['link']['url'] = f"doc:{page['slug']}"
-                                            else:
-                                                segment['text']['link']['url'] = None
-                                                self.vault.append(f"[WARNING] {page_id} not found, link to it will be broken\n\n")
-
-    def __get_page_slug_by_id(self, page_id):
-        page = list(filter(lambda x: x['id'] == page_id, self.pages))
-        if page:
-            return page[0]
-        else:
-            self.vault.append(f"[WARNING] {page_id} not found, link to it will be broken\n\n")
 
     def __markdown(self, blocks=None, indent=0):
         markdown = []

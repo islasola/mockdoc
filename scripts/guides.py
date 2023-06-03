@@ -265,10 +265,6 @@ async def main():
 
     remote_books = [ await rdme_client.get(f"/api/v1/categories/{x['slug']}/docs") for x in categories ]
     remote_books = [ json.loads(x) for x in remote_books ]
-    
-    for c in categories:
-        if c['title'] == 'FAQs':
-            await faqs(c)
 
     for i, c in enumerate(categories):
         docs_to_create = []
@@ -363,6 +359,10 @@ async def main():
                 print(f"Time elapsed for retrieving blocks on page {pg['title']}: {end - start:0.4f} seconds")
 
     DocWriter(categories).write_docs()
+
+    for c in categories:
+        if c['title'] == 'FAQs':
+            await faqs(c)
 
 if __name__ == '__main__':
     load_dotenv()
