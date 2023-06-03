@@ -293,14 +293,14 @@ async def main():
     remote_books = [ json.loads(x) for x in remote_books ]
 
     for i, c in enumerate(categories):
-        if book['title'] == 'FAQs':
-            continue
-
         docs_to_create = []
         for book in c['books']:
             book['id'] = book['id']
             book['title'] = book['child_database']['title'][3:]
-            book['seq'] = int(book['child_database']['title'][:2])
+            try:
+                book['seq'] = int(book['child_database']['title'][:2])
+            except:
+                continue
             book['pages']=f"/v1/databases/{book['id']}/query"
             book['description']=f"/v1/databases/{book['id']}"
             if book['title'] not in [x['title'] for x in remote_books[i]]:
