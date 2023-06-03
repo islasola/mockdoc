@@ -22,6 +22,9 @@ class DocWriter:
                 for page in book['pages']:
                     self.__page(category['rid'], book['rid'], page)
                 self.__overview(category['rid'], book)
+            
+        for warnings in self.vault:
+            print(warnings)
 
     def write_page(self, page_slug):
         for category in self.docs:
@@ -258,7 +261,7 @@ class DocWriter:
         return f"$${expression}$$\n\n"
     
     def __link_to_page(self, block):
-        page_id = block['link_to_page']['page_id']
+        page_id = ''.join(block['link_to_page']['page_id'].split('-'))
         page = self.__get_page_slug_by_id(page_id)
         if page:
             return f"[{page['title']}](doc:{page['slug']})\n\n"
