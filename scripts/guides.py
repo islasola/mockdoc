@@ -157,7 +157,7 @@ async def faqs(category):
 
     faqs = await notion_client.post(f"/v1/databases/{FAQS_DATABASE_ID}/query", json=query)
 
-    print(faqs)
+    print(faqs['results'])
 
     faqs_categories = list(set([ x['properties']['Category']['multi_select'][0]['name'] for x in faqs['results'] ]))
     faqs_questions = [ dict(category=x['properties']['Category']['multi_select'][0]['name'], question=x['properties']['Question']['title'][0]['plain_text']) for x in faqs['results'] ]
