@@ -295,16 +295,16 @@ async def main():
     for i, c in enumerate(categories):
         docs_to_create = []
         for book in c['books']:
-            book['id'] = book['id']
-            book['title'] = book['child_database']['title'][3:]
             try:
+                book['id'] = book['id']
+                book['title'] = book['child_database']['title'][3:]
                 book['seq'] = int(book['child_database']['title'][:2])
+                book['pages']=f"/v1/databases/{book['id']}/query"
+                book['description']=f"/v1/databases/{book['id']}"
+                if book['title'] not in [x['title'] for x in remote_books[i]]:
+                    docs_to_create.append({"title": book['title'], "order": book['seq'], "category": c['rid']})
             except:
                 break
-            book['pages']=f"/v1/databases/{book['id']}/query"
-            book['description']=f"/v1/databases/{book['id']}"
-            if book['title'] not in [x['title'] for x in remote_books[i]]:
-                docs_to_create.append({"title": book['title'], "order": book['seq'], "category": c['rid']})
 
         [ await rdme_client.post('/api/v1/docs', json=x) for x in docs_to_create ]
 
@@ -312,6 +312,9 @@ async def main():
         remote_books[i] = req.get(f"https://dash.readme.com/api/v1/categories/{c['slug']}/docs", headers=rdme_headers).json()
 
         for x in c['books']:
+            if x['title'] == 'FAQs':
+                break
+
             for y in remote_books[i]:
                 if x['title'] == y['title']:
                     x['rid'] = y['_id']
@@ -330,6 +333,9 @@ async def main():
         description = [ json.loads(x) for x in description ]
 
         for bk in c['books']:
+            if bk['title'] == 'FAQs':
+                break
+
             bk['description'] = [ x for x in description if x['id'] == bk['id'] ][0]['description']
 
             bk['pages'] = [ dict(
