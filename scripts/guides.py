@@ -215,6 +215,30 @@ def get_mention_page(page_meta):
 
     return id
 
+def replace_links(pages, flat_pages, work_type='blocks'):
+    for page in pages:
+            for block in page[work_type]:
+                type = block['type']
+                if 'rich_text' in block[type]:
+                    for segment in block[block['type']]['rich_text']:
+                        type = segment['type']
+                        if 'link' in segment[type]:
+                            if segment[type]['link']:
+                                m = re.search(r'([a-z0-9]{32})$', segment[type]['link']['url'])
+                                if m:
+                                    slug = [p['slug'] for p in flat_pages if ''.join(p['id'].split('-')) == m.group(1)]
+                                    if slug:
+                                        segment[type]['link']['url'] = f"doc:{slug[0]}"
+                                        print(f"Page found: {m.group(1)}. Changed to \"doc:{slug[0]}\"")
+                                    else:
+                                        print(f"Page not found: {m.group(1)}")
+
+            if block['has_children']:
+                if 'children' in block:
+                    replace_links(block['children'], flat_pages, work_type='children')
+                else:
+                    print(f"Block has children but no children: {block['id']}") 
+
 async def main():
     # retrieve categories
     start = time.perf_counter()
@@ -357,6 +381,18 @@ async def main():
                 end = time.perf_counter()
 
                 print(f"Time elapsed for retrieving blocks on page {pg['title']}: {end - start:0.4f} seconds")
+
+    flat_pages = [ dict(
+        id=p['id'],
+        title=p['title'],
+        rid=p['rid'],
+        slug=p['slug'],
+        blocks=p['blocks'],
+    ) for c in categories for b in c['books'] for p in b['pages']]
+
+    for c in categories:
+        for b in c['books']:
+            b['pages'] = replace_links(b['pages'], flat_pages)
 
     DocWriter(categories).write_docs()
 
