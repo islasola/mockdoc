@@ -145,6 +145,58 @@ async def upload_images(blocks):
     print(f"Time elapsed for uploading images: {end - start:0.4f} seconds")
     return b
 
+async def faqs(category):
+    query = {
+        "filter": {
+            "property": "Added to FAQ?",
+            "checkbox": {
+                "equals": True
+            }
+        }
+    }
+
+    faqs = await notion_client.post(f"/v1/databases/{FAQS_DATABASE_ID}/query", json=query)
+
+    faqs_categories = list(set([ x['properties']['Category']['multi_select'][0]['name'] for x in faqs['results'] ]))
+    faqs_questions = [ dict(category=x['properties']['Category']['multi_select'][0]['name'], question=x['properties']['Question']['title'][0]['plain_text']) for x in faqs['results'] ]
+    faqs_answers = [ await notion_client.get(f"/v1/blocks/{x['id']}/children") for x in faqs['results'] ]
+    
+    faqs_questions = [ dict(category=question['category'], question=question['question'], answer=answer) for question, answer in zip(faqs_questions, faqs_answers) ]
+
+    for faqs_category in faqs_categories:
+        questions = []
+        for faqs_question in faqs_questions:
+            if faqs_question['category'] == faqs_category:
+                questions.append(faqs_question)
+
+        faqs_category = dict(category=faqs_category, questions=questions)
+
+    remotes = await rdme_client.get(f"/api/v1/categories/{category['slug']}/docs")
+    remote_titles = [ x['title'].split(": ")[1] for x in remotes ]
+
+    faqs_categories_to_add = []
+    for remote in remotes:
+        for faqs_category in faqs_categories:
+            if faqs_category['category'] in remote_titles:
+                faqs_category['rid'] = remote['_id']
+                faqs_category['slug'] = remote['slug']
+            else:
+                faqs_categories_to_add.append(faqs_category['category'])
+
+    faqs_categories_to_add = list(set(faqs_categories_to_add))
+
+    [ await rdme_client.post('/api/v1/docs', json={"title": f"FAQs: {x['category']}", "category": category['id']}) for x in faqs_categories_to_add ]
+
+    remote = await rdme_client.get(f"/api/v1/categories/{category['slug']}/docs")
+
+    for faqs_category in faqs_categories:
+        if 'rid' not in faqs_category:
+            faqs_category['rid'] = [ x['_id'] for x in remote if x['title'].split(": ")[1] == faqs_category['category'] ][0]
+
+    ## Generate doc pages
+    for faqs_category in faqs_categories:
+        DocWriter.write_faqs(category['id'], faqs_category)
+
 def get_mention_page(page_meta):
     id = page_meta['id']
 
@@ -205,6 +257,10 @@ async def main():
     remote_books = [ json.loads(x) for x in remote_books ]
     
     for i, c in enumerate(categories):
+        if c['title'] == 'FAQs':
+            await faqs(c)
+            continue
+
         docs_to_create = []
         for book in c['books']:
             book['id'] = book['id']
@@ -307,7 +363,8 @@ if __name__ == '__main__':
     NOTION_VERSION = os.environ.get('NOTION_VERSION')
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-    ROOT_DATABASE_ID = os.environ.get('ROOT_DATABASE_ID')    
+    ROOT_DATABASE_ID = os.environ.get('ROOT_DATABASE_ID')   
+    FAQS_DATABASE_ID = os.environ.get('FAQS_DATABASE_ID') 
 
     notion_headers = {
         "Authorization": f"Bearer {NOTION_API_KEY}",

@@ -36,6 +36,9 @@ class DocWriter:
                     if page['slug'] == page_slug:
                         self.__page(category['rid'], book['rid'], page)
 
+    def write_faqs(self, faqs_id, faqs_category):
+        self.__faqs(faqs_id, faqs_category)
+
     def __replace_links(self):
         for category in self.docs:
             for book in category['books']:
@@ -346,5 +349,22 @@ parentDoc: {book}
 ---
 
 {self.__markdown(blocks=blocks)}
+
+""")
+            
+    def __faqs(self, faqs_id, faqs_category):
+        question_text = [ '-' + x['question'] for x in faqs_category['questions'] ]
+        answer_blocks = [ y for x in faqs_category['questions'] for y in x['answer'] ]
+
+        with open(f"{self.output}/{faqs_category['slug']}.md", 'w') as f:
+            f.write(f"""---
+title: {faqs_category['title']}
+category: {faqs_id}
+slug: {faqs_category['slug']}
+---
+
+{'/n'.join(question_text)}
+
+{self.__markdown(blocks=answer_blocks)}
 
 """)
