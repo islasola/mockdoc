@@ -43,8 +43,13 @@ class DocWriter:
                                 if segment['type'] == 'text':
                                     if segment['text']['link']:
                                         url = segment['text']['link']['url']
-                                        segment['text']['link']['url'] = re.sub(r'^/([a-z0-9]{32})', f'doc:{self.__get_page_slug_by_id(r'\1')['slug']}', url)
-                                        segment['text']['link']['url'] = re.sub(r'-([a-z0-9]{32}$)', f'doc:{self.__get_page_slug_by_id(r'\1')['slug']}', url)
+                                        if url.startswith('https://www.notion.so/') or url.startswith('/'):
+                                            page_id = url.split('/')[-1]
+                                            page = self.__get_page_slug_by_id(page_id)
+                                            if page:
+                                                segment['text']['link']['url'] = f"doc:{page['slug']}"
+                                            else:
+                                                self.vault.append(f"[WARNING] {page_id} not found, link to it will be broken\n\n")
 
     def __get_page_slug_by_id(self, page_id):
         page = list(filter(lambda x: x['id'] == page_id, self.pages))
