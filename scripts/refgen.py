@@ -21,6 +21,7 @@ class RefGen:
         env.filters['res_format'] = self.res_format
         env.filters['req_format'] = self.req_format
         env.filters['list_error'] = self.list_error
+        env.filters['get_example'] = self.get_example
 
         template = env.get_template('reference.md')
 
@@ -105,6 +106,18 @@ class RefGen:
 
             with open('restref/{}.md'.format(file_name), 'w') as f:
                 f.write(t)
+
+    def get_example(self, title):
+        with open('apis/examples.md', 'r') as f:
+            lines = f.readlines()
+            start_poses = [ i for i, x in enumerate(lines) if x.startswith('## ') ]
+            titles = [ '-'.join(x.strip().split(' ')[1:]).lower() for x in lines if x.startswith('## ')]    
+
+            for i, title in enumerate(titles):
+                if title == title:
+                    end_pos = start_poses[i+1] if i+1 < len(start_poses) else len(lines)
+                    start_pos = start_poses[i] + 1
+                    return ''.join(lines[start_pos:end_pos])    
 
     def get_slug(self, docs, title):
         for doc in docs:

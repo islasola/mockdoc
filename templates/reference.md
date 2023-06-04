@@ -30,6 +30,11 @@ parentDoc: {{parent_id}}
     <span style="font-weight: bold;">{{  page_url}}</span>
 </div>
 
+---
+
+## Example
+
+{{ example | get_example }}
 
 ## Request
 
