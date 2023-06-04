@@ -1,5 +1,6 @@
 __pycache__
 restref/*.md
+sdkref/*.md
 docs/*.md
 vscode
 .env
@@ -7,4 +8,5 @@ faqs.json
 guides.json
 categories.json
 groups.json
+sdks.json
 tests
