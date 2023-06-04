@@ -278,14 +278,14 @@
         "x-apifox-folder": "Collection Operations",
         "x-apifox-status": "released",
         "deprecated": false,
-        "description": "List collections in a specified cluster.",
+        "description": "Lists collections in a cluster.",
         "tags": [
           "Collection Operations"
         ],
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Returns an list of collections in the specified cluster.",
+            "description": "Returns a list of collections in the specified cluster.",
             "content": {
               "application/json": {
                 "schema": {
@@ -304,7 +304,7 @@
         "x-apifox-folder": "Collection Operations",
         "x-apifox-status": "released",
         "deprecated": false,
-        "description": "Creates a collection in the specified cluster.",
+        "description": "Creates a collection in a cluster.",
         "tags": [
           "Collection Operations"
         ],
@@ -340,7 +340,7 @@
         "x-apifox-folder": "Collection Operations",
         "x-apifox-status": "released",
         "deprecated": false,
-        "description": "Describe a collection in detail.",
+        "description": "Describes the details of a collection.",
         "tags": [
           "Collection Operations"
         ],
@@ -348,8 +348,8 @@
           {
             "name": "collectionName",
             "in": "query",
-            "description": "The name of the collection to be described.",
-            "required": false,
+            "description": "The name of the collection to describe.",
+            "required": true,
             "example": "",
             "schema": {
               "type": "string"
@@ -377,7 +377,7 @@
         "x-apifox-folder": "Collection Operations",
         "x-apifox-status": "released",
         "deprecated": false,
-        "description": "Drops a specified collection. This operation erases your collection data. Exercise caution when perform this operation.",
+        "description": "Drops a collection. This operation erases your collection data. Exercise caution when performing this operation.",
         "tags": [
           "Collection Operations"
         ],
@@ -413,7 +413,7 @@
         "x-apifox-folder": "Vector Operations",
         "x-apifox-status": "released",
         "deprecated": false,
-        "description": "Deletes entities from a collection",
+        "description": "Deletes one or more entities from a collection.",
         "tags": [
           "Vector Operations"
         ],
@@ -548,7 +548,7 @@
         "x-apifox-folder": "Vector Operations",
         "x-apifox-status": "released",
         "deprecated": false,
-        "description": "Inserts entities in the specified collection.",
+        "description": "Inserts one or more entities into a collection.",
         "tags": [
           "Vector Operations"
         ],
@@ -614,7 +614,7 @@
         "x-apifox-folder": "Vector Operations",
         "x-apifox-status": "released",
         "deprecated": false,
-        "description": "Conducts a similarity search in the specified collection. ",
+        "description": "Conducts a similarity search in a collection. ",
         "tags": [
           "Vector Operations"
         ],
@@ -633,8 +633,7 @@
                         "description": "The precision level of the results can be adjusted using values **1**, **2**, or **3**. Higher precision levels lead to more accurate results but take longer to compute. The default value is 1, which prioritizes speed over accuracy.",
                         "default": 1
                       }
-                    },
-                    "required": []
+                    }
                   }
                 },
                 "x-apifox-orders": [
@@ -652,17 +651,22 @@
                   "limit": {
                     "type": "integer",
                     "description": "The maximum number of entities to return.",
-                    "default": 100
+                    "default": 100,
+                    "minimum": 1,
+                    "maximum": 3000
                   },
                   "offset": {
                     "type": "integer",
                     "description": "The number of entities to skip in the search results.",
-                    "default": 0
+                    "minimum": 0,
+                    "maximum": 16384,
+                    "exclusiveMinimum": true
                   },
                   "outputFields": {
                     "type": "array",
                     "items": {
-                      "type": "string"
+                      "type": "string",
+                      "default": "id, distance"
                     },
                     "description": "An array of fields to return along with the search results."
                   },
@@ -672,7 +676,8 @@
                   }
                 },
                 "required": [
-                  "collectionName"
+                  "collectionName",
+                  "vector"
                 ],
                 "x-apifox-ignore-properties": [
                   "collectionName",
@@ -728,7 +733,7 @@
         "x-apifox-folder": "Vector Operations",
         "x-apifox-status": "released",
         "deprecated": false,
-        "description": "Conducts a similarity search in the specified collection. ",
+        "description": "Conducts a vector query in a collection.",
         "tags": [
           "Vector Operations"
         ],
@@ -745,17 +750,21 @@
                   },
                   "filter": {
                     "type": "string",
-                    "description": "The filter used to find matches for the search"
+                    "description": "The filter used to find matches for the search."
                   },
                   "limit": {
                     "type": "integer",
                     "description": "The maximum number of entities to return.",
-                    "default": 100
+                    "default": 100,
+                    "minimum": 1,
+                    "maximum": 3000
                   },
                   "offset": {
                     "type": "integer",
                     "description": "The number of entities to skip in the search results.",
-                    "default": 0
+                    "minimum": 0,
+                    "exclusiveMinimum": true,
+                    "maximum": 16384
                   },
                   "outputFields": {
                     "type": "array",
@@ -774,7 +783,8 @@
                   "01H0KV6DX6NKH0PHSNRYW8XD4S"
                 ],
                 "required": [
-                  "collectionName"
+                  "collectionName",
+                  "filter"
                 ],
                 "x-apifox-ignore-properties": [
                   "collectionName",
@@ -829,7 +839,7 @@
         "x-apifox-folder": "Vector Operations",
         "x-apifox-status": "released",
         "deprecated": false,
-        "description": "Conducts a similarity search in the specified collection. ",
+        "description": "Conducts a similarity search in a collection.",
         "tags": [
           "Vector Operations"
         ],
@@ -1077,17 +1087,21 @@
           },
           "filter": {
             "type": "string",
-            "description": "The filter used to find matches for the search"
+            "description": "The filter used to find matches for the search."
           },
           "limit": {
             "type": "integer",
             "description": "The maximum number of entities to return.",
-            "default": 100
+            "default": 100,
+            "minimum": 1,
+            "maximum": 3000
           },
           "offset": {
             "type": "integer",
             "description": "The number of entities to skip in the search results.",
-            "default": 0
+            "minimum": 0,
+            "exclusiveMinimum": true,
+            "maximum": 16384
           },
           "outputFields": {
             "type": "array",
@@ -1105,7 +1119,8 @@
           "outputFields"
         ],
         "required": [
-          "collectionName"
+          "collectionName",
+          "filter"
         ],
         "x-apifox-ignore-properties": [],
         "x-apifox-folder": "Schemas"
@@ -1124,17 +1139,22 @@
           "limit": {
             "type": "integer",
             "description": "The maximum number of entities to return.",
-            "default": 100
+            "default": 100,
+            "minimum": 1,
+            "maximum": 3000
           },
           "offset": {
             "type": "integer",
             "description": "The number of entities to skip in the search results.",
-            "default": 0
+            "minimum": 0,
+            "maximum": 16384,
+            "exclusiveMinimum": true
           },
           "outputFields": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "default": "id, distance"
             },
             "description": "An array of fields to return along with the search results."
           },
@@ -1152,7 +1172,8 @@
           "vector"
         ],
         "required": [
-          "collectionName"
+          "collectionName",
+          "vector"
         ],
         "x-apifox-ignore-properties": [],
         "x-apifox-folder": "Schemas"
@@ -1288,10 +1309,14 @@
         "type": "object",
         "properties": {
           "collectionName": {
-            "type": "string"
+            "type": "string",
+            "description": "The name of the collection to delete."
           }
         },
         "x-apifox-orders": [
+          "collectionName"
+        ],
+        "required": [
           "collectionName"
         ],
         "x-apifox-ignore-properties": [],
@@ -1454,24 +1479,32 @@
         "properties": {
           "collectionName": {
             "type": "string",
-            "description": "The name of the collection to be created."
+            "description": "The name of the collection to create."
           },
           "dimension": {
             "type": "integer",
-            "description": "The number of dimensions for the vector field of the collection."
+            "description": "The number of dimensions for the vector field of the collection.",
+            "minimum": 32,
+            "maximum": 32768
           },
           "metricType": {
             "type": "string",
+            "description": "The distance metric used for the collection.",
             "default": "L2"
           },
           "primaryField": {
-            "type": "string"
+            "type": "string",
+            "description": "The primary key field.",
+            "default": "id"
           },
           "vectorField": {
-            "type": "string"
+            "type": "string",
+            "description": "The vector field.",
+            "default": "vector"
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "description": "The description of the collection"
           }
         },
         "required": [

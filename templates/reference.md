@@ -1,9 +1,35 @@
 ---
 title: {{page_title}}
 excerpt: {{page_excerpt}}
+slug: {{page_slug}}
 category: {{category_id}}
-slug: {{title_slug}}
+parentDoc: {{parent_id}}
 ---
+
+<div>
+    {%- if page_method == 'get' %}
+    <div style="display: inline-block; background: #0d8d67; font-size: 0.6em; border-radius: 10px; color: #ffffff; padding: 0.4em 1em;">
+        <span>GET</span>
+    </div>
+    {%- endif %}
+    {%- if page_method == 'post' %}
+    <div style="display: inline-block; background: #026aca; font-size: 0.6em; border-radius: 10px; color: #ffffff; padding: 0.4em 1em;">
+        <span>POST</span>
+    </div>
+    {%- endif %}
+    {%- if page_method == 'put' %}
+    <div style="display: inline-block; background: #604aa2; font-size: 0.6em; border-radius: 10px; color: #ffffff; padding: 0.4em 1em;">
+        <span>PUT</span>
+    </div>
+    {%- endif %}
+    {%- if page_method == 'delete' %}
+    <div style="display: inline-block; background: #b91926; font-size: 0.6em; border-radius: 10px; color: #ffffff; padding: 0.4em 1em;">
+        <span>DELETE</span>
+    </div>
+    {%- endif %}
+    <span style="font-weight: bold;">{{  page_url}}</span>
+</div>
+
 
 ## Request
 

@@ -7,9 +7,6 @@ def del_examples(body):
         if 'properties' in body['properties'][prop]:
             del_examples(body['properties'][prop])
 
-    print('examples' in body)
-
-
 if __name__ == '__main__':
 
     with open('apis/openapi.json', 'r') as f:

@@ -278,6 +278,10 @@
                                                                         "type": "string",
                                                                         "description": "An optional description about the cluster."
                                                                     },
+                                                                    "regionId": {
+                                                                        "type": "string",
+                                                                        "description": "The ID of the region where the cluster exists."
+                                                                    },
                                                                     "clusterType": {
                                                                         "type": "string",
                                                                         "description": "The type of CU associated with the cluster. Possible values are **Performance-optimized** and **Capacity-optimized**."
@@ -307,12 +311,16 @@
                                                                     "clusterId",
                                                                     "clusterName",
                                                                     "description",
+                                                                    "regionId",
                                                                     "clusterType",
                                                                     "cuSize",
                                                                     "status",
                                                                     "connectAddress",
                                                                     "privateLinkAddress",
                                                                     "createTime"
+                                                                ],
+                                                                "required": [
+                                                                    "regionId"
                                                                 ],
                                                                 "x-apifox-ignore-properties": []
                                                             },
@@ -395,86 +403,151 @@
                                         },
                                         "data": {
                                             "type": "object",
-                                            "properties": {
-                                                "clusters": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "type": "object",
-                                                        "properties": {
-                                                            "clusterId": {
-                                                                "type": "string",
-                                                                "description": "The ID of the cluster."
-                                                            },
-                                                            "clusterName": {
-                                                                "type": "string",
-                                                                "description": "The Name of the cluster."
-                                                            },
-                                                            "clusterType": {
-                                                                "type": "string",
-                                                                "description": "The type of the CU associated with the cluster."
-                                                            },
-                                                            "connectAddress": {
-                                                                "type": "string",
-                                                                "description": "The public endpoint of the cluster. You can use this to connect to your cluster from public networks."
-                                                            },
-                                                            "createTime": {
-                                                                "type": "string",
-                                                                "description": "The time when this cluster has been creaated."
-                                                            },
-                                                            "cuSize": {
-                                                                "type": "integer",
-                                                                "description": "The size of the CU associated with the cluster."
-                                                            },
-                                                            "description": {
-                                                                "type": "string",
-                                                                "description": "An optional description of the cluster."
-                                                            },
-                                                            "privateLinkAddress": {
-                                                                "type": "string",
-                                                                "description": "The private endpoint of the cluster. You can use this to connect to your cluster from your VPSs in the same cloud region."
-                                                            },
-                                                            "status": {
-                                                                "type": "string",
-                                                                "description": "The current status of the cluster. Possible values are **CREATING**, **RUNNING**, **SUSPENDING**, and **RESUMING**."
-                                                            }
+                                            "x-apifox-refs": {
+                                                "01H1RF3YYDEJQV8V95B61TT8V7": {
+                                                    "x-apifox-overrides": {},
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "clusterId": {
+                                                            "type": "string",
+                                                            "description": "The ID of the cluster."
                                                         },
-                                                        "x-apifox-orders": [
-                                                            "clusterId",
-                                                            "clusterName",
-                                                            "clusterType",
-                                                            "connectAddress",
-                                                            "createTime",
-                                                            "cuSize",
-                                                            "description",
-                                                            "privateLinkAddress",
-                                                            "status"
-                                                        ],
-                                                        "x-apifox-ignore-properties": [],
-                                                        "x-apifox-folder": "Schemas"
+                                                        "clusterName": {
+                                                            "type": "string",
+                                                            "description": "The Name of the cluster."
+                                                        },
+                                                        "description": {
+                                                            "type": "string",
+                                                            "description": "An optional description of the cluster."
+                                                        },
+                                                        "regionId": {
+                                                            "type": "string",
+                                                            "description": "The ID of the cloud region where the cluster exists."
+                                                        },
+                                                        "clusterType": {
+                                                            "type": "string",
+                                                            "description": "The type of the CU associated with the cluster."
+                                                        },
+                                                        "cuSize": {
+                                                            "type": "string",
+                                                            "description": "The size of the CU used by the cluster."
+                                                        },
+                                                        "status": {
+                                                            "type": "string",
+                                                            "description": "The current status of the cluster. Possible values are **CREATING**, **RUNNING**, **SUSPENDING**, and **RESUMING**."
+                                                        },
+                                                        "connectAddress": {
+                                                            "type": "string",
+                                                            "description": "The public endpoint of the cluster. You can use this to connect to your cluster from public networks."
+                                                        },
+                                                        "privateLinkAddress": {
+                                                            "type": "string",
+                                                            "description": "The private endpoint of the cluster. You can use this to connect to your cluster from your VPSs in the same cloud region."
+                                                        },
+                                                        "createTime": {
+                                                            "type": "string",
+                                                            "description": "The time when this cluster has been creaated."
+                                                        }
                                                     },
-                                                    "description": "An array of clusters in detail."
-                                                },
-                                                "count": {
-                                                    "type": "integer",
-                                                    "description": "The total number of clusters returned."
-                                                },
-                                                "currentPage": {
-                                                    "type": "integer",
-                                                    "description": "The current page of the returned results."
-                                                },
-                                                "pageSize": {
-                                                    "type": "integer",
-                                                    "description": "The number of clusters listed on each page."
+                                                    "x-apifox-orders": [
+                                                        "clusterId",
+                                                        "clusterName",
+                                                        "description",
+                                                        "regionId",
+                                                        "clusterType",
+                                                        "cuSize",
+                                                        "status",
+                                                        "connectAddress",
+                                                        "privateLinkAddress",
+                                                        "createTime"
+                                                    ],
+                                                    "required": [
+                                                        "regionId",
+                                                        "cuSize"
+                                                    ],
+                                                    "x-apifox-ignore-properties": [],
+                                                    "x-apifox-folder": "Schemas"
                                                 }
                                             },
-                                            "x-apifox-orders": [
-                                                "clusters",
-                                                "count",
-                                                "currentPage",
-                                                "pageSize"
+                                            "properties": {
+                                                "clusterId": {
+                                                    "type": "string",
+                                                    "description": "The ID of the cluster."
+                                                },
+                                                "clusterName": {
+                                                    "type": "string",
+                                                    "description": "The Name of the cluster."
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "description": "An optional description of the cluster."
+                                                },
+                                                "regionId": {
+                                                    "type": "string",
+                                                    "description": "The ID of the cloud region where the cluster exists."
+                                                },
+                                                "clusterType": {
+                                                    "type": "string",
+                                                    "description": "The type of the CU associated with the cluster."
+                                                },
+                                                "cuSize": {
+                                                    "type": "string",
+                                                    "description": "The size of the CU used by the cluster."
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "description": "The current status of the cluster. Possible values are **CREATING**, **RUNNING**, **SUSPENDING**, and **RESUMING**."
+                                                },
+                                                "connectAddress": {
+                                                    "type": "string",
+                                                    "description": "The public endpoint of the cluster. You can use this to connect to your cluster from public networks."
+                                                },
+                                                "privateLinkAddress": {
+                                                    "type": "string",
+                                                    "description": "The private endpoint of the cluster. You can use this to connect to your cluster from your VPSs in the same cloud region."
+                                                },
+                                                "createTime": {
+                                                    "type": "string",
+                                                    "description": "The time when this cluster has been creaated."
+                                                },
+                                                "storageSize": {
+                                                    "type": "string",
+                                                    "description": "The storage size of the cluster."
+                                                },
+                                                "snapshotNumber": {
+                                                    "type": "string",
+                                                    "description": "The number of snapshofts created from the cluster."
+                                                },
+                                                "createProgress": {
+                                                    "type": "string",
+                                                    "description": "The creation progress of the cluster."
+                                                }
+                                            },
+                                            "required": [
+                                                "storageSize",
+                                                "snapshotNumber",
+                                                "createProgress",
+                                                "regionId",
+                                                "cuSize"
                                             ],
-                                            "x-apifox-ignore-properties": [],
-                                            "x-apifox-folder": "Schemas"
+                                            "x-apifox-orders": [
+                                                "01H1RF3YYDEJQV8V95B61TT8V7",
+                                                "storageSize",
+                                                "snapshotNumber",
+                                                "createProgress"
+                                            ],
+                                            "x-apifox-ignore-properties": [
+                                                "clusterId",
+                                                "clusterName",
+                                                "description",
+                                                "regionId",
+                                                "clusterType",
+                                                "cuSize",
+                                                "status",
+                                                "connectAddress",
+                                                "privateLinkAddress",
+                                                "createTime"
+                                            ]
                                         }
                                     },
                                     "x-apifox-orders": [
@@ -629,14 +702,14 @@
                 "x-apifox-folder": "Collection Operations",
                 "x-apifox-status": "released",
                 "deprecated": false,
-                "description": "List collections in a specified cluster.",
+                "description": "Lists collections in a cluster.",
                 "tags": [
                     "Collection Operations"
                 ],
                 "parameters": [],
                 "responses": {
                     "200": {
-                        "description": "Returns an list of collections in the specified cluster.",
+                        "description": "Returns a list of collections in the specified cluster.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -672,7 +745,7 @@
                 "x-apifox-folder": "Collection Operations",
                 "x-apifox-status": "released",
                 "deprecated": false,
-                "description": "Creates a collection in the specified cluster.",
+                "description": "Creates a collection in a cluster.",
                 "tags": [
                     "Collection Operations"
                 ],
@@ -685,24 +758,32 @@
                                 "properties": {
                                     "collectionName": {
                                         "type": "string",
-                                        "description": "The name of the collection to be created."
+                                        "description": "The name of the collection to create."
                                     },
                                     "dimension": {
                                         "type": "integer",
-                                        "description": "The number of dimensions for the vector field of the collection."
+                                        "description": "The number of dimensions for the vector field of the collection.",
+                                        "minimum": 32,
+                                        "maximum": 32768
                                     },
                                     "metricType": {
                                         "type": "string",
+                                        "description": "The distance metric used for the collection.",
                                         "default": "L2"
                                     },
                                     "primaryField": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "description": "The primary key field.",
+                                        "default": "id"
                                     },
                                     "vectorField": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "description": "The vector field.",
+                                        "default": "vector"
                                     },
                                     "description": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "description": "The description of the collection"
                                     }
                                 },
                                 "required": [
@@ -762,7 +843,7 @@
                 "x-apifox-folder": "Collection Operations",
                 "x-apifox-status": "released",
                 "deprecated": false,
-                "description": "Describe a collection in detail.",
+                "description": "Describes the details of a collection.",
                 "tags": [
                     "Collection Operations"
                 ],
@@ -770,8 +851,8 @@
                     {
                         "name": "collectionName",
                         "in": "query",
-                        "description": "The name of the collection to be described.",
-                        "required": false,
+                        "description": "The name of the collection to describe.",
+                        "required": true,
                         "schema": {
                             "type": "string"
                         }
@@ -791,10 +872,6 @@
                                         "data": {
                                             "type": "object",
                                             "properties": {
-                                                "collectionId": {
-                                                    "type": "integer",
-                                                    "description": "The ID of a collection."
-                                                },
                                                 "collectionName": {
                                                     "type": "string",
                                                     "description": "The name of the collection."
@@ -883,7 +960,6 @@
                                                 }
                                             },
                                             "x-apifox-orders": [
-                                                "collectionId",
                                                 "collectionName",
                                                 "description",
                                                 "fields",
@@ -919,7 +995,7 @@
                 "x-apifox-folder": "Collection Operations",
                 "x-apifox-status": "released",
                 "deprecated": false,
-                "description": "Drops a specified collection. This operation erases your collection data. Exercise caution when perform this operation.",
+                "description": "Drops a collection. This operation erases your collection data. Exercise caution when performing this operation.",
                 "tags": [
                     "Collection Operations"
                 ],
@@ -931,10 +1007,14 @@
                                 "type": "object",
                                 "properties": {
                                     "collectionName": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "description": "The name of the collection to delete."
                                     }
                                 },
                                 "x-apifox-orders": [
+                                    "collectionName"
+                                ],
+                                "required": [
                                     "collectionName"
                                 ],
                                 "x-apifox-ignore-properties": [],
@@ -982,7 +1062,7 @@
                 "x-apifox-folder": "Vector Operations",
                 "x-apifox-status": "released",
                 "deprecated": false,
-                "description": "Deletes entities from a collection",
+                "description": "Deletes one or more entities from a collection.",
                 "tags": [
                     "Vector Operations"
                 ],
@@ -1134,7 +1214,7 @@
                 "x-apifox-folder": "Vector Operations",
                 "x-apifox-status": "released",
                 "deprecated": false,
-                "description": "Inserts entities in the specified collection.",
+                "description": "Inserts one or more entities into a collection.",
                 "tags": [
                     "Vector Operations"
                 ],
@@ -1259,7 +1339,7 @@
                 "x-apifox-folder": "Vector Operations",
                 "x-apifox-status": "released",
                 "deprecated": false,
-                "description": "Conducts a similarity search in the specified collection. ",
+                "description": "Conducts a similarity search in a collection. ",
                 "tags": [
                     "Vector Operations"
                 ],
@@ -1278,7 +1358,6 @@
                                                 "default": 1
                                             }
                                         },
-                                        "required": [],
                                         "type": "object",
                                         "properties": {
                                             "collectionName": {
@@ -1292,21 +1371,26 @@
                                             "limit": {
                                                 "type": "integer",
                                                 "description": "The maximum number of entities to return.",
-                                                "default": 100
+                                                "default": 100,
+                                                "minimum": 1,
+                                                "maximum": 3000
                                             },
                                             "offset": {
                                                 "type": "integer",
                                                 "description": "The number of entities to skip in the search results.",
-                                                "default": 0
+                                                "minimum": 0,
+                                                "maximum": 16384,
+                                                "exclusiveMinimum": true
                                             },
                                             "outputFields": {
                                                 "type": "array",
                                                 "items": {
-                                                    "type": "string"
+                                                    "type": "string",
+                                                    "default": "id, distance"
                                                 },
                                                 "description": "An array of fields to return along with the search results."
                                             },
-                                            "{vectorField}": {
+                                            "vector": {
                                                 "type": "string",
                                                 "description": "The label of this field should be the name of the indexed vector field in the collection. For example, if the name of the indexed vector field is **title_vector**, the label of this field should be **title_vector**."
                                             }
@@ -1317,7 +1401,11 @@
                                             "limit",
                                             "offset",
                                             "outputFields",
-                                            "{vectorField}"
+                                            "vector"
+                                        ],
+                                        "required": [
+                                            "collectionName",
+                                            "vector"
                                         ],
                                         "x-apifox-ignore-properties": [],
                                         "x-apifox-folder": "Schemas"
@@ -1338,27 +1426,33 @@
                                     "limit": {
                                         "type": "integer",
                                         "description": "The maximum number of entities to return.",
-                                        "default": 100
+                                        "default": 100,
+                                        "minimum": 1,
+                                        "maximum": 3000
                                     },
                                     "offset": {
                                         "type": "integer",
                                         "description": "The number of entities to skip in the search results.",
-                                        "default": 0
+                                        "minimum": 0,
+                                        "maximum": 16384,
+                                        "exclusiveMinimum": true
                                     },
                                     "outputFields": {
                                         "type": "array",
                                         "items": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "id, distance"
                                         },
                                         "description": "An array of fields to return along with the search results."
                                     },
-                                    "{vectorField}": {
+                                    "vector": {
                                         "type": "string",
                                         "description": "The label of this field should be the name of the indexed vector field in the collection. For example, if the name of the indexed vector field is **title_vector**, the label of this field should be **title_vector**."
                                     }
                                 },
                                 "required": [
-                                    "collectionName"
+                                    "collectionName",
+                                    "vector"
                                 ],
                                 "x-apifox-ignore-properties": [
                                     "collectionName",
@@ -1366,7 +1460,7 @@
                                     "limit",
                                     "offset",
                                     "outputFields",
-                                    "{vectorField}"
+                                    "vector"
                                 ]
                             }
                         }
@@ -1413,7 +1507,7 @@
                 "x-apifox-folder": "Vector Operations",
                 "x-apifox-status": "released",
                 "deprecated": false,
-                "description": "Conducts a similarity search in the specified collection. ",
+                "description": "Conducts a vector query in a collection.",
                 "tags": [
                     "Vector Operations"
                 ],
@@ -1430,17 +1524,21 @@
                                     },
                                     "filter": {
                                         "type": "string",
-                                        "description": "The filter used to find matches for the search"
+                                        "description": "The filter used to find matches for the search."
                                     },
                                     "limit": {
                                         "type": "integer",
                                         "description": "The maximum number of entities to return.",
-                                        "default": 100
+                                        "default": 100,
+                                        "minimum": 1,
+                                        "maximum": 3000
                                     },
                                     "offset": {
                                         "type": "integer",
                                         "description": "The number of entities to skip in the search results.",
-                                        "default": 0
+                                        "minimum": 0,
+                                        "exclusiveMinimum": true,
+                                        "maximum": 16384
                                     },
                                     "outputFields": {
                                         "type": "array",
@@ -1460,17 +1558,21 @@
                                             },
                                             "filter": {
                                                 "type": "string",
-                                                "description": "The filter used to find matches for the search"
+                                                "description": "The filter used to find matches for the search."
                                             },
                                             "limit": {
                                                 "type": "integer",
                                                 "description": "The maximum number of entities to return.",
-                                                "default": 100
+                                                "default": 100,
+                                                "minimum": 1,
+                                                "maximum": 3000
                                             },
                                             "offset": {
                                                 "type": "integer",
                                                 "description": "The number of entities to skip in the search results.",
-                                                "default": 0
+                                                "minimum": 0,
+                                                "exclusiveMinimum": true,
+                                                "maximum": 16384
                                             },
                                             "outputFields": {
                                                 "type": "array",
@@ -1488,7 +1590,8 @@
                                             "outputFields"
                                         ],
                                         "required": [
-                                            "collectionName"
+                                            "collectionName",
+                                            "filter"
                                         ],
                                         "x-apifox-ignore-properties": [],
                                         "x-apifox-folder": "Schemas"
@@ -1498,7 +1601,8 @@
                                     "01H0KV6DX6NKH0PHSNRYW8XD4S"
                                 ],
                                 "required": [
-                                    "collectionName"
+                                    "collectionName",
+                                    "filter"
                                 ],
                                 "x-apifox-ignore-properties": [
                                     "collectionName",
@@ -1552,7 +1656,7 @@
                 "x-apifox-folder": "Vector Operations",
                 "x-apifox-status": "released",
                 "deprecated": false,
-                "description": "Conducts a similarity search in the specified collection. ",
+                "description": "Conducts a similarity search in a collection.",
                 "tags": [
                     "Vector Operations"
                 ],
