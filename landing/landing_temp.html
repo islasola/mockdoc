@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Zilliz Cloud Developer Hub</title>
+</head>
+
+<body>
+    <div id="app">
+        <!--header-->
+        <div style="display: flex; flex-direction: row; gap: 2%;">
+            <div style="display: block; flex: 20%; cursor: pointer;" @click="this.group=0">
+                <div :class="{active_group: group==0, inactive_group: group!=0}">
+                    <div style="display: flex; flex-direction: column; row-gap: 0.4em; margin: 1.5em;">
+                        <div style="display:block; width: 40px; height: 40px; margin: auto;">
+                            <img src="https://assets.zilliz.com/zilli-cloud-101.png">
+                        </div>
+                        <div style="text-align: center;">
+                            <span :class="{active_group_caption: group==0, inactive_group_caption: group!=0}">Zilliz Cloud 101</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <span style="font-size: 0.8em; color: #647489;">A beginner's guide to using Zilliz Cloud for
+                                vector databases.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: block; flex: 20%; cursor: pointer;" @click="this.group=1">
+                <div :class="{active_group: group==1, inactive_group: group!=1}">
+                    <div style="display: flex; flex-direction: column; row-gap: 0.4em; margin: 1.5em;">
+                        <div style="display:block; width: 40px; height: 40px; margin: auto;">
+                            <img src="https://assets.zilliz.com/ai-model-integrations.png">
+                        </div>
+                        <div style="text-align: center;">
+                            <span :class="{active_group_caption: group==1, inactive_group_caption: group!=1}">AI Model Integrations</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <span style="font-size: 0.8em; color: #647489;">Learn how to integrate AI models with Zilliz
+                                Cloud vector databases.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: block; flex: 20%; cursor: pointer;" @click="this.group=2">
+                <div :class="{active_group: group==2, inactive_group: group!=2}">
+                    <div style="display: flex; flex-direction: column; row-gap: 0.4em; margin: 1.5em;">
+                        <div style="display:block; width: 40px; height: 40px; margin: auto;">
+                            <img src="https://assets.zilliz.com/advanced-user-guides.png">
+                        </div>
+                        <div style="text-align: center;">
+                            <span :class="{active_group_caption: group==2, inactive_group_caption: group!=2}">Advanced User Guides</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <span style="font-size: 0.8em; color: #647489;">In-depth guides for advanced Zilliz Cloud
+                                vector
+                                database users.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: block; flex: 20%; cursor: pointer;" @click="this.group=3">
+                <div :class="{active_group: group==3, inactive_group: group!=3}">
+                    <div style="display: flex; flex-direction: column; row-gap: 0.4em; margin: 1.5em;">
+                        <div style="display:block; width: 40px; height: 40px; margin: auto;">
+                            <img src="https://assets.zilliz.com/migration-from-milvus.png">
+                        </div>
+                        <div style="text-align: center;">
+                            <span :class="{active_group_caption: group==3, inactive_group_caption: group!=3}">Migration from Milvus</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <span style="font-size: 0.8em; color: #647489;">Find out how to migrate data from
+                                self-hosted
+                                Milvus clusters to Zilliz Cloud.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--header ends-->
+        <!--content-->
+        <div style="display: flex; flex-direction: column; row-gap: 3em; margin-top: 3em">
+            {%- for category in categories %}
+            {%- for book in category['books'] %}
+            {%- if book['children'] %}
+            <!--{{book['title']}}-->
+            <div style="display: flex; flex-direction: row; gap: 2%" v-if="group=={{category['block_id']}}">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <img src="https://assets.zilliz.com/quick-start.png" style="align-self: center;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.2em; font-weight: bold;">{{book['title']}}</span>
+                            <span style="font-size: 0.8em;">{{book['description']}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            {%- for page in book['children'] %}
+                            {%- if not page['hidden'] %}
+                            {%- if book['max'] >= 33 %}
+                            <div style="display: block; line-height: 32px; flex: 45%;">
+                                <span><a href="https://docs.zilliz.com/docs/{{page['slug']}}" target="_blank">{{page['title']}}</a></span>
+                            </div>
+                            {%- elif book['max'] < 33 %}
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span><a href="https://docs.zilliz.com/docs/{{page['slug']}}" target="_blank">{{page['title']}}</a></span>
+                            </div>  
+                            {%- endif %}   
+                            {%- endif %}                       
+                            {%- endfor %}
+                            {%- if book['counts'] == 5 %}
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span></span>
+                            </div>  
+                            {%- endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%- endif %}
+            {%- endfor %}
+            {%- endfor %}
+        </div>
+        <!--content ends-->
+    </div>
+</body>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+    const { createApp } = Vue
+
+    createApp({
+        data() {
+            return {
+                group: 0
+            }
+        }
+    }).mount('#app')
+</script>
+
+</html>
