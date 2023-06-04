@@ -34,7 +34,7 @@ parentDoc: {{parent_id}}
 
 ## Example
 
-{{ example | get_example }}
+{{ page_title | get_example }}
 
 ## Request
 

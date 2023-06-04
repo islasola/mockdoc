@@ -111,10 +111,10 @@ class RefGen:
         with open('apis/examples.md', 'r') as f:
             lines = f.readlines()
             start_poses = [ i for i, x in enumerate(lines) if x.startswith('## ') ]
-            titles = [ '-'.join(x.strip().split(' ')[1:]).lower() for x in lines if x.startswith('## ')]    
+            example_titles = [ x.strip()[3:] for x in lines if x.startswith('## ')]    
 
-            for i, title in enumerate(titles):
-                if title == title:
+            for i, example_title in enumerate(example_titles):
+                if example_title == title:
                     end_pos = start_poses[i+1] if i+1 < len(start_poses) else len(lines)
                     start_pos = start_poses[i] + 1
                     return ''.join(lines[start_pos:end_pos])    
