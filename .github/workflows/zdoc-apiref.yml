@@ -13,6 +13,7 @@ on:
       - apis/**
       - apiref/**
       - erroref
+      - templates/**
       - scripts/refgen.py
       - scripts/clean.py
       - scripts/errgen.py

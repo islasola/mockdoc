@@ -39,6 +39,8 @@ class RefGen:
                 page_slug = [ x for x in siblings if x['title'] == page_title ][0]['slug']
                 page_url = [ x for x in siblings if x['title'] == page_title ][0]['url']
                 page_method = [ x for x in siblings if x['title'] == page_title ][0]['method']
+                server = self.specifications['servers'][0]['url'].replace('{cloud-region}', 'aws-us-west-2')
+                
                 
                 if 'parameters' in self.specifications['paths'][url][method]:
                     for param in self.specifications['paths'][url][method]['parameters']:
@@ -71,6 +73,7 @@ class RefGen:
                     'category_id': self.category,
                     'parent_id': page_parent,
                     'page_url': page_url,
+                    'server': server,
                     'page_method': page_method,
                     'query_params': query_params,
                     'path_params': path_params,
