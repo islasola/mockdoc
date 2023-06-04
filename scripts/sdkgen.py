@@ -10,7 +10,7 @@ def groupgen(sdks):
             for page in group['pages']:
                 with open('sdks/{}/{}/{}.md'.format(sdk['lang'], group['title'], page['title']), 'r') as f:
                     lines = f.readlines()
-                    page_link = f"## [{page['title']}](doc:{page['slug']})"
+                    page_link = f"## [{page['title']}](ref:{page['slug']})"
                     short_desc = [ x for x in lines if re.match(r'^[A-Z]', x[0]) ][0]
                     short_descs.append('\n'.join([page_link, short_desc]))
 
