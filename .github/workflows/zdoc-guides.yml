@@ -50,4 +50,4 @@ jobs:
       - name: Run `docs` command 🚀
         uses: readmeio/rdme@v8
         with:
-          rdme: docs ./docs --key=${{ secrets.README_API_KEY }} --version={{ vars.ZDOC_VERSION }}
+          rdme: docs ./docs --key=${{ secrets.README_API_KEY }} --version=${{ vars.ZDOC_VERSION }}
