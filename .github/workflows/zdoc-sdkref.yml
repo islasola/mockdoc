@@ -23,6 +23,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SK}}
   ROOT_DATABASE_ID: ${{vars.ROOT_DATABASE}}
   FAQS_DATABASE_ID: ${{vars.FAQS_DATABASE_ID}}
+  ZDOC_VERSION: ${{vars.ZDOC_VERSION}}
   
 
 jobs:
