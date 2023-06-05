@@ -85,7 +85,7 @@
         <div style="display: flex; flex-direction: column; row-gap: 3em; margin-top: 3em">
             {%- for category in categories %}
             {%- for book in category['books'] %}
-            {%- if book['children'] %}
+            {%- if book['pages'] %}
             <!--{{book['title']}}-->
             <div style="display: flex; flex-direction: row; gap: 2%" v-if="group=={{category['block_id']}}">
                 <div style="display: block; flex: 18%">
@@ -101,8 +101,7 @@
                     <div
                         style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
                         <div style="display: flex; flex-flow: row wrap; gap: 2%">
-                            {%- for page in book['children'] %}
-                            {%- if not page['hidden'] %}
+                            {%- for page in book['pages'] %}
                             {%- if book['max'] >= 33 %}
                             <div style="display: block; line-height: 32px; flex: 45%;">
                                 <span><a href="https://docs.zilliz.com/docs/{{page['slug']}}" target="_blank">{{page['title']}}</a></span>
@@ -111,8 +110,7 @@
                             <div style="display: block; line-height: 32px; flex: 25%;">
                                 <span><a href="https://docs.zilliz.com/docs/{{page['slug']}}" target="_blank">{{page['title']}}</a></span>
                             </div>  
-                            {%- endif %}   
-                            {%- endif %}                       
+                            {%- endif %}                         
                             {%- endfor %}
                             {%- if book['counts'] == 5 %}
                             <div style="display: block; line-height: 32px; flex: 25%;">

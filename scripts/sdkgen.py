@@ -117,7 +117,7 @@ if __name__ == '__main__':
             [ executor.submit(
                 requests.post, 'https://dash.readme.com/api/v1/docs',
                 headers=headers,
-                json=dict(title=x['title'], category=sdk['id'])
+                json=dict(title=x['title'], category=sdk['id'], hidden=False)
             ) if 'slug' not in x else x for x in groups ]
 
         remote_groups = requests.get('https://dash.readme.com/api/v1/categories/{}/docs'.format(sdk['slug']), headers=headers).json()
@@ -145,7 +145,7 @@ if __name__ == '__main__':
                 [ executor.submit(
                     requests.post, 'https://dash.readme.com/api/v1/docs',
                     headers=headers,
-                    json=dict(title=x['title'], category=sdk['id'], parentDoc=group['id'])
+                    json=dict(title=x['title'], category=sdk['id'], parentDoc=group['id'], hidden=False)
                 ) if 'slug' not in x else x for x in group['pages'] ]
 
         remote_groups = requests.get('https://dash.readme.com/api/v1/categories/{}/docs'.format(sdk['slug']), headers=headers).json()   

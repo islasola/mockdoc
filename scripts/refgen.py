@@ -253,7 +253,7 @@ if __name__ == '__main__':
             requests.post, 
             'https://dash.readme.com/api/v1/docs', 
             headers=headers, 
-            json={"title": x["title"], "category": category_id}
+            json={"title": x["title"], "category": category_id, "hidden": False}
         ) if 'slug' not in x else x for x in groups ]
 
         groups = [ dict(
@@ -293,7 +293,7 @@ if __name__ == '__main__':
                 requests.post, 
                 'https://dash.readme.com/api/v1/docs', 
                 headers=headers, 
-                json={"title": x["title"], "category": category_id, "parentDoc": group['id']}
+                json={"title": x["title"], "category": category_id, "parentDoc": group['id'], "hidden": False}
             ) if 'slug' not in x else x for x in group['pages'] ]
 
             remote_pages = [ dict(
