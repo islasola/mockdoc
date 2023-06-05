@@ -144,20 +144,23 @@ class RefGen:
                         b1[k1] = v1['type']
                         b[k] = b1
                 elif v['type'] == 'array':
-                    b2 = []
+                    b2 = [{}]
                     if 'properties' in v['items']:
                         for k2,v2 in v['items']['properties'].items():
                             b2[0][k2] = v2['type']
-                    b[k] = b2
+
+                    b[k] = b2 if b2[0] else []
                 else:
                     b[k] = v['type']
         elif 'items' in req_body:
             items = req_body['items']
             if 'properties' in items:
                 properties = items['properties']
-                b = []
+                b = [{}]
                 for k,v in properties.items():
                     b[0][k] = v['type']
+                
+                b = b if b[0] else []
 
         return json.dumps(b, indent=4, sort_keys=True)
         
@@ -174,20 +177,22 @@ class RefGen:
                         b1[k1] = v1['type']
                         b[k] = b1
                 elif v['type'] == 'array':
-                    b2 = []
+                    b2 = [{}]
                     if 'properties' in v['items']:
                         for k2,v2 in v['items']['properties'].items():
                             b2[0][k2] = v2['type']
-                        b[k] = b2
+                        b[k] = b2 if b2[0] else []
                 else:
                     b[k] = v['type']
         elif 'items' in res_body['properties']['data']:
             items = res_body['properties']['data']['items']
             if 'properties' in items:
                 properties = items['properties']
-                b = []
+                b = [{}]
                 for k,v in properties.items():
                     b[0][k] = v['type']
+
+                b = b if b[0] else []
 
         if b:
             return json.dumps({
