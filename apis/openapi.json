@@ -433,7 +433,7 @@
                               "description": "The type of the CU associated with the cluster."
                             },
                             "cuSize": {
-                              "type": "string",
+                              "type": "integer",
                               "description": "The size of the CU used by the cluster."
                             },
                             "status": {
@@ -495,7 +495,7 @@
                           "description": "The type of the CU associated with the cluster."
                         },
                         "cuSize": {
-                          "type": "string",
+                          "type": "integer",
                           "description": "The size of the CU used by the cluster."
                         },
                         "status": {
@@ -2777,7 +2777,7 @@
                     "description": "The type of the CU associated with the cluster."
                   },
                   "cuSize": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "The size of the CU used by the cluster."
                   },
                   "status": {
@@ -2839,7 +2839,7 @@
                 "description": "The type of the CU associated with the cluster."
               },
               "cuSize": {
-                "type": "string",
+                "type": "integer",
                 "description": "The size of the CU used by the cluster."
               },
               "status": {
@@ -2929,7 +2929,7 @@
             "description": "The type of the CU associated with the cluster."
           },
           "cuSize": {
-            "type": "string",
+            "type": "integer",
             "description": "The size of the CU used by the cluster."
           },
           "status": {
