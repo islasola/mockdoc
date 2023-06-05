@@ -144,7 +144,7 @@ class RefGen:
                         b1[k1] = v1['type']
                         b[k] = b1
                 elif v['type'] == 'array':
-                    b2 = [{}]
+                    b2 = []
                     if 'properties' in v['items']:
                         for k2,v2 in v['items']['properties'].items():
                             b2[0][k2] = v2['type']
@@ -155,7 +155,7 @@ class RefGen:
             items = req_body['items']
             if 'properties' in items:
                 properties = items['properties']
-                b = [{}]
+                b = []
                 for k,v in properties.items():
                     b[0][k] = v['type']
 
@@ -174,7 +174,7 @@ class RefGen:
                         b1[k1] = v1['type']
                         b[k] = b1
                 elif v['type'] == 'array':
-                    b2 = [{}]
+                    b2 = []
                     if 'properties' in v['items']:
                         for k2,v2 in v['items']['properties'].items():
                             b2[0][k2] = v2['type']
@@ -185,7 +185,7 @@ class RefGen:
             items = res_body['properties']['data']['items']
             if 'properties' in items:
                 properties = items['properties']
-                b = [{}]
+                b = []
                 for k,v in properties.items():
                     b[0][k] = v['type']
 
@@ -204,6 +204,7 @@ class RefGen:
         errgen = ErrorGenerator()
         if ''.join(page_title.split(' ')) in errgen.groups:
             group = errgen.groups[''.join(page_title.split(' '))]
+            group.sort()
             return ''.join([ f'| {x} | {errgen.get_errorcode_desc(x)} |\n' for x in group])
         else:
             return '|  | (to be added) |\n'

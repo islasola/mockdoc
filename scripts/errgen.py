@@ -25,9 +25,6 @@ class ErrorGenerator:
                     groups[row[0]] = []
                 groups[row[0]].append(row[1])
 
-        for group in groups:
-            groups[group] = list(set(groups[group])).sort()
-
         return groups
     
     def get_errorcode_desc(self, error_code):
