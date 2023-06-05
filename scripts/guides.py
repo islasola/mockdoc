@@ -407,6 +407,18 @@ async def main():
 
     DocWriter(guides).write_docs()
 
+    # Merge code blocks into tabs
+    for doc in os.listdir('docs'):
+        if doc.endswith('.md'):
+            with open(f"docs/{doc}", 'r') as f:
+                content = f.read()
+            
+            content = re.sub(r'(\s+```)\n+(\s+```)', r'\1\n\2', content)
+
+            with open(f"docs/{doc}", 'w') as f:
+                f.write(content)
+
+
     faqs = [ c for c in categories if c['title'] == 'FAQs' ][0]
 
     await get_faqs(faqs)
