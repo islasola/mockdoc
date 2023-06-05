@@ -1,5 +1,173 @@
 # RESTful API Examples
 
+## List Cloud Providers
+
+Lists all cloud providers available on Zilliz Cloud:
+
+```shell
+curl --request GET \
+     --url 'https://controller.api.aws-us-west-2.cloud-uat3.zilliz.com/v1/clouds' \
+     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'accept: application/json' \
+     --header 'content-type: application/json'
+```
+
+Success response:
+
+```shell
+{
+    code: 200,
+    data: [
+     {
+        "cloudId": "aws",
+        "description": "amazon cloud"
+     },
+     {
+        "cloudId": "gcp",
+        "description": "google cloud"
+     }
+    ]
+}
+```
+
+## List Cloud Regions
+
+Lists all available cloud regions of a specific cloud provider:
+
+```shell
+curl --request GET \
+     --url 'https://controller.api.gcp-us-west1.vectordb.zilliz.com/v1/regions?cloudId=gcp' \
+     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'accept: application/json' \
+     --header 'content-type: application/json'
+```
+
+You can obtain valid `cloudId` values by perform `ListClouds` operations.
+
+Success response:
+
+```shell
+{
+    "code": 200,
+    "data": [
+        {
+            "apiBaseUrl": "https://api.gcp-us-west1.cloud-uat3.zilliz.com",
+            "cloudId": "gcp",
+            "regionId": "gcp-us-west1"
+        }
+    ]
+}
+```
+
+## Describe Cluster
+
+Describes the details of a cluster:
+
+```shell
+curl --request GET \
+     --url 'https://controller.api.<Cloud-Region>.vectordb.zilliz.com/v1/clusters/<Cluster-ID>' \
+     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'accept: application/json' \
+     --header 'content-type: application/json'
+```
+
+Success response:
+
+```shell
+{
+    "code": 200,
+    "data": {
+        "clusterId": "string",
+        "clusterName": "string",
+        "description": "string",
+        "regionId": "string",
+        "clusterType": "string",
+        "cuSize": "string",
+        "status": "string",
+        "connectAddress": "string",
+        "privateLinkAddress": "string",
+        "createTime": "string",
+        "storageSize": "string",
+        "snapshotNumber": "string",
+        "createProgress": "string"
+    }
+}
+```
+
+## Suspend Cluster
+
+Suspends a cluster. This operation will stop the cluster and your data will remain intact.
+
+```shell
+curl --request POST \ 'https://controller.<Cloud-Region>.vectordb.zilliz.com/v1/clusters/<Cluster-ID>/suspend' \
+     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'accept: application/json' \
+     --header 'content-type: application/json'
+```
+
+Success response:
+
+```shell
+{
+  code: 200,
+  data: {
+     "clusterId": "cluster01",
+     "prompt": "Submission successful. Your vector database computing cost is free until you Resume the Cluster, and only storage costs will be charged."
+  }
+}
+```
+
+## Resume Cluster
+
+Resume a cluster that has been suspended:
+
+```shell
+curl --request POST \ 'https://controller.api.<Cloud-Region>.vectordb.zilliz.com/v1/clusters/<Cluster-ID>/suspend' \
+     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'accept: application/json' \
+     --header 'content-type: application/json'
+```
+
+Success response:
+
+```shell
+{
+  code: 200,
+  data: {
+     "clusterId": "cluster01",
+     "prompt": "Submission successful. Cluster is currently resuming, which typically takes several minutes. You can use the DescribeCluster interface to obtain the creation progress and the status of the Cluster. When the Cluster's status is RUNNING, you can access your vector database using the SDK."
+  }
+}
+```
+
+## List Clusters
+
+Lists all clusters in a cloud region:
+
+```shell
+Request Example:
+
+curl --request GET \
+     --url 'https://controller.api.<Cloud-Region>.vectordb.zilliz.com/v1/clusters?pageSize=&current=' \
+     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'accept: application/json' \
+     --header 'content-type: application/json'
+```
+
+Success response:
+
+```shell
+{
+    "code": 200,
+    "data": {
+        "count": 0,
+        "currentPage": 1,
+        "pageSize": 10,
+        "clusters": []
+    }
+}
+```
+
 ## Create Collection
 
 Create a collection named `medium_articles`:
@@ -57,7 +225,7 @@ Success response:
 Describe the details of a collection named `medium_articles`:
 
 ```shell
-curl --request POST \
+curl --request GET \
      --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/collections/describe' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
@@ -103,7 +271,7 @@ Success response:
 List all collections in a cluster:
 
 ```shell
-curl --request POST \
+curl --request GET \
      --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/collections' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
