@@ -50,7 +50,7 @@ jobs:
       - name: Build landing page
         run: |
           cd landing
-          python3 ./scripts/landgen.py
+          python3 ../scripts/landgen.py
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
