@@ -413,7 +413,7 @@ async def main():
             with open(f"docs/{doc}", 'r') as f:
                 content = f.read()
             
-            content = re.sub(r'(\s*```)\n*(\s*```)', r'\1\n\2', content)
+            content = re.sub(r'(\s+```)\n*(\s+```)', r'\1\n\2', content)
 
             with open(f"docs/{doc}", 'w') as f:
                 f.write(content)
