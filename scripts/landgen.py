@@ -1,8 +1,7 @@
 import os, sys, json, re
 import asyncio
 import requests as req
-import copy
-import concurrent.futures
+import time
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from asyncclient import AsyncClient
 from dotenv import load_dotenv
@@ -43,6 +42,9 @@ class LandingPageGen:
         
 
 async def main():
+    # retrieve categories
+    start = time.perf_counter()
+
     categories = req.post(f"https://api.notion.com/v1/databases/{ROOT_DATABASE_ID}/query", headers=notion_headers, json=payload)
     categories = categories.json()['results']
 
@@ -54,6 +56,13 @@ async def main():
                 c['rid'] = r['_id']
                 c['slug'] = r['slug']
                 c['title'] = r['title'] 
+
+    end = time.perf_counter()
+
+    print(f"Time elapsed for retrieving categories: {end - start:0.4f} seconds")     
+
+    # retrieve books
+    start = time.perf_counter()
 
     categories = [ dict(
         id=x['id'],
@@ -101,6 +110,24 @@ async def main():
                     x['slug'] = y['slug']
                     x['pages'] = y['children']
 
+        end = time.perf_counter()
+
+        print(f"Time elapsed for retrieving books in category {c['title']}: {end - start:0.4f} seconds")
+
+        # retrieve pages
+        start = time.perf_counter()
+
+        description = [ await notion_client.get(bk['description']) for bk in c['books']]
+        description = [ json.loads(x) for x in description ]
+
+        for bk in c['books']:
+            bk['description'] = [ x for x in description if x['id'] == bk['id'] ][0]['description']
+
+
+            end = time.perf_counter()
+
+            print(f"Time elapsed for retrieving pages in book {bk['title']}: {end - start:0.4f} seconds")
+    
     with open('categories.json', "w") as f:
         json.dump(categories, f, indent=4)
 
