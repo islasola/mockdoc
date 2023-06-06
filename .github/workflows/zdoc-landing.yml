@@ -48,9 +48,7 @@ jobs:
       - name: Set up dependencies
         run: python3 -m pip install -r scripts/requirements.txt
       - name: Build landing page
-        run: |
-          cd landing
-          python3 ../scripts/landgen.py
+        run: python3 ./scripts/landgen.py
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
