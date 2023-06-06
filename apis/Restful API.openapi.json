@@ -653,7 +653,7 @@
                     "description": "The maximum number of entities to return.",
                     "default": 100,
                     "minimum": 1,
-                    "maximum": 3000
+                    "maximum": 100
                   },
                   "offset": {
                     "type": "integer",
@@ -1141,7 +1141,7 @@
             "description": "The maximum number of entities to return.",
             "default": 100,
             "minimum": 1,
-            "maximum": 3000
+            "maximum": 100
           },
           "offset": {
             "type": "integer",
