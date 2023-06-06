@@ -414,6 +414,7 @@ async def main():
                 content = f.read()
             
             content = re.sub(r'(\s+```)\n+(\s+```)', r'\1\2', content)
+            content = re.sub(r'(```)(\s+```)', r'\1\n\2', content)
 
             with open(f"docs/{doc}", 'w') as f:
                 f.write(content)
