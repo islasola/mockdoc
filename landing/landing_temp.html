@@ -104,11 +104,11 @@
                             {%- for page in book['pages'] %}
                             {%- if book['max'] >= 33 %}
                             <div style="display: block; line-height: 32px; flex: 45%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/{{page['slug']}}" target="_blank">{{page['title']}}</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/{{page['slug']}}" target="_blank">{%- if book['title'] in ["Get Started", "Serverless Cluster 101"] %}{{loop.index|string + '. '}}{%- endif %}{{page['title']}}</a></span>
                             </div>
                             {%- elif book['max'] < 33 %}
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/{{page['slug']}}" target="_blank">{{page['title']}}</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/{{page['slug']}}" target="_blank">{%- if book['title'] in ["Get Started", "Serverless Cluster 101"] %}{{loop.index|string + '. '}}{%- endif %}{{page['title']}}</a></span>
                             </div>  
                             {%- endif %}                         
                             {%- endfor %}
@@ -118,6 +118,13 @@
                             </div>  
                             {%- endif %}
                         </div>
+                        {%- if book['title'] == "Get Started" %}
+                        <hr style="border-top: 1px solid #E0E3E7">
+                        <div style="margin-top: 1em; line-height: 1.2em; font-size: 0.7em; color: #647489">* This guide series are designed for users, such as enterprises, that need to take full control of its collection schemas and require high data operation performance via SDKs. For a guide series for starts, refer to <a style="font-weight: bold; color:#647489;" href="#" @click="this.group=0">Serverless Cluster 101</a>.</Serverless></div>
+                        {%- elif book['title'] == "Serverless Cluster 101" %}
+                        <hr style="border-top: 1px solid #E0E3E7">
+                        <div style="margin-top: 1em; line-height: 1.2em; font-size: 0.7em; color: #647489">* This guide series are designed for starters, such as independent developers, that need to quickly set up a vector database cluster for app development. For a guide series for enterpries users, refer to <a style="font-weight: bold; color:#647489;" href="#" @click="this.group=2">Advanced User Guides</a>.</Serverless></div>                        
+                        {%- endif %}
                     </div>
                 </div>
             </div>
