@@ -17,7 +17,7 @@
                 <div :class="{active_group: group==0, inactive_group: group!=0}">
                     <div style="display: flex; flex-direction: column; row-gap: 0.4em; margin: 1.5em;">
                         <div style="display:block; width: 40px; height: 40px; margin: auto;">
-                            <img src="https://assets.zilliz.com/zilli-cloud-101.png">
+                            {{ icons["zilliz-cloud-101"] }}
                         </div>
                         <div style="text-align: center;">
                             <span :class="{active_group_caption: group==0, inactive_group_caption: group!=0}">Zilliz Cloud 101</span>
@@ -33,7 +33,7 @@
                 <div :class="{active_group: group==1, inactive_group: group!=1}">
                     <div style="display: flex; flex-direction: column; row-gap: 0.4em; margin: 1.5em;">
                         <div style="display:block; width: 40px; height: 40px; margin: auto;">
-                            <img src="https://assets.zilliz.com/ai-model-integrations.png">
+                            {{ icons["ai-model-integrations"] }}
                         </div>
                         <div style="text-align: center;">
                             <span :class="{active_group_caption: group==1, inactive_group_caption: group!=1}">AI Model Integrations</span>
@@ -49,7 +49,7 @@
                 <div :class="{active_group: group==2, inactive_group: group!=2}">
                     <div style="display: flex; flex-direction: column; row-gap: 0.4em; margin: 1.5em;">
                         <div style="display:block; width: 40px; height: 40px; margin: auto;">
-                            <img src="https://assets.zilliz.com/advanced-user-guides.png">
+                            {{ icons["advanced-user-guides"] }}
                         </div>
                         <div style="text-align: center;">
                             <span :class="{active_group_caption: group==2, inactive_group_caption: group!=2}">Advanced User Guides</span>
@@ -66,7 +66,7 @@
                 <div :class="{active_group: group==3, inactive_group: group!=3}">
                     <div style="display: flex; flex-direction: column; row-gap: 0.4em; margin: 1.5em;">
                         <div style="display:block; width: 40px; height: 40px; margin: auto;">
-                            <img src="https://assets.zilliz.com/migration-from-milvus.png">
+                            {{ icons["migration-from-milvus"] }}
                         </div>
                         <div style="text-align: center;">
                             <span :class="{active_group_caption: group==3, inactive_group_caption: group!=3}">Migration from Milvus</span>
@@ -90,7 +90,9 @@
             <div style="display: flex; flex-direction: row; gap: 2%" v-if="group=={{category['block_id']}}">
                 <div style="display: block; flex: 18%">
                     <div style="display: flex; flex-direction: row; gap: 0.5em">
-                        <img src="https://assets.zilliz.com/zdoc/{{book['slug']}}.png" style="align-self: center;">
+                        <div style="align-self: center;">
+                            {{ icons[book['slug']] }}
+                        </div>
                         <div style="display: flex; flex-direction: column;">
                             <span style="font-size: 1.2em; font-weight: bold;">{{book['title']}}</span>
                             <span style="font-size: 0.8em;">{{book['description'][0]['plain_text']}}</span>

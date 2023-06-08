@@ -11,7 +11,19 @@ class LandingPageGen:
     def __init__(self, guides):
         self.categories = guides
         self.landing_categories = ['Zilliz Cloud 101', 'AI Model Integrations', 'Advanced User Guides', 'Migration from Milvus']
+        self.icons = self.__get_icons()
 
+    def __get_icons(self):
+        icons = {}
+        dir = os.listdir('landing/icons')
+        for file in dir:
+            if file.endswith('.svg'):
+                with open(f'landing/icons/{file}', 'r') as f:
+                    content=f.read()
+                icons[file[:-4]] = content
+
+        return icons
+    
     def generate(self):
         categories = [ dict(x, block_id=self.landing_categories.index(x['title'])) for x in self.categories if x['title'] in self.landing_categories ]
 
@@ -28,7 +40,7 @@ class LandingPageGen:
 
         template = env.get_template('landing_temp.html')
 
-        t = (template.render(dict(categories=categories)))
+        t = (template.render(dict(categories=categories, icons=self.icons)))
 
         with open('landing/index.html', 'w') as f:
             f.write(t)      
