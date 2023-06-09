@@ -93,7 +93,7 @@ search(
 | `filter` | Filter used to search. | String | False    |
 | `output_fields` | A list of fields to return.| list[String] | False    |
 | `search_params` | Parameters used to search.| Dictionary | False    |
-| `timeout` | Maximum time that the method should wait for the operation to complete before raising an exception.| Integer | False    |
+| `timeout` | An optional duration of time in seconds to allow for the RPC. If it is set to None, the client keeps waiting until the server responds or error occurs. | Float | False     |
 
 ## Raises
 

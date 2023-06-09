@@ -55,7 +55,7 @@ create_collection(
 | `id_type` | Data type of the primary key. Valid values: **int64** or **string**. | String | False     |
 | `vector_field_name` | Name of the vector field. | String | False     |
 | `metric_type` | Metric type for the collection. | String | False     |
-| `timeout` | Maximum time that the method should wait for the operation to complete before raising an exception. | Integer | False     |
+| `timeout` | An optional duration of time in seconds to allow for the RPC. If it is set to None, the client keeps waiting until the server responds or error occurs. | Float | False     |
 
 ## Raises
 

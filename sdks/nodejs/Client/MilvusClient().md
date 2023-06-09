@@ -18,7 +18,7 @@ MilvusClient(
 ```javascript
 const address = "cluster-endpoint";
 const username = "username"; // Username specified when you created the cluster
-const password = "password"; // Username specified when you created the cluster
+const password = "password"; // Password specified when you created the cluster
 
 const client = new MilvusClient({ address, username, password });
 ```

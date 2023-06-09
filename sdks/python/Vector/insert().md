@@ -6,6 +6,8 @@ Inserts entities into a collection. You can insert data through either a list of
 insert(
     collection_name,
     data,
+    batch_size,
+    progress_bar,
     timeout
 )
 ```
@@ -56,7 +58,9 @@ insert(
 |--------------------|--------------------------------------|----------|----------|
 | `collection_name` | Name of the collection to which data is inserted. | String | True    |
 | `data` | A list of dictionaries to insert. Each dictionary represents an entity. All fields defined in the schema are required and should be included as keys in the dictionaries. You can also add dynamic keys for any fields that are not defined in the schema.| list[Dictionary] | True     |
-| `timeout` | Maximum time that the method should wait for the operation to complete before raising an exception. | Integer | False    |
+| `batch_size` | Size of entities to insert in a batch. | Integer | False    |
+| `progress_bar` | Whether to display a progress bar. | Boolean | False    |
+| `timeout` | An optional duration of time in seconds to allow for the RPC. If it is set to None, the client keeps waiting until the server responds or error occurs. | Float | False     |
 
 ## Raises
 
