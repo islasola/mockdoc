@@ -5,7 +5,7 @@ Deletes entities from a collection by primary keys.
 ```python
 delete(
     collection_name,
-    id,
+    pks,
     timeout
 )
 ```
@@ -21,7 +21,7 @@ delete(
 
     client.delete(
         collection_name='my-collection1',
-        id='pk-1'
+        pks='pk-1'
     )
     ```
 
@@ -34,7 +34,7 @@ delete(
 
     client.delete(
         collection_name='my-collection2',
-        id=256
+        pks=256
     )
     ```
 
@@ -47,7 +47,7 @@ delete(
 
     client.delete(
         collection_name='my-collection3',
-        id=['pk-1', 'pk-2']
+        pks=['pk-1', 'pk-2']
     )
     ```
 
@@ -56,8 +56,8 @@ delete(
 | Parameter           | Description                                                                          | Type    | Required |
 |---------------------|--------------------------------------------------------------------------------------|---------|----------|
 | `collection_name` | Name of the collection from which data is deleted. | String | True    |
-| `id` | Primary keys of the entities to delete. | Union[list, str, int] | True    |
-| `timeout` | Maximum time that the method should wait for the operation to complete before raising an exception. | Integer | False    |
+| `pks` | Primary keys of the entities to delete. | Union[list, str, int] | True    |
+| `timeout` | An optional duration of time in seconds to allow for the RPC. If it is set to None, the client keeps waiting until the server responds or error occurs. | Float | False     |
 
 ## Raises
 

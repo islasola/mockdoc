@@ -44,7 +44,7 @@ MilvusClient(
 |--------------------|--------------------------------------|----------|----------|
 | `uri` | Endpoint used to connect to your cluster. | String | True     |
 | `token` | Credentials used to connect to your cluster. It can be an API key or a pair of username and password depending on cluster types. | String | True     |
-| `timeout` | Maximum time that the method should wait for the operation to complete before raising an exception. | Integer | False     |
+| `timeout` | An optional duration of time in seconds to allow for the RPC. If it is set to None, the client keeps waiting until the server responds or error occurs. | Float | False     |
 
 ## Raises
 

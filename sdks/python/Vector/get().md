@@ -5,7 +5,7 @@ Grabs entities by primary keys. If `output_fields` is specified, this operation 
 ```python
 get(
     collection_name,
-    id,
+    ids,
     output_fields,
     timeout
 )
@@ -22,7 +22,7 @@ get(
 
     client.get(
         collection_name='my-collection1',
-        id='pk1'
+        ids='pk1'
     )
     ```
 
@@ -35,7 +35,7 @@ get(
 
     client.get(
         collection_name='my-collection2',
-        id=256
+        ids=256
     )
     ```
 
@@ -48,7 +48,7 @@ get(
     
     client.get(
         collection_name='my-collection3',
-        id=['pk-1', 'pk-2'],
+        ids=['pk-1', 'pk-2'],
         output_fields=['claps','reading_time']
     )
     ```
@@ -58,9 +58,9 @@ get(
 | Parameter          | Description                          | Type     | Required |
 |--------------------|--------------------------------------|----------|----------|
 | `collection_name` | Name of the collection where data is to grab. | String | True    |
-| `id` | Primary keys of the vectors to grab. | Union[list, str, int] | True     |
+| `ids` | Primary keys of the vectors to grab. | Union[list, str, int] | True     |
 |`output_fields`| Fields that are specified to return. | String or INT64 | False
-| `timeout` | Maximum time that the method should wait for the operation to complete before raising an exception. Default value: None. | Integer | False    |
+| `timeout` | An optional duration of time in seconds to allow for the RPC. If it is set to None, the client keeps waiting until the server responds or error occurs. | Float | False     |
 
 ## Raises
 

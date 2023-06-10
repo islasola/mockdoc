@@ -1,9 +1,9 @@
-# list_collection()
+# list_collections()
 
 Lists the names of collections.
 
 ```python
-list_collection()
+list_collections()
 ```
 
 ## Examples
@@ -13,7 +13,7 @@ from pymilvus import MilvusClient
 
 client = MilvusClient(uri, token)
 
-client.list_collection()
+client.list_collections()
 ```
 
 ## Parameters

@@ -48,7 +48,7 @@ query(
 | `collection_name` | Name of the collection to query. | String | True     |
 | `filter` | Filter used to query data. | String | True     |
 | `output_fields` | A list of fields to return. If you leave this parameter empty, all fields excluding the vector field will be returned.| list[String] | False    | |
-| `timeout` | Maximum time that the method should wait for the operation to complete before raising an exception.| Integer | False    |
+| `timeout` | An optional duration of time in seconds to allow for the RPC. If it is set to None, the client keeps waiting until the server responds or error occurs. | Float | False     |
 
 ## Raises
 
