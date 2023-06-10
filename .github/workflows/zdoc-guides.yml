@@ -12,6 +12,8 @@ on:
     paths:
       - docs/**
       - scripts/guides.py
+      - scripts/mediaProcessor.py
+      - scripts/postProcessor.py
       - scripts/docwriter.py
       - .github/workflows/zdoc-guides.yml
 
