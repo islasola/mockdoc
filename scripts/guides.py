@@ -113,7 +113,7 @@ def replace_links(pages, flat_pages, work_type='blocks'):
                                 if m:
                                     slug = get_doc_link(m, flat_pages)
                                     if slug:
-                                        segment[type]['link']['url'] = f"doc:{slug[0]}"
+                                        segment[type]['link']['url'] = f"doc:{slug}"
                                         print(f"Page found: {m[0]}. Changed to \"doc:{slug}\"")
                                     else:
                                         if 'title' in page:
@@ -141,7 +141,7 @@ def replace_links(pages, flat_pages, work_type='blocks'):
                                 if m:
                                     slug = get_doc_link(m, flat_pages)
                                     if slug:
-                                        segment[type]['link']['url'] = f"doc:{slug[0]}"
+                                        segment[type]['link']['url'] = f"doc:{slug}"
                                         print(f"Page found: {m[0]}. Changed to \"doc:{slug}\"")
                                     else:
                                         if 'title' in page:
