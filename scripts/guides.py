@@ -1,16 +1,13 @@
 import os
 import re
 import time
-import boto3
 import json
 import asyncio
 import requests as req
-import concurrent.futures
-from urllib import parse
-from io import BytesIO
 from dotenv import load_dotenv
 from asyncclient import AsyncClient
-from docwriter import DocWriter
+# from docwriter import DocWriter
+from slugify import slugify
 
 async def get_children(blocks):
     start = time.perf_counter()
@@ -24,9 +21,6 @@ async def get_children(blocks):
             children = [ await notion_client.get(block[block['type']]['children']) if block['has_children'] else None for block in group ]
             children = [ json.loads(x)['results'] if x else x for x in children ]
 
-            children = await upload_images(children)
-            children = await get_video_meta(children)
-            children = await get_synced_blocks(children)
             children = await get_children(children)
 
             for block, child in zip(group, children):
@@ -38,112 +32,6 @@ async def get_children(blocks):
     end = time.perf_counter()
 
     print(f"Time elapsed for retrieving children recursively: {end - start:0.4f} seconds")
-    return b
-
-async def get_synced_blocks(blocks):
-    start = time.perf_counter()
-    b = []
-    for group in blocks:
-        if group and 'results' in group:
-            for block in group:
-                if block['type'] == 'synced_block':
-                    if block['synced_block']['synced_from']:
-                        sid = block['synced_block']['synced_from']
-                    else:
-                        sid = block['id']
-
-                    block['synced_block']['children'] = f"/v1/blocks/{sid}/children"
-
-            children = [ await notion_client.get(block['synced_block']['children']) if block['type'] == 'synced_block' else None for block in group ]
-            children = [ json.loads(x)['results'] if x else x for x in children ]
-
-            for block, child in zip(group, children):
-                if block['type'] == 'synced_block':
-                    block['synced_block']['children'] = child
-
-        b.append(group)
-    
-    end = time.perf_counter()
-
-    print(f"Time elapsed for retrieving synced blocks: {end - start:0.4f} seconds")
-    return b
-
-async def get_video_meta(blocks):
-    b = []
-    for group in blocks:
-        if group:
-            for block in group:
-                if block['type'] == 'video' and 'external' in block['video']:
-                    block['video']['external']['meta'] = f"https://youtube.com/watch?v={block['video']['external']['url'].split('/')[-1]}"
-
-            youtube_client = AsyncClient()
-
-            children = [ await youtube_client.get("https://www.youtube.com/oembed?url=" + block['video']['external']['meta']  + "&format=json") if block['type'] == 'video' else None for block in group ]
-            children = [ json.loads(x) if x else x for x in children ]
-
-            for block, child in zip(group, children):
-                if block['type'] == 'video':
-                    block['video']['external']['meta'] = child
-
-        b.append(group)
-    
-    return b
-
-async def upload_images(blocks):
-    start = time.perf_counter()
-    b = []
-    s3 = boto3.resource('s3')
-    bucket = s3.Bucket("assets.zilliz.com")
-
-    for group in blocks:
-        if group:
-            for block in group:
-                if block['type'] == 'image':
-                    if 'file' in block['image']:
-                        block['image']['file'] = {
-                            "id": block['id'],
-                            "url": block['image']['file']['url'],
-                            "title": f"{block['image']['caption'][0]['plain_text'] if len(block['image']['caption']) > 0 else block['id']}.png"
-                        }
-
-                if block['type'] == 'link_preview':
-                    if 'url' in block['link_preview']:
-                        block['link_preview']['key'] = parse.urlsplit(block['link_preview']['url']).path.split('/')[2]
-                        block['link_preview']['node'] = ":".join(parse.parse_qs(block['link_preview']['url'])['node-id'][0].split("-"))
-
-            images = [ dict(block, title=block['image']['file']['title'], content=req.get(block['image']['file']['url']).content) for block in group if block['type'] == 'image' and 'file' in block['image'] ]
-
-            link_previews = [ dict(
-                key=block['link_preview']['key'],
-                node=block['link_preview']['node'],
-                content=await figma_client.get(f"/v1/images/{block['link_preview']['key']}?ids={block['link_preview']['node']}&format=png&scale=1"),
-                title=await figma_client.get(f"/v1/files/{block['link_preview']['key']}/nodes?ids={block['link_preview']['node']}")) 
-            for block in group if block['type'] == 'link_preview' ]
-
-            link_previews = [ dict(
-                key=x['key'],
-                node=x['node'],
-                content=BytesIO(req.get(json.loads(x['content'])['images'][x['node']], headers=figma_headers).content),
-                title=json.loads(x['title'])['nodes'][x['node']]['document']['name'] + '.png')
-            for x in link_previews]
-
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                [ executor.submit(bucket.put_object, Key=f"zdoc/{image['title']}", Body=image['content'], ACL='public-read') for image in images ]
-                [ executor.submit(bucket.put_object, Key=f"zdoc/{link_preview['title']}", Body=link_preview['content'], ACL='public-read') for link_preview in link_previews ]
-
-            for block in group:
-                if block['type'] == 'image' and 'file' in block['image']:
-                    block['image']['file']['url'] = f"https://assets.zilliz.com/zdoc/{block['image']['file']['title']}"
-
-                if block['type'] == 'link_preview':
-                    block['link_preview']['title'] = [ x for x in link_previews if x['key'] == block['link_preview']['key'] and x['node'] == block['link_preview']['node'] ][0]['title']
-                    block['link_preview']['url'] = f"https://assets.zilliz.com/zdoc/{block['link_preview']['title']}"  
-
-        b.append(group)
-
-    end = time.perf_counter()
-
-    print(f"Time elapsed for uploading images: {end - start:0.4f} seconds")
     return b
 
 async def get_faqs(category):
@@ -164,9 +52,6 @@ async def get_faqs(category):
     faqs_categories = list(set([ x['properties']['Category']['multi_select'][0]['name'] for x in faqs['results'] ]))
     faqs_questions = [ dict(category=x['properties']['Category']['multi_select'][0]['name'], question=x['properties']['Question']['title'][0]['plain_text']) for x in faqs['results'] ]
     faqs_answers = [ json.loads(await notion_client.get(f"/v1/blocks/{x['id']}/children"))['results'] for x in faqs['results'] ]
-    faqs_answers = await upload_images(faqs_answers)
-    faqs_answers = await get_video_meta(faqs_answers)
-    faqs_answers = await get_synced_blocks(faqs_answers)
     faqs_answers = await get_children(faqs_answers)
     
     faqs_questions = [ dict(category=question['category'], question=question['question'], answer=answer) for question, answer in zip(faqs_questions, faqs_answers) ]
@@ -189,7 +74,6 @@ async def get_faqs(category):
             faqs_categories_to_add.append(faqs_category['category'])
 
     faqs_categories_to_add = list(set(faqs_categories_to_add))
-    print(faqs_categories_to_add)
 
     if faqs_categories_to_add:
         [ await rdme_client.post('/api/v1/docs', json={"title": f"FAQs: {x}", "category": category['rid']}) for x in faqs_categories_to_add ]
@@ -202,11 +86,10 @@ async def get_faqs(category):
                 faqs_category['rid'] = remote['_id']
                 faqs_category['slug'] = remote['slug']
 
-    with open('faqs.json', 'w') as f:
-        json.dump(faqs_categories, f, indent=4)
+    return faqs_categories
 
-    ## Generate doc pages
-    DocWriter(faqs_categories, type="faqs").write_faqs(category['rid'])
+    # ## Generate doc pages
+    # DocWriter(faqs_categories, type="faqs").write_faqs(category['rid'])
 
 def get_mention_page(page_meta):
     id = page_meta['id']
@@ -218,6 +101,7 @@ def get_mention_page(page_meta):
 
 def replace_links(pages, flat_pages, work_type='blocks'):
     for page in pages:
+        if work_type in page:
             for block in page[work_type]:
                 type = block['type']
                 if 'rich_text' in block[type]:
@@ -225,22 +109,70 @@ def replace_links(pages, flat_pages, work_type='blocks'):
                         type = segment['type']
                         if 'link' in segment[type]:
                             if segment[type]['link']:
-                                m = re.search(r'([a-z0-9]{32})$', segment[type]['link']['url'])
+                                m = re.findall(r'[a-z0-9]{32}', segment[type]['link']['url'])
                                 if m:
-                                    slug = [p['slug'] for p in flat_pages if ''.join(p['id'].split('-')) == m.group(1)]
+                                    slug = get_doc_link(m, flat_pages)
                                     if slug:
                                         segment[type]['link']['url'] = f"doc:{slug[0]}"
-                                        print(f"Page found: {m.group(1)}. Changed to \"doc:{slug[0]}\"")
+                                        print(f"Page found: {m[0]}. Changed to \"doc:{slug}\"")
                                     else:
-                                        print(f"Page not found: {m.group(1)}")
+                                        if 'title' in page:
+                                            print(f"Page not found: {m[0]}. Please check {segment[type]['link']['url']} on page {page['title']}")
+                                        elif 'question' in page:
+                                            print(f"Page not found: {m[0]}. Please check {segment[type]['link']['url']} on question {page['question']}")
+                                        else:
+                                            print(f"Page not found: {m[0]}. Please check {segment[type]['link']['url']}")
 
-            if block['has_children']:
-                if 'children' in block:
-                    replace_links(block['children'], flat_pages, work_type='children')
-                else:
-                    print(f"Block has children but no children: {block['id']}") 
+                if block['has_children']:
+                    if 'children' in block[block['type']]:
+                        block[block['type']]['children'] = replace_links(block[block['type']]['children'], flat_pages, work_type='children')
+                    else:
+                        print(f"Block has children but no children: {block['id']}") 
+
+        if 'type' in page and work_type in page[page['type']]:
+            for block in page[page['type']][work_type]:
+                type = block['type']
+                if 'rich_text' in block[type]:
+                    for segment in block[block['type']]['rich_text']:
+                        type = segment['type']
+                        if 'link' in segment[type]:
+                            if segment[type]['link']:
+                                m = re.findall(r'[a-z0-9]{32}', segment[type]['link']['url'])
+                                if m:
+                                    slug = get_doc_link(m, flat_pages)
+                                    if slug:
+                                        segment[type]['link']['url'] = f"doc:{slug[0]}"
+                                        print(f"Page found: {m[0]}. Changed to \"doc:{slug}\"")
+                                    else:
+                                        if 'title' in page:
+                                            print(f"Page not found: {m[0]}. Please check {segment[type]['link']['url']} on page {page['title']}")
+                                        elif 'question' in page:
+                                            print(f"Page not found: {m[0]}. Please check {segment[type]['link']['url']} on question {page['question']}")
+                                        else:
+                                            print(f"Page not found: {m[0]}. Please check {segment[type]['link']['url']}")
+                if block['has_children']:
+                    if 'children' in block[block['type']]:
+                        block[block['type']]['children'] = replace_links(block[block['type']]['children'], flat_pages, work_type='children')
+                    else:
+                        print(f"Block has children but no children: {block['id']}") 
 
     return pages
+
+def get_doc_link(m, flat_pages):
+    slug = ''
+    pid = m[0]
+    page = [ p for p in flat_pages if ''.join(p['id'].split('-')) == pid ]
+
+    if page:
+        slug = page[0]['slug']
+
+    if len(m) > 1:
+        bid = m[1]
+        block = [ b for b in page[0]['blocks'] if ''.join(b['id'].split('-')) == bid ]
+        if block:
+            slug += '#' + slugify(block[0][block[0]['type']]['rich_text'][0]['plain_text'])
+
+    return slug
 
 async def main():
     # retrieve categories
@@ -376,9 +308,6 @@ async def main():
             blocks = [ await notion_client.get(pg['blocks']) for pg in bk['pages'] ]
             blocks = [ json.loads(x)['results'] for x in blocks ]
 
-            blocks = await upload_images(blocks)
-            blocks = await get_video_meta(blocks)
-            blocks = await get_synced_blocks(blocks)
             blocks = await get_children(blocks)
 
             for pg in bk['pages']:
@@ -405,23 +334,15 @@ async def main():
     with open('guides.json', 'w') as f:
         json.dump(guides, f, indent=4)    
 
-    DocWriter(guides).write_docs()
-
-    # Merge code blocks into tabs
-    for doc in os.listdir('docs'):
-        if doc.endswith('.md'):
-            with open(f"docs/{doc}", 'r') as f:
-                content = f.read()
-            
-            content = re.sub(r'(\s+```)\n*(\s+```)', r'\1\n\2', content)
-
-            with open(f"docs/{doc}", 'w') as f:
-                f.write(content)
-
-
     faqs = [ c for c in categories if c['title'] == 'FAQs' ][0]
 
-    await get_faqs(faqs)
+    faqs = await get_faqs(faqs)
+    
+    for c in faqs:
+        c['questions'] = replace_links(c['questions'], flat_pages, work_type="answer")
+
+    with open('faqs.json', 'w') as f:
+        json.dump(faqs, f, indent=4)
 
 if __name__ == '__main__':
     load_dotenv()

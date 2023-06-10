@@ -196,7 +196,7 @@ class DocWriter:
         return f"1. {self.__paragraph(segments=segments)}" 
 
     def __link_preview(self, block):
-        title = block['link_preview']['title']
+        title = block['link_preview']['title'] if 'title' in block['link_preview'] else block['id']
         url = block['link_preview']['url']
         
         return f"![{title}]({url})\n\n"  
