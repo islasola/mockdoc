@@ -106,11 +106,11 @@
                             {%- for page in book['pages'] %}
                             {%- if book['max'] >= 33 %}
                             <div style="display: block; line-height: 32px; flex: 45%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/{{page['slug']}}" target="_blank">{%- if book['title'] in ["Get Started", "Serverless Cluster 101"] %}{{loop.index|string + '. '}}{%- endif %}{{page['title']}}</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/{{page['slug']}}" target="_blank">{%- if book['title'] in ["Get Started", "Starter User Guides"] %}{{loop.index|string + '. '}}{%- endif %}{{page['title']}}</a></span>
                             </div>
                             {%- elif book['max'] < 33 %}
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/{{page['slug']}}" target="_blank">{%- if book['title'] in ["Get Started", "Serverless Cluster 101"] %}{{loop.index|string + '. '}}{%- endif %}{{page['title']}}</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/{{page['slug']}}" target="_blank">{%- if book['title'] in ["Get Started", "Starter User Guides"] %}{{loop.index|string + '. '}}{%- endif %}{{page['title']}}</a></span>
                             </div>  
                             {%- endif %}                         
                             {%- endfor %}
