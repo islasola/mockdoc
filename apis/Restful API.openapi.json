@@ -650,16 +650,16 @@
                   },
                   "limit": {
                     "type": "integer",
-                    "description": "The maximum number of entities to return.",
+                    "description": "The maximum number of entities to return. \\n The sum of this value of that of `offset` should be less than **1024**.",
                     "default": 100,
                     "minimum": 1,
                     "maximum": 100
                   },
                   "offset": {
                     "type": "integer",
-                    "description": "The number of entities to skip in the search results.",
+                    "description": "The number of entities to skip in the search results. \\n The sum of this value and that of `limit` should not be greater than **1024**.",
                     "minimum": 0,
-                    "maximum": 16384,
+                    "maximum": 1024,
                     "exclusiveMinimum": true
                   },
                   "outputFields": {
@@ -754,14 +754,14 @@
                   },
                   "limit": {
                     "type": "integer",
-                    "description": "The maximum number of entities to return.",
+                    "description": "The maximum number of entities to return. \\n The sum of this value and that of `offset` should be less than **16384**.",
                     "default": 100,
                     "minimum": 1,
                     "maximum": 3000
                   },
                   "offset": {
                     "type": "integer",
-                    "description": "The number of entities to skip in the search results.",
+                    "description": "The number of entities to skip in the search results. \\n The sum of this value and that of `limit` should be less than **16384**.",
                     "minimum": 0,
                     "exclusiveMinimum": true,
                     "maximum": 16384
@@ -1091,14 +1091,14 @@
           },
           "limit": {
             "type": "integer",
-            "description": "The maximum number of entities to return.",
+            "description": "The maximum number of entities to return. \\n The sum of this value and that of `offset` should be less than **16384**.",
             "default": 100,
             "minimum": 1,
             "maximum": 3000
           },
           "offset": {
             "type": "integer",
-            "description": "The number of entities to skip in the search results.",
+            "description": "The number of entities to skip in the search results. \\n The sum of this value and that of `limit` should be less than **16384**.",
             "minimum": 0,
             "exclusiveMinimum": true,
             "maximum": 16384
@@ -1138,16 +1138,16 @@
           },
           "limit": {
             "type": "integer",
-            "description": "The maximum number of entities to return.",
+            "description": "The maximum number of entities to return. \\n The sum of this value of that of `offset` should be less than **1024**.",
             "default": 100,
             "minimum": 1,
             "maximum": 100
           },
           "offset": {
             "type": "integer",
-            "description": "The number of entities to skip in the search results.",
+            "description": "The number of entities to skip in the search results. \\n The sum of this value and that of `limit` should not be greater than **1024**.",
             "minimum": 0,
-            "maximum": 16384,
+            "maximum": 1024,
             "exclusiveMinimum": true
           },
           "outputFields": {
