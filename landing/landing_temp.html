@@ -120,13 +120,6 @@
                             </div>  
                             {%- endif %}
                         </div>
-                        {%- if book['title'] == "Get Started" %}
-                        <hr style="border-top: 1px solid #E0E3E7">
-                        <div style="margin-top: 1em; line-height: 1.2em; font-size: 0.7em; color: #647489">* This guide series are designed for users, such as enterprises, that need to take full control of its collection schemas and require high data operation performance via SDKs. For a guide series for starters, refer to <a style="font-weight: bold; color:#647489;" href="#" @click="this.group=0">Starter User Guides</a>.</div>
-                        {%- elif book['title'] == "Starter User Guides" %}
-                        <hr style="border-top: 1px solid #E0E3E7">
-                        <div style="margin-top: 1em; line-height: 1.2em; font-size: 0.7em; color: #647489">* This guide series are designed for starters, such as independent developers, that need to quickly set up a vector database cluster for app development. For a guide series for enterprise users, refer to <a style="font-weight: bold; color:#647489;" href="#" @click="this.group=2">Advanced User Guides</a>.</div>                        
-                        {%- endif %}
                     </div>
                 </div>
             </div>
