@@ -166,11 +166,11 @@ def get_doc_link(m, flat_pages):
     if page:
         slug = page[0]['slug']
 
-    if len(m) > 1:
-        bid = m[1]
-        block = [ b for b in page[0]['blocks'] if ''.join(b['id'].split('-')) == bid ]
-        if block:
-            slug += '#' + slugify(block[0][block[0]['type']]['rich_text'][0]['plain_text'])
+        if len(m) > 1:
+            bid = m[1]
+            block = [ b for b in page[0]['blocks'] if ''.join(b['id'].split('-')) == bid ]
+            if block:
+                slug += '#' + slugify(block[0][block[0]['type']]['rich_text'][0]['plain_text'])
 
     return slug
 
