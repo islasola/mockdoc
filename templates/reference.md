@@ -141,7 +141,7 @@ The properties in the returned response are listed in the following table.
 | `data`    | **object**<br>A data object. |
 {%- for k, v in res_body['properties']['data']['properties'].items() %}
 {%- if v['type'] not in ['array', 'object'] or 'properties' not in v['items'] %}
-| `data.{{k}}`   | **{{v['type']}}{{v['format']}}1**<br>{{v['description']}} |
+| `data.{{k}}`   | **{{v['type']}}{%if 'format' in v %}({{v['format']}}){%- endif %}**<br>{{v['description']}} |
 {%- elif v['type'] == 'array' and 'properties' in v['items'] %}
 | `data.{{k}}`   | **{{v['type']}}<{{v['format']}}2>**<br>{{v['description']}} |
 {%- for ka, va in v['items']['properties'].items() %}
