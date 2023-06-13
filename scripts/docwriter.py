@@ -60,7 +60,7 @@ class DocWriter:
                 markdown.append(indent * ' ' + self.__paragraph(block))
                 prev_block_type = block['type']
             elif block['type'] == 'quote':
-                markdown.append(indent * ' ' + self.__quote(block, indent=indent))
+                markdown.append(indent * ' ' + self.__quote(block))
                 prev_block_type = block['type']
             elif block['type'] == 'bulleted_list_item':
                 markdown.append(indent * ' ' + self.__bullet_list_item(block, indent=indent))
@@ -113,22 +113,25 @@ class DocWriter:
         return ''.join(segments) + "\n\n"
     
     def __parse_text(self, segment):
+        final = ""
         if segment['type'] == 'text':
             if segment['text']['link']:
                 url = segment['text']['link']['url']
-                return f"[{segment['plain_text']}]({url})"
+                final = f"[{segment['plain_text']}]({url})"
             elif segment['annotations']['bold']:
-                return f"**{segment['plain_text']}**"
+                final = f"**{segment['plain_text']}**"
             elif segment['annotations']['italic']:
-                return f"*{segment['plain_text']}*"
+                final = f"*{segment['plain_text']}*"
             elif segment['annotations']['strikethrough']:
-                return f"~~{segment['plain_text']}~~"
+                final = f"~~{segment['plain_text']}~~"
             elif segment['annotations']['underline']:
-                return f"<u>{segment['plain_text']}</u>"
+                final = f"<u>{segment['plain_text']}</u>"
             else:
-                return segment['plain_text']
-        else:
-            return ''
+                final = segment['plain_text']
+        
+        final = final.replace('\u00a0', ' ` ')
+
+        return final
         
     def __header(self, block):
         if block['type'] == 'heading_1' or block['type'] == 'heading_2':
@@ -173,13 +176,13 @@ class DocWriter:
         blocks = block['synced_block']['children']
         return self.__markdown(blocks)
     
-    def __quote(self, block, indent):
+    def __quote(self, block):
         plain_text = block['quote']['rich_text'][0]['plain_text']
         if plain_text.endswith('Notes') or plain_text.endswith('Warning'):
-            return f"> {indent*' '}{block['quote']['rich_text'][0]['plain_text']}\n>\n"
+            return f"> {block['quote']['rich_text'][0]['plain_text']}\n>\n"
         else:
             segments = block['quote']['rich_text']
-            return f"> {indent*' '}{self.__paragraph(segments=segments)[:-2]}\n\n"    
+            return f"> {self.__paragraph(segments=segments)[:-2]}\n\n"    
 
     def __bullet_list_item(self, block, indent):
         segments = block['bulleted_list_item']['rich_text']
@@ -192,7 +195,7 @@ class DocWriter:
         segments = block['numbered_list_item']['rich_text']
         if block['has_children']:
             children = self.__markdown(indent=indent+4, blocks=block['numbered_list_item']['children'])
-            return f"* {self.__paragraph(segments=segments)}\n\n{children}"
+            return f"1. {self.__paragraph(segments=segments)}\n\n{children}"
         return f"1. {self.__paragraph(segments=segments)}" 
 
     def __link_preview(self, block):

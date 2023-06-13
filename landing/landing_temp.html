@@ -23,8 +23,7 @@
                             <span :class="{active_group_caption: group==0, inactive_group_caption: group!=0}">Zilliz Cloud 101</span>
                         </div>
                         <div style="text-align: center;">
-                            <span style="font-size: 0.8em; color: #647489;">A beginner's guide to using Zilliz Cloud for
-                                vector databases.</span>
+                            <span style="font-size: 0.8em; color: #647489;">Learn how to quickly set up a Zilliz Cloud cluster using <b>Python</b>, <b>Node.js</b>, and <b>RESTful API</b>.</span>
                         </div>
                     </div>
                 </div>
@@ -57,7 +56,7 @@
                         <div style="text-align: center;">
                             <span style="font-size: 0.8em; color: #647489;">In-depth guides for advanced Zilliz Cloud
                                 vector
-                                database users.</span>
+                                database users using <b>Python</b>, <b>Java</b>, <b>Golang</b>, and <b>Node.js</b>.</span>
                         </div>
                     </div>
                 </div>
@@ -102,6 +101,7 @@
                 <div style="display: block; flex: 75%">
                     <div
                         style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        {%- if category["title"] !== "AI Model Integrations" %}
                         <div style="display: flex; flex-flow: row wrap; gap: 2%">
                             {%- for page in book['pages'] %}
                             {%- if book['max'] >= 33 %}
@@ -120,6 +120,26 @@
                             </div>  
                             {%- endif %}
                         </div>
+                        {%- else %}
+                        <div style="display: flex; flex-flow: column wrap; gap: 2%">
+                            {%- for page in book['pages'] %}
+                            {%- if book['max'] >= 33 %}
+                            <div style="display: block; line-height: 32px; flex: 45%;">
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/{{page['slug']}}" target="_blank">{%- if book['title'] in ["Get Started", "Starter User Guides"] %}{{loop.index|string + '. '}}{%- endif %}{{page['title']}}</a></span>
+                            </div>
+                            {%- elif book['max'] < 33 %}
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/{{page['slug']}}" target="_blank">{%- if book['title'] in ["Get Started", "Starter User Guides"] %}{{loop.index|string + '. '}}{%- endif %}{{page['title']}}</a></span>
+                            </div>  
+                            {%- endif %}                         
+                            {%- endfor %}
+                            {%- if book['counts'] == 5 %}
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span></span>
+                            </div>  
+                            {%- endif %}
+                        </div>                        
+                        {%- endif %}
                     </div>
                 </div>
             </div>
