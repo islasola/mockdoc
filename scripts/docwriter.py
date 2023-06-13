@@ -60,7 +60,7 @@ class DocWriter:
                 markdown.append(indent * ' ' + self.__paragraph(block))
                 prev_block_type = block['type']
             elif block['type'] == 'quote':
-                markdown.append(indent * ' ' + self.__quote(block))
+                markdown.append(indent * ' ' + self.__quote(block, indent=indent))
                 prev_block_type = block['type']
             elif block['type'] == 'bulleted_list_item':
                 markdown.append(indent * ' ' + self.__bullet_list_item(block, indent=indent))
@@ -173,13 +173,13 @@ class DocWriter:
         blocks = block['synced_block']['children']
         return self.__markdown(blocks)
     
-    def __quote(self, block):
+    def __quote(self, block, indent):
         plain_text = block['quote']['rich_text'][0]['plain_text']
         if plain_text.endswith('Notes') or plain_text.endswith('Warning'):
-            return f"> {block['quote']['rich_text'][0]['plain_text']}\n>\n"
+            return f"> {indent*' '}{block['quote']['rich_text'][0]['plain_text']}\n>\n"
         else:
             segments = block['quote']['rich_text']
-            return f"> {self.__paragraph(segments=segments)[:-2]}\n"    
+            return f"> {indent*' '}{self.__paragraph(segments=segments)[:-2]}\n\n"    
 
     def __bullet_list_item(self, block, indent):
         segments = block['bulleted_list_item']['rich_text']
