@@ -143,14 +143,14 @@ The properties in the returned response are listed in the following table.
 {%- if v['type'] not in ['array', 'object'] or 'properties' not in v['items'] %}
 | `data.{{k}}`   | **{{v['type']}}{%if 'format' in v %}({{v['format']}}){%- endif %}**<br>{{v['description']}} |
 {%- elif v['type'] == 'array' and 'properties' in v['items'] %}
-| `data.{{k}}`   | **{{v['type']}}<{{v['format']}}2>**<br>{{v['description']}} |
+| `data.{{k}}`   | **{{v['type']}}{%if 'format' in v %}({{v['format']}}){%- endif %}**<br>{{v['description']}} |
 {%- for ka, va in v['items']['properties'].items() %}
-| `data.{{k}}[].{{ka}}`   | **{{va['type']}}<{{va['format']}}3>**<br>{{va['description']}} |
+| `data.{{k}}[].{{ka}}`   | **{{va['type']}}{%if 'format' in va %}({{va['format']}}){%- endif %}**<br>{{va['description']}} |
 {%- endfor %}
 {%- elif v['type'] == 'object' %}
-| `data.{{k}}`   | **{{v['type']}}<{{v['format']}}4>**<br>{{v['description']}} |
+| `data.{{k}}`   | **{{v['type']}}{%if 'format' in v %}({{v['format']}}){%- endif %}**<br>{{v['description']}} |
 {%- for ko, vo in v['properties'].items() %}
-| `data.{{k}}.{{ko}}`   | **{{vo['type']}}<{{vo['format']}}5>**<br>{{vo['description']}} |
+| `data.{{k}}.{{ko}}`   | **{{vo['type']}}{%if 'format' in vo %}({{vo['format']}}){%- endif %}**<br>{{vo['description']}} |
 {%- endfor %}
 {%- endif %}
 {%- endfor %}
@@ -159,16 +159,16 @@ The properties in the returned response are listed in the following table.
 {%- if res_body['properties']['data']['items']['type'] == 'object' %}
 {%- for k, v in res_body['properties']['data']['items']['properties'].items() %}
 {%- if v['type'] not in ['array', 'object'] or 'properties' not in v['items'] %}
-| `data.{{k}}`   | **{{v['type']}}<{{v['format']}}6>**<br>{{v['description']}} |
+| `data.{{k}}`   | **{{v['type']}}{%if 'format' in v %}({{v['format']}}){%- endif %}**<br>{{v['description']}} |
 {%- elif v['type'] == 'array' and 'properties' in v['items'] %}
-| `data.{{k}}`   | **{{v['type']}}<{{v['format']}}7>**<br>{{v['description']}} |
+| `data.{{k}}`   | **{{v['type']}}{%if 'format' in v %}({{v['format']}}){%- endif %}**<br>{{v['description']}} |
 {%- for ka, va in v['items']['properties'].items() %}
-| `data.{{k}}[].{{ka}}`   | **{{va['type']}}<{{va['format']}}8>**<br>{{va['description']}} |
+| `data.{{k}}[].{{ka}}`   | **{{va['type']}}{%if 'format' in va %}({{va['format']}}){%- endif %}**<br>{{va['description']}} |
 {%- endfor %}
 {%- elif v['type'] == 'object' %}
-| `data.{{k}}`   | **{{v['type']}}<{{v['format']}}9>**<br>{{v['description']}} |
+| `data.{{k}}`   | **{{v['type']}}{%if 'format' in v %}({{v['format']}}){%- endif %}**<br>{{v['description']}} |
 {%- for ko, vo in v['properties'].items() %}
-| `data.{{k}}.{{ko}}`   | **{{vo['type']}}<{{vo['format']}}10>**<br>{{vo['description']}} |
+| `data.{{k}}.{{ko}}`   | **{{vo['type']}}{%if 'format' in vo %}({{vo['format']}}){%- endif %}**<br>{{vo['description']}} |
 {%- endfor %}
 {%- endif %}
 {%- endfor %}
