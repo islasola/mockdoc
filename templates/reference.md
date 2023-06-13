@@ -150,7 +150,7 @@ The properties in the returned response are listed in the following table.
 {%- elif v['type'] == 'object' %}
 | `data.{{k}}`   | **{{v['type']}}<{{v['format']}}4>**<br>{{v['description']}} |
 {%- for ko, vo in v['properties'].items() %}
-| `data.{{k}}.{{ko}}`   | **{{vo['type']}}<{{v['format']}}5>{%- endif %}**<br>{{vo['description']}} |
+| `data.{{k}}.{{ko}}`   | **{{vo['type']}}<{{v['format']}}5>**<br>{{vo['description']}} |
 {%- endfor %}
 {%- endif %}
 {%- endfor %}
@@ -168,7 +168,7 @@ The properties in the returned response are listed in the following table.
 {%- elif v['type'] == 'object' %}
 | `data.{{k}}`   | **{{v['type']}}<{{v['format']}}9>**<br>{{v['description']}} |
 {%- for ko, vo in v['properties'].items() %}
-| `data.{{k}}.{{ko}}`   | **{{vo['type']}}<{{vo['format']}}6>**<br>{{vo['description']}} |
+| `data.{{k}}.{{ko}}`   | **{{vo['type']}}<{{vo['format']}}10>**<br>{{vo['description']}} |
 {%- endfor %}
 {%- endif %}
 {%- endfor %}
