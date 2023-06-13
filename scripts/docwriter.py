@@ -128,8 +128,6 @@ class DocWriter:
                 final = f"<u>{segment['plain_text']}</u>"
             else:
                 final = segment['plain_text']
-        
-        final = final.replace('\u00a0', ' ` ')
 
         return final
         

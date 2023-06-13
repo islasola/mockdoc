@@ -30,6 +30,7 @@ def find_media(block):
     return images, link_previews, videos
 
 def replace_link_preview_url(block, link_preview_blocks, link_preview_titles):
+    print(block['type'])
     if block['type'] == 'link_preview':
         for i, link_preview_block in enumerate(link_preview_blocks):
             if link_preview_block['link_preview']['node'] == block['link_preview']['node']:
@@ -168,6 +169,17 @@ if __name__ == '__main__':
                     if block['type'] == 'video':
                         block = replace_video_meta(block, video_blocks)
 
+                    if block['has_children']:
+                        for child in block[block['type']]['children']:
+                            if child['type'] == 'image':
+                                child = replace_image_url(child)
+                            
+                            if child['type'] == 'link_preview':
+                                child = replace_link_preview_url(child, link_preview_blocks, link_preview_titles)
+
+                            if child['type'] == 'video':
+                                child = replace_video_meta(child, video_blocks)
+
     with open('guides.json', "w") as f:
         json.dump(categories, f, indent=4)
 
@@ -178,10 +190,22 @@ if __name__ == '__main__':
                     block = replace_image_url(block)
                 
                 if block['type'] == 'link_preview':
+                    print(block['link_preview'])
                     block = replace_link_preview_url(block, link_preview_blocks, link_preview_titles)
 
                 if block['type'] == 'video':
                     block = replace_video_meta(block, video_blocks)
+
+                if block['has_children']:
+                    for child in block[block['type']]['children']:
+                        if child['type'] == 'image':
+                            child = replace_image_url(child)
+                        
+                        if child['type'] == 'link_preview':
+                            child = replace_link_preview_url(child, link_preview_blocks, link_preview_titles)
+
+                        if child['type'] == 'video':
+                            child = replace_video_meta(child, video_blocks)
                         
     with open('faqs.json', "w") as f:
         json.dump(faqs, f, indent=4)
