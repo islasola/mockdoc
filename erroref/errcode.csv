@@ -47,7 +47,7 @@
 90106,The collection already exists.,,,,,,,,,,,,,,,,,,
 90107,Can not assign primary field data when auto id enabled int64,,,,,,,,,,,,,,,,,,
 90108,Extraneous fields %s in the json file need to be removed,,,,,,,,,,,,,,,,,,
-90109,The max insert batch rows should below 5000.,,,,,,,,,,,,,,,,,,
+90109,The max insert batch rows should below 100.,,,,,,,,,,,,,,,,,,
 90110,No filter key field.,,,,,,,,,,,,,,,,,,
 90111,The parameter value for 'level' should be between 1 and 3.,,,,,,,,,,,,,,,,,,
 90112,The field name should not be empty.,,,,,,,,,,,,,,,,,,
