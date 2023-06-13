@@ -129,7 +129,7 @@ if __name__ == '__main__':
             x['image']['file']['url'] = f"https://assets.zilliz.com/zdoc/{x['id']}.png"
 
         print(f"Getting {len(link_preview_blocks)} link previews...")
-        link_previews = [ executor.submit(req.get, f"https://api.figma.com/v1/images/{x['link_preview']['key']}?ids={x['link_preview']['node']}&format=png&scale=1", headers=figma_headers) for x in link_preview_blocks ]
+        link_previews = [ executor.submit(req.get, f"https://api.figma.com/v1/images/{x['link_preview']['key']}?ids={x['link_preview']['node']}&format=png&scale=3", headers=figma_headers) for x in link_preview_blocks ]
         link_previews = [ x.result() for x in link_previews ]
         link_previews = [ x.json()['images'][y['link_preview']['node']] for x, y in zip(link_previews, link_preview_blocks) ]
         link_previews = [ executor.submit(req.get, x) for x in link_previews ]
