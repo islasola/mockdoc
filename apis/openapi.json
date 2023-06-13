@@ -515,15 +515,16 @@
                           "description": "The time when this cluster has been creaated."
                         },
                         "storageSize": {
-                          "type": "string",
-                          "description": "The storage size of the cluster."
+                          "type": "integer",
+                          "description": "The storage size of the cluster.",
+                          "format": "sint64"
                         },
                         "snapshotNumber": {
-                          "type": "string",
+                          "type": "integer",
                           "description": "The number of snapshofts created from the cluster."
                         },
                         "createProgress": {
-                          "type": "string",
+                          "type": "integer",
                           "description": "The creation progress of the cluster."
                         }
                       },
@@ -2859,15 +2860,16 @@
                 "description": "The time when this cluster has been creaated."
               },
               "storageSize": {
-                "type": "string",
-                "description": "The storage size of the cluster."
+                "type": "integer",
+                "description": "The storage size of the cluster.",
+                "format": "sint64"
               },
               "snapshotNumber": {
-                "type": "string",
+                "type": "integer",
                 "description": "The number of snapshofts created from the cluster."
               },
               "createProgress": {
-                "type": "string",
+                "type": "integer",
                 "description": "The creation progress of the cluster."
               }
             },

@@ -85,17 +85,17 @@ parentDoc: {{parent_id}}
 |------------------|-------------------------------------------------------------------------------------------|
 {%- for k, v in req_body['properties'].items() %}
 {%- if v['type'] not in ['array', 'object'] %}
-| `{{k}}`  | **{{v['type']}}** {%- if k in req_body['required'] -%}(required){%- endif -%}<br>{{v['description']}}{%- if v['default'] -%}<br>The value defaults to **{{v['default']}}**.{%- endif -%}{%- if v['minimum'] and v['maximum'] -%}<br>The value ranges from **{{v['minimum']}}** to **{{v['maximum']}}**.{%- endif -%}{%- if v['minimum'] and not v['maximum'] -%}<br>The minimum value is **{{v['minimum']}}**.{%- endif -%}{%- if v['maximum'] and not v['minimum'] -%}<br>The maximum value is **{{v['maximum']}}**.{%- endif -%} |
+| `{{k}}`  | **{{v['type']}}{{<v['format']>}}** {%- if k in req_body['required'] -%}(required){%- endif -%}<br>{{v['description']}}{%- if v['default'] -%}<br>The value defaults to **{{v['default']}}**.{%- endif -%}{%- if v['minimum'] and v['maximum'] -%}<br>The value ranges from **{{v['minimum']}}** to **{{v['maximum']}}**.{%- endif -%}{%- if v['minimum'] and not v['maximum'] -%}<br>The minimum value is **{{v['minimum']}}**.{%- endif -%}{%- if v['maximum'] and not v['minimum'] -%}<br>The maximum value is **{{v['maximum']}}**.{%- endif -%} |
 {%- elif v['type'] == 'object' %}
 | `{{k}}`  | **{{v['type']}}** {%- if k in req_body['required'] -%}(required){%- endif -%}<br>{{v['description']}}{%- if v['default'] -%}<br>The value defaults to **{{v['default']}}**.{%- endif -%}{%- if v['minimum'] and v['maximum'] -%}<br>The value ranges from **{{v['minimum']}}** to **{{v['maximum']}}**.{%- endif -%}{%- if v['minimum'] and not v['maximum'] -%}<br>The minimum value is **{{v['minimum']}}**.{%- endif -%}{%- if v['maximum'] and not v['minimum'] -%}<br>The maximum value is **{{v['maximum']}}**.{%- endif -%} |
 {%- for ko, vo in v['properties'].items() %}
-| `{{k}}.{{ko}}`  | **{{vo['type']}}**<br>{{vo['description']}}{%- if vo['default'] -%}<br>The value defaults to **{{vo['default']}}**.{%- endif -%}{%- if vo['minimum'] and vo['maximum'] -%}<br>The value ranges from **{{vo['minimum']}}** to **{{vo['maximum']}}**.{%- endif -%}{%- if vo['minimum'] and not vo['maximum'] -%}<br>The minimum value is **{{vo['minimum']}}**.{%- endif -%}{%- if vo['maximum'] and not vo['minimum'] -%}<br>The maximum value is **{{vo['maximum']}}**.{%- endif -%} |
+| `{{k}}.{{ko}}`  | **{{vo['type']}}{{<v['format']>}}**<br>{{vo['description']}}{%- if vo['default'] -%}<br>The value defaults to **{{vo['default']}}**.{%- endif -%}{%- if vo['minimum'] and vo['maximum'] -%}<br>The value ranges from **{{vo['minimum']}}** to **{{vo['maximum']}}**.{%- endif -%}{%- if vo['minimum'] and not vo['maximum'] -%}<br>The minimum value is **{{vo['minimum']}}**.{%- endif -%}{%- if vo['maximum'] and not vo['minimum'] -%}<br>The maximum value is **{{vo['maximum']}}**.{%- endif -%} |
 {%- endfor %}
 {%- elif v['type'] == 'array' %}
 | `{{k}}`  | **{{v['type']}}** {%- if k in req_body['required'] -%}(required){%- endif -%}<br>{{v['description']}}{%- if v['default'] -%}<br>The value defaults to **{{v['default']}}**.{%- endif -%}{%- if v['minimum'] and v['maximum'] -%}<br>The value ranges from **{{v['minimum']}}** to **{{v['maximum']}}**.{%- endif -%}{%- if v['minimum'] and not v['maximum'] -%}<br>The minimum value is **{{v['minimum']}}**.{%- endif -%}{%- if v['maximum'] and not v['minimum'] -%}<br>The maximum value is **{{v['maximum']}}**.{%- endif -%} |
 {%- if v['items'] == 'object' %}
 {%- for ka, va in v['items']['properties'].items() %}
-| `{{k}}[].{{ka}}`  | **{{va['type']}}**<br>{{va['description']}}{%- if va['default'] -%}<br>The value defaults to **{{va['default']}}**.{%- endif -%}{%- if va['minimum'] and va['maximum'] -%}<br>The value ranges from **{{va['minimum']}}** to **{{va['maximum']}}**.{%- endif -%}{%- if va['minimum'] and not va['maximum'] -%}<br>The minimum value is **{{va['minimum']}}**.{%- endif -%}{%- if va['maximum'] and not va['minimum'] -%}<br>The maximum value is **{{va['maximum']}}**.{%- endif -%} |
+| `{{k}}[].{{ka}}`  | **{{va['type']}}{{<v['format']>}}**<br>{{va['description']}}{%- if va['default'] -%}<br>The value defaults to **{{va['default']}}**.{%- endif -%}{%- if va['minimum'] and va['maximum'] -%}<br>The value ranges from **{{va['minimum']}}** to **{{va['maximum']}}**.{%- endif -%}{%- if va['minimum'] and not va['maximum'] -%}<br>The minimum value is **{{va['minimum']}}**.{%- endif -%}{%- if va['maximum'] and not va['minimum'] -%}<br>The maximum value is **{{va['maximum']}}**.{%- endif -%} |
 {%- endfor %}
 {%- endif %}
 {%- endif %}
@@ -141,16 +141,16 @@ The properties in the returned response are listed in the following table.
 | `data`    | **object**<br>A data object. |
 {%- for k, v in res_body['properties']['data']['properties'].items() %}
 {%- if v['type'] not in ['array', 'object'] or 'properties' not in v['items'] %}
-| `data.{{k}}`   | **{{v['type']}}**<br>{{v['description']}} |
+| `data.{{k}}`   | **{{v['type']}}{{<v['format']>}}**<br>{{v['description']}} |
 {%- elif v['type'] == 'array' and 'properties' in v['items'] %}
 | `data.{{k}}`   | **{{v['type']}}**<br>{{v['description']}} |
 {%- for ka, va in v['items']['properties'].items() %}
-| `data.{{k}}[].{{ka}}`   | **{{va['type']}}**<br>{{va['description']}} |
+| `data.{{k}}[].{{ka}}`   | **{{va['type']}}{{<v['format']>}}**<br>{{va['description']}} |
 {%- endfor %}
 {%- elif v['type'] == 'object' %}
 | `data.{{k}}`   | **{{v['type']}}**<br>{{v['description']}} |
 {%- for ko, vo in v['properties'].items() %}
-| `data.{{k}}.{{ko}}`   | **{{vo['type']}}**<br>{{vo['description']}} |
+| `data.{{k}}.{{ko}}`   | **{{vo['type']}}{{<v['format']>}}**<br>{{vo['description']}} |
 {%- endfor %}
 {%- endif %}
 {%- endfor %}
@@ -159,16 +159,16 @@ The properties in the returned response are listed in the following table.
 {%- if res_body['properties']['data']['items']['type'] == 'object' %}
 {%- for k, v in res_body['properties']['data']['items']['properties'].items() %}
 {%- if v['type'] not in ['array', 'object'] or 'properties' not in v['items'] %}
-| `data.{{k}}`   | **{{v['type']}}**<br>{{v['description']}} |
+| `data.{{k}}`   | **{{v['type']}}{{<v['format']>}}**<br>{{v['description']}} |
 {%- elif v['type'] == 'array' and 'properties' in v['items'] %}
 | `data.{{k}}`   | **{{v['type']}}**<br>{{v['description']}} |
 {%- for ka, va in v['items']['properties'].items() %}
-| `data.{{k}}[].{{ka}}`   | **{{va['type']}}**<br>{{va['description']}} |
+| `data.{{k}}[].{{ka}}`   | **{{va['type']}}{{<v['format']>}}**<br>{{va['description']}} |
 {%- endfor %}
 {%- elif v['type'] == 'object' %}
 | `data.{{k}}`   | **{{v['type']}}**<br>{{v['description']}} |
 {%- for ko, vo in v['properties'].items() %}
-| `data.{{k}}.{{ko}}`   | **{{vo['type']}}**<br>{{vo['description']}} |
+| `data.{{k}}.{{ko}}`   | **{{vo['type']}}{{<v['format']>}}**<br>{{vo['description']}} |
 {%- endfor %}
 {%- endif %}
 {%- endfor %}
