@@ -1554,7 +1554,7 @@
                     "description": "The maximum number of entities to return.<br>The sum of this value and that of `offset` should be less than **16384**.",
                     "default": 100,
                     "minimum": 1,
-                    "maximum": 3000
+                    "maximum": 100
                   },
                   "offset": {
                     "type": "integer",
@@ -1588,7 +1588,7 @@
                         "description": "The maximum number of entities to return.<br>The sum of this value and that of `offset` should be less than **16384**.",
                         "default": 100,
                         "minimum": 1,
-                        "maximum": 3000
+                        "maximum": 100
                       },
                       "offset": {
                         "type": "integer",
@@ -2049,7 +2049,7 @@
             "description": "The maximum number of entities to return.<br>The sum of this value and that of `offset` should be less than **16384**.",
             "default": 100,
             "minimum": 1,
-            "maximum": 3000
+            "maximum": 100
           },
           "offset": {
             "type": "integer",
