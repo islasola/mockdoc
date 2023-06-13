@@ -141,14 +141,14 @@ The properties in the returned response are listed in the following table.
 | `data`    | **object**<br>A data object. |
 {%- for k, v in res_body['properties']['data']['properties'].items() %}
 {%- if v['type'] not in ['array', 'object'] or 'properties' not in v['items'] %}
-| `data.{{k}}`   | **{{v['type']}}<{{v['format']}}>**<br>{{v['description']}} |
+| `data.{{k}}`   | **{{v['type']}}**<br>{{v['description']}} |
 {%- elif v['type'] == 'array' and 'properties' in v['items'] %}
 | `data.{{k}}`   | **{{v['type']}}**<br>{{v['description']}} |
 {%- for ka, va in v['items']['properties'].items() %}
 | `data.{{k}}[].{{ka}}`   | **{{va['type']}}{%- if 'format' in va %}<{{va['format']}}>{%- endif %}**<br>{{va['description']}} |
 {%- endfor %}
 {%- elif v['type'] == 'object' %}
-| `data.{{k}}`   | **{{v['type']}}**<br>{{v['description']}} |
+| `data.{{k}}`   | **{{v['type']}}{%- if 'format' in v %}<{{v['format']}}>{%- endif %}**<br>{{v['description']}} |
 {%- for ko, vo in v['properties'].items() %}
 | `data.{{k}}.{{ko}}`   | **{{vo['type']}}{%- if 'format' in vo %}<{{vo['format']}}>{%- endif %}**<br>{{vo['description']}} |
 {%- endfor %}
@@ -159,16 +159,16 @@ The properties in the returned response are listed in the following table.
 {%- if res_body['properties']['data']['items']['type'] == 'object' %}
 {%- for k, v in res_body['properties']['data']['items']['properties'].items() %}
 {%- if v['type'] not in ['array', 'object'] or 'properties' not in v['items'] %}
-| `data.{{k}}`   | **{{v['type']}}{%- if 'format' in v %}<{{v['format']}}>{%- endif %}**<br>{{v['description']}} |
+| `data.{{k}}`   | **{{v['type']}}<{{v['format']}}>**<br>{{v['description']}} |
 {%- elif v['type'] == 'array' and 'properties' in v['items'] %}
 | `data.{{k}}`   | **{{v['type']}}**<br>{{v['description']}} |
 {%- for ka, va in v['items']['properties'].items() %}
-| `data.{{k}}[].{{ka}}`   | **{{va['type']}}{%- if 'format' in va %}<{{va['format']}}>{%- endif %}**<br>{{va['description']}} |
+| `data.{{k}}[].{{ka}}`   | **{{va['type']}}**<br>{{va['description']}} |
 {%- endfor %}
 {%- elif v['type'] == 'object' %}
-| `data.{{k}}`   | **{{v['type']}}**<br>{{v['description']}} |
+| `data.{{k}}`   | **{{v['type']}}{%- if 'format' in v %}<{{v['format']}}>{%- endif %}**<br>{{v['description']}} |
 {%- for ko, vo in v['properties'].items() %}
-| `data.{{k}}.{{ko}}`   | **{{vo['type']}}{%- if 'format' in vo %}<{{vo['format']}}>{%- endif %}**<br>{{vo['description']}} |
+| `data.{{k}}.{{ko}}`   | **{{vo['type']}}**<br>{{vo['description']}} |
 {%- endfor %}
 {%- endif %}
 {%- endfor %}
