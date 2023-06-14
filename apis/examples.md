@@ -6,7 +6,7 @@ Lists all cloud providers available on Zilliz Cloud:
 
 ```shell
 curl --request GET \
-     --url 'https://controller.api.aws-us-west-2.cloud-uat3.zilliz.com/v1/clouds' \
+     --url 'https://controller.api.aws-us-west-2.zillizcloud.com/v1/clouds' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -36,7 +36,7 @@ Lists all available cloud regions of a specific cloud provider:
 
 ```shell
 curl --request GET \
-     --url 'https://controller.api.gcp-us-west1.vectordb.zilliz.com/v1/regions?cloudId=gcp' \
+     --url 'https://controller.api.gcp-us-west1.zillizcloud.com/v1/regions?cloudId=gcp' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -51,7 +51,7 @@ Success response:
     "code": 200,
     "data": [
         {
-            "apiBaseUrl": "https://api.gcp-us-west1.cloud-uat3.zilliz.com",
+            "apiBaseUrl": "https://api.gcp-us-west1.zillizcloud.com",
             "cloudId": "gcp",
             "regionId": "gcp-us-west1"
         }
@@ -65,7 +65,7 @@ Describes the details of a cluster:
 
 ```shell
 curl --request GET \
-     --url 'https://controller.api.<Cloud-Region>.vectordb.zilliz.com/v1/clusters/<Cluster-ID>' \
+     --url 'https://controller.api.<Cloud-Region>.zillizcloud.com/v1/clusters/<Cluster-ID>' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -99,7 +99,7 @@ Success response:
 Suspends a cluster. This operation will stop the cluster and your data will remain intact.
 
 ```shell
-curl --request POST \ 'https://controller.<Cloud-Region>.vectordb.zilliz.com/v1/clusters/<Cluster-ID>/suspend' \
+curl --request POST \ 'https://controller.<Cloud-Region>.zillizcloud.com/v1/clusters/<Cluster-ID>/suspend' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -122,7 +122,7 @@ Success response:
 Resume a cluster that has been suspended:
 
 ```shell
-curl --request POST \ 'https://controller.api.<Cloud-Region>.vectordb.zilliz.com/v1/clusters/<Cluster-ID>/suspend' \
+curl --request POST \ 'https://controller.api.<Cloud-Region>.zillizcloud.com/v1//clusters/<Cluster-ID>/resume' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -148,7 +148,7 @@ Lists all clusters in a cloud region:
 Request Example:
 
 curl --request GET \
-     --url 'https://controller.api.<Cloud-Region>.vectordb.zilliz.com/v1/clusters?pageSize=&current=' \
+     --url 'https://controller.api.<Cloud-Region>.zillizcloud.com/v1/clusters?pageSize=&current=' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -174,7 +174,7 @@ Create a collection named `medium_articles`:
 
 ```shell
 curl --request POST \
-     --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/collections/create' \
+     --url '${PUBLIC_ENDPOINT}/v1/vector/collections/create' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -202,7 +202,7 @@ Drop a collection named `medium_articles`:
 
 ```shell
 curl --request POST \
-     --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/collections/drop' \
+     --url '${PUBLIC_ENDPOINT}/v1/vector/collections/drop' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -226,7 +226,7 @@ Describe the details of a collection named `medium_articles`:
 
 ```shell
 curl --request GET \
-     --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/collections/describe' \
+     --url '${PUBLIC_ENDPOINT}/v1/vector/collections/describe' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -272,7 +272,7 @@ List all collections in a cluster:
 
 ```shell
 curl --request GET \
-     --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/collections' \
+     --url '${PUBLIC_ENDPOINT}/v1/vector/collections' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -298,7 +298,7 @@ Insert an entity to a collection named `collection1`:
 
 ```shell
 curl --request POST \
-     --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/insert' \
+     --url '${PUBLIC_ENDPOINT}/v1/vector/insert' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -318,7 +318,7 @@ Insert multiple entities:
 
 ```shell
 curl --request POST \
-     --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/insert' \
+     --url '${PUBLIC_ENDPOINT}/v1/vector/insert' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -348,7 +348,7 @@ Search entities based on a given vector:
 
 ```shell
 curl --request POST \
-     --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/search' \
+     --url '${PUBLIC_ENDPOINT}/v1/vector/search' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -362,7 +362,7 @@ Search entities and return specific fields:
 
 ```shell
 curl --request POST \
-     --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/search' \
+     --url '${PUBLIC_ENDPOINT}/v1/vector/search' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -382,7 +382,7 @@ Query entities that meet specific conditions:
 
 ```shell
 curl --request POST \
-     --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/query' \
+     --url '${PUBLIC_ENDPOINT}/v1/vector/query' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -401,7 +401,7 @@ Get a specified entity whose ID is an integer:
 
 ```shell
 curl --request POST \
-     --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/get' \
+     --url '${PUBLIC_ENDPOINT}/v1/vector/get' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -416,7 +416,7 @@ Get a specified entity whose ID is a string:
 
 ```shell
 curl --request POST \
-     --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/get' \
+     --url '${PUBLIC_ENDPOINT}/v1/vector/get' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -431,7 +431,7 @@ Get a list of entities whose IDs are integers:
 
 ```shell
 curl --request POST \
-     --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/get' \
+     --url '${PUBLIC_ENDPOINT}/v1/vector/get' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -446,7 +446,7 @@ Get a list of entities whose IDs are strings:
 
 ```shell
 curl --request POST \
-     --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/get' \
+     --url '${PUBLIC_ENDPOINT}/v1/vector/get' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -463,7 +463,7 @@ Delete a collection whose ID is an integer:
 
 ```shell
 curl --request POST \
-     --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/delete' \
+     --url '${PUBLIC_ENDPOINT}/v1/vector/delete' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -477,7 +477,7 @@ Delete a collection whose ID is a string:
 
 ```shell
 curl --request POST \
-     --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/delete' \
+     --url '${PUBLIC_ENDPOINT}/v1/vector/delete' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -491,7 +491,7 @@ Delete a list of collections whose IDs are integers:
 
 ```shell
 curl --request POST \
-     --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/delete' \
+     --url '${PUBLIC_ENDPOINT}/v1/vector/delete' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
@@ -505,7 +505,7 @@ Delete a list of collections whose IDs are strings:
 
 ```shell
 curl --request POST \
-     --url 'https://<Cluster-ID>.api.<Cloud-Region>.vectordb.zilliz.com/v1/vector/delete' \
+     --url '${PUBLIC_ENDPOINT}/v1/vector/delete' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
