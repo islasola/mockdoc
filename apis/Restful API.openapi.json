@@ -671,7 +671,11 @@
                     "description": "An array of fields to return along with the search results."
                   },
                   "vector": {
-                    "type": "string",
+                    "type": "array",
+                    "items": {
+                      "type": "number",
+                      "format": "float32"
+                    },
                     "description": "The label of this field should be the name of the indexed vector field in the collection. For example, if the name of the indexed vector field is **title_vector**, the label of this field should be **title_vector**."
                   }
                 },
@@ -1159,7 +1163,11 @@
             "description": "An array of fields to return along with the search results."
           },
           "vector": {
-            "type": "string",
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "float32"
+            },
             "description": "The label of this field should be the name of the indexed vector field in the collection. For example, if the name of the indexed vector field is **title_vector**, the label of this field should be **title_vector**."
           }
         },
