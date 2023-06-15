@@ -12,7 +12,7 @@ on:
     paths:
       - apis/**
       - apiref/**
-      - erroref
+      - erroref/**
       - templates/**
       - scripts/refgen.py
       - scripts/clean.py
