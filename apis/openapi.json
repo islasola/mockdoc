@@ -1418,7 +1418,7 @@
                           "type": "number",
                           "format": "float32"
                         },
-                        "description": "The label of this field should be the name of the indexed vector field in the collection. For example, if the name of the indexed vector field is **title_vector**, the label of this field should be **title_vector**."
+                        "description": "The query vector in the form of a list of floating numbers."
                       }
                     },
                     "x-apifox-orders": [
@@ -1477,7 +1477,7 @@
                       "type": "number",
                       "format": "float32"
                     },
-                    "description": "The label of this field should be the name of the indexed vector field in the collection. For example, if the name of the indexed vector field is **title_vector**, the label of this field should be **title_vector**."
+                    "description": "The query vector in the form of a list of floating numbers."
                   }
                 },
                 "required": [
@@ -2127,7 +2127,7 @@
               "type": "number",
               "format": "float32"
             },
-            "description": "The label of this field should be the name of the indexed vector field in the collection. For example, if the name of the indexed vector field is **title_vector**, the label of this field should be **title_vector**."
+            "description": "The query vector in the form of a list of floating numbers."
           }
         },
         "x-apifox-orders": [
