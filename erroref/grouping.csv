@@ -2,8 +2,6 @@
 ListCollections,80000
 ListCollections,80001
 ListCollections,80002
-ListCollections,90998
-ListCollections,90999
 ListCollections,90103
 ListCollections,80020
 ListCollections,90011
@@ -31,17 +29,13 @@ CreateCollection,90025
 CreateCollection,90027
 CreateCollection,90110
 CreateCollection,90102
-CreateCollection,90999
 CreateCollection,90106
-CreateCollection,90998
 CreateCollection,80022
 CreateCollection,90114
 CreateCollection,90122
 CreateCollection,90136
 CreateCollection,90139
 DescribeCollection,80000
-DescribeCollection,90998
-DescribeCollection,90999
 DescribeCollection,90103
 DescribeCollection,80020
 DescribeCollection,90011
@@ -54,8 +48,6 @@ DropCollection,80000
 DropCollection,90103
 DropCollection,80020
 DropCollection,90011
-DropCollection,90998
-DropCollection,90999
 DropCollection,90102
 DropCollection,90001
 DropCollection,80001
@@ -77,8 +69,6 @@ Search,90002
 Search,90006
 Search,90007
 Search,90110
-Search,90998
-Search,90999
 Search,80001
 Search,80002
 Search,80022
@@ -96,8 +86,6 @@ Query,90102
 Query,90001
 Query,90002
 Query,90110
-Query,90998
-Query,90999
 Query,80001
 Query,80002
 Query,90134
@@ -110,8 +98,6 @@ Get,90102
 Get,90001
 Get,90002
 Get,90110
-Get,90998
-Get,90999
 Get,80001
 Get,80002
 Get,90133
@@ -124,8 +110,6 @@ Delete,90011
 Delete,90110
 Delete,90102
 Delete,90001
-Delete,90998
-Delete,90999
 Delete,80001
 Delete,80002
 Delete,80022
@@ -148,8 +132,6 @@ Insert,90108
 Insert,90107
 Insert,90111
 Insert,90010
-Insert,90998
-Insert,90999
 Insert,80001
 Insert,80002
 Insert,80022
