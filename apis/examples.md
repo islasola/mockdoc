@@ -122,7 +122,7 @@ Success response:
 Resume a cluster that has been suspended:
 
 ```shell
-curl --request POST \ 'https://controller.api.<Cloud-Region>.zillizcloud.com/v1//clusters/<Cluster-ID>/resume' \
+curl --request POST \ 'https://controller.api.<Cloud-Region>.zillizcloud.com/v1/clusters/<Cluster-ID>/resume' \
      --header 'Authorization: Bearer: <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
