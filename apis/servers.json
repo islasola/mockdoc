@@ -10,7 +10,7 @@
           }
         },
         {
-          "url": "https://{instance-id}.{cloud-region}.vectordb.zillizcloud.com:{instance-port}",
+          "url": "https://{instance-id}.{cloud-region}.vectordb.zillizcloud.com/v1",
           "variables": {
             "instance-id": {
               "default": "vector-instance",
@@ -25,24 +25,7 @@
               "description": "Indicates the port of your vector database."
             }
           }
-        },
-        {
-          "url": "https://{instance-id}-privatelink.{cloud-region}.vectordb.zillizcloud.com:{instance-port}",
-          "variables": {
-            "instance-id": {
-              "default": "vector-instance",
-              "description": "Indicates the instance ID of your vector database."
-            },
-            "cloud-region": {
-              "default": "aws-us-west-2",
-              "description": "Indicates the cloud region that accommodates your vector databases."
-            },
-            "instance-port": {
-              "default": "19530",
-              "description": "Indicates the port of your vector database."
-            }
-          }
-        }      
+        }     
       ],
     "components": {
       "securitySchemes": {

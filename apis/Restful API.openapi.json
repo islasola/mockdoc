@@ -20,7 +20,7 @@
     }
   ],
   "paths": {
-    "/clouds": {
+    "/v1/clouds": {
       "get": {
         "summary": "List Cloud Providers",
         "x-apifox-folder": "Cloud Meta",
@@ -30,7 +30,17 @@
         "tags": [
           "Cloud Meta"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "cloud-provider-id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Returns a list of all available cloud providers on Zilliz Cloud.",
@@ -63,7 +73,7 @@
         "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767159-run"
       }
     },
-    "/regions": {
+    "/v1/regions": {
       "get": {
         "summary": "List Cloud Regions",
         "x-apifox-folder": "Cloud Meta",
@@ -74,6 +84,15 @@
           "Cloud Meta"
         ],
         "parameters": [
+          {
+            "name": "cloud-provider-id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "cloudId",
             "in": "query",
@@ -107,7 +126,7 @@
         "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767161-run"
       }
     },
-    "/clusters": {
+    "/v1/clusters": {
       "get": {
         "summary": "List Clusters",
         "x-apifox-folder": "Cluster Operations",
@@ -118,6 +137,15 @@
           "Cluster Operations"
         ],
         "parameters": [
+          {
+            "name": "cloud-region-id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "pageSize",
             "in": "query",
@@ -161,7 +189,7 @@
         "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767163-run"
       }
     },
-    "/clusters/{clusterId}": {
+    "/v1/clusters/clusters/{clusterId}": {
       "get": {
         "summary": "Describe Cluster",
         "x-apifox-folder": "Cluster Operations",
@@ -172,6 +200,15 @@
           "Cluster Operations"
         ],
         "parameters": [
+          {
+            "name": "cloud-region-id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "clusterId",
             "in": "path",
@@ -198,7 +235,7 @@
         "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767164-run"
       }
     },
-    "/clusters/{clusterId}/resume": {
+    "/v1/clusters/{clusterId}/resume": {
       "post": {
         "summary": "Resume Cluster",
         "x-apifox-folder": "Cluster Operations",
@@ -209,6 +246,15 @@
           "Cluster Operations"
         ],
         "parameters": [
+          {
+            "name": "cloud-region-id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "clusterId",
             "in": "path",
@@ -235,7 +281,7 @@
         "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767167-run"
       }
     },
-    "/clusters/{clusterId}/suspend": {
+    "/v1/clusters/{clusterId}/suspend": {
       "post": {
         "summary": "Suspend Cluster",
         "x-apifox-folder": "Cluster Operations",
@@ -246,6 +292,15 @@
           "Cluster Operations"
         ],
         "parameters": [
+          {
+            "name": "cloud-region-id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "clusterId",
             "in": "path",
@@ -272,7 +327,7 @@
         "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767168-run"
       }
     },
-    "/vector/collections": {
+    "/v1/vector/collections": {
       "get": {
         "summary": "List Collections",
         "x-apifox-folder": "Collection Operations",
@@ -282,7 +337,17 @@
         "tags": [
           "Collection Operations"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "public-endpoint",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Returns a list of collections in the specified cluster.",
@@ -298,7 +363,7 @@
         "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767175-run"
       }
     },
-    "/vector/collections/create": {
+    "/v1/vector/collections/create": {
       "post": {
         "summary": "Create Collection",
         "x-apifox-folder": "Collection Operations",
@@ -308,7 +373,17 @@
         "tags": [
           "Collection Operations"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "public-endpoint",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -334,7 +409,7 @@
         "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767176-run"
       }
     },
-    "/vector/collections/describe": {
+    "/v1/vector/collections/describe": {
       "get": {
         "summary": "Describe Collection",
         "x-apifox-folder": "Collection Operations",
@@ -345,6 +420,15 @@
           "Collection Operations"
         ],
         "parameters": [
+          {
+            "name": "public-endpoint",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "collectionName",
             "in": "query",
@@ -371,7 +455,7 @@
         "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767177-run"
       }
     },
-    "/vector/collections/drop": {
+    "/v1/vector/collections/drop": {
       "post": {
         "summary": "Drop Collection",
         "x-apifox-folder": "Collection Operations",
@@ -381,7 +465,17 @@
         "tags": [
           "Collection Operations"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "public-endpoint",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -407,7 +501,7 @@
         "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767178-run"
       }
     },
-    "/vector/delete": {
+    "/v1/vector/delete": {
       "post": {
         "summary": "Delete",
         "x-apifox-folder": "Vector Operations",
@@ -417,7 +511,17 @@
         "tags": [
           "Vector Operations"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "public-endpoint",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -542,7 +646,7 @@
         "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767179-run"
       }
     },
-    "/vector/insert": {
+    "/v1/vector/insert": {
       "post": {
         "summary": "Insert",
         "x-apifox-folder": "Vector Operations",
@@ -552,7 +656,17 @@
         "tags": [
           "Vector Operations"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "public-endpoint",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -608,7 +722,7 @@
         "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767180-run"
       }
     },
-    "/vector/search": {
+    "/v1/vector/search": {
       "post": {
         "summary": "Search",
         "x-apifox-folder": "Vector Operations",
@@ -618,7 +732,17 @@
         "tags": [
           "Vector Operations"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "public-endpoint",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -731,7 +855,7 @@
         "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767181-run"
       }
     },
-    "/vector/query": {
+    "/v1/vector/query": {
       "post": {
         "summary": "Query",
         "x-apifox-folder": "Vector Operations",
@@ -741,7 +865,17 @@
         "tags": [
           "Vector Operations"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "public-endpoint",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -837,7 +971,7 @@
         "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-82167294-run"
       }
     },
-    "/vector/get": {
+    "/v1/vector/get": {
       "post": {
         "summary": "Get",
         "x-apifox-folder": "Vector Operations",
@@ -847,7 +981,17 @@
         "tags": [
           "Vector Operations"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "public-endpoint",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
