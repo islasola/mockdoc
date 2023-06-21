@@ -4,8 +4,9 @@ Creates a Milvus client for a cluster.
 
 ```python
 MilvusClient(
-    uri,
-    token, # API key or username and password
+    uri="PUBLIC_ENDPOINT",
+    token="API-KEY", # for serverless clusters, or
+    # token="USER:PASSWORD" # for dedicated clusters
     timeout
 )
 ```
