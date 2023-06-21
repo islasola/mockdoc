@@ -76,7 +76,7 @@ async def get_faqs(category):
     faqs_categories_to_add = list(set(faqs_categories_to_add))
 
     if faqs_categories_to_add:
-        [ await rdme_client.post('/api/v1/docs', json={"title": f"FAQs: {x}", "category": category['rid']}) for x in faqs_categories_to_add ]
+        [ await rdme_client.post('/api/v1/docs', json={"title": x, "category": category['rid']}) for x in faqs_categories_to_add ]
 
     remotes = json.loads(await rdme_client.get(f"/api/v1/categories/{category['slug']}/docs"))
 
