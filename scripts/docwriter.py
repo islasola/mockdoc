@@ -344,7 +344,7 @@ parentDoc: {book}
 
         with open(f"{self.output}/{page['slug']}.md", 'w') as f:
             f.write(f"""---
-title: "FAQs: {page['category']}"
+title: "{page['category']}"
 category: {faqs_id}
 slug: {page['slug']}
 ---
