@@ -7,7 +7,7 @@ Lists all cloud providers available on Zilliz Cloud:
 ```shell
 curl --request GET \
      --url 'https://controller.api.aws-us-west-2.zillizcloud.com/v1/clouds' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
 ```
@@ -37,7 +37,7 @@ Lists all available cloud regions of a specific cloud provider:
 ```shell
 curl --request GET \
      --url 'https://controller.api.gcp-us-west1.zillizcloud.com/v1/regions?cloudId=gcp' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
 ```
@@ -66,7 +66,7 @@ Describes the details of a cluster:
 ```shell
 curl --request GET \
      --url 'https://controller.api.<Cloud-Region>.zillizcloud.com/v1/clusters/<Cluster-ID>' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
 ```
@@ -100,7 +100,7 @@ Suspends a cluster. This operation will stop the cluster and your data will rema
 
 ```shell
 curl --request POST \ 'https://controller.<Cloud-Region>.zillizcloud.com/v1/clusters/<Cluster-ID>/suspend' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
 ```
@@ -123,7 +123,7 @@ Resume a cluster that has been suspended:
 
 ```shell
 curl --request POST \ 'https://controller.api.<Cloud-Region>.zillizcloud.com/v1/clusters/<Cluster-ID>/resume' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
 ```
@@ -149,7 +149,7 @@ Request Example:
 
 curl --request GET \
      --url 'https://controller.api.<Cloud-Region>.zillizcloud.com/v1/clusters?pageSize=&current=' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
 ```
@@ -175,7 +175,7 @@ Create a collection named `medium_articles`:
 ```shell
 curl --request POST \
      --url '${PUBLIC_ENDPOINT}/v1/vector/collections/create' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
      -d '{
@@ -203,7 +203,7 @@ Drop a collection named `medium_articles`:
 ```shell
 curl --request POST \
      --url '${PUBLIC_ENDPOINT}/v1/vector/collections/drop' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
      -d '{
@@ -227,7 +227,7 @@ Describe the details of a collection named `medium_articles`:
 ```shell
 curl --request GET \
      --url '${PUBLIC_ENDPOINT}/v1/vector/collections/describe' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
      -d '{
@@ -273,7 +273,7 @@ List all collections in a cluster:
 ```shell
 curl --request GET \
      --url '${PUBLIC_ENDPOINT}/v1/vector/collections' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
 ```
@@ -299,7 +299,7 @@ Insert an entity to a collection named `collection1`:
 ```shell
 curl --request POST \
      --url '${PUBLIC_ENDPOINT}/v1/vector/insert' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
      -d '{
@@ -319,7 +319,7 @@ Insert multiple entities:
 ```shell
 curl --request POST \
      --url '${PUBLIC_ENDPOINT}/v1/vector/insert' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
      -d '{
@@ -349,7 +349,7 @@ Search entities based on a given vector:
 ```shell
 curl --request POST \
      --url '${PUBLIC_ENDPOINT}/v1/vector/search' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
      -d '{
@@ -363,7 +363,7 @@ Search entities and return specific fields:
 ```shell
 curl --request POST \
      --url '${PUBLIC_ENDPOINT}/v1/vector/search' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
      -d '{
@@ -383,7 +383,7 @@ Query entities that meet specific conditions:
 ```shell
 curl --request POST \
      --url '${PUBLIC_ENDPOINT}/v1/vector/query' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
      -d '{
@@ -402,7 +402,7 @@ Get a specified entity whose ID is an integer:
 ```shell
 curl --request POST \
      --url '${PUBLIC_ENDPOINT}/v1/vector/get' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
      -d '{
@@ -417,7 +417,7 @@ Get a specified entity whose ID is a string:
 ```shell
 curl --request POST \
      --url '${PUBLIC_ENDPOINT}/v1/vector/get' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
      -d '{
@@ -432,7 +432,7 @@ Get a list of entities whose IDs are integers:
 ```shell
 curl --request POST \
      --url '${PUBLIC_ENDPOINT}/v1/vector/get' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
      -d '{
@@ -447,7 +447,7 @@ Get a list of entities whose IDs are strings:
 ```shell
 curl --request POST \
      --url '${PUBLIC_ENDPOINT}/v1/vector/get' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
      -d '{
@@ -464,7 +464,7 @@ Delete a collection whose ID is an integer:
 ```shell
 curl --request POST \
      --url '${PUBLIC_ENDPOINT}/v1/vector/delete' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
      -d '{
@@ -478,7 +478,7 @@ Delete a collection whose ID is a string:
 ```shell
 curl --request POST \
      --url '${PUBLIC_ENDPOINT}/v1/vector/delete' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
      -d '{
@@ -492,7 +492,7 @@ Delete a list of collections whose IDs are integers:
 ```shell
 curl --request POST \
      --url '${PUBLIC_ENDPOINT}/v1/vector/delete' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
      -d '{
@@ -506,7 +506,7 @@ Delete a list of collections whose IDs are strings:
 ```shell
 curl --request POST \
      --url '${PUBLIC_ENDPOINT}/v1/vector/delete' \
-     --header 'Authorization: Bearer: <API-Key>' \
+     --header 'Authorization: Bearer <API-Key>' \
      --header 'accept: application/json' \
      --header 'content-type: application/json'
      -d '{
