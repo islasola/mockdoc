@@ -370,7 +370,7 @@ curl --request POST \
        "collectionName": "collection1",
        "outputFields": ["id", "name", "feature", "distance"],
        "vector": [0.0128121, 0.029119, .... , 0.09121],
-       "filter": "id in (1, 2, 3)",
+       "filter": "id in [1, 2, 3]",
        "limit": 100,
        "offset": 0
      }'
@@ -389,7 +389,7 @@ curl --request POST \
      -d '{
        "collectionName": "collection1",
        "outputFields": ["id", "name", "feature", "distance"],
-       "filter": "id in (1, 2, 3)",
+       "filter": "id in [1, 2, 3]",
        "limit": 100,
        "offset": 0
      }'
