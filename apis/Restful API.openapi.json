@@ -1524,7 +1524,7 @@
             "type": "integer",
             "description": "The number of shards in the collection."
           },
-          "enableDynamic": {
+          "enableDynamicField": {
             "type": "boolean",
             "description": "Whether the dynamic JSON feature is enabled for this collection."
           }
@@ -1536,10 +1536,10 @@
           "indexes",
           "load",
           "shardsNum",
-          "enableDynamic"
+          "enableDynamicField"
         ],
         "required": [
-          "enableDynamic"
+          "enableDynamicField"
         ],
         "x-apifox-ignore-properties": [],
         "x-apifox-folder": "Schemas"
@@ -1629,6 +1629,10 @@
       "CollectionCreateSimple": {
         "type": "object",
         "properties": {
+          "dbName": {
+            "type": "string",
+            "description": "The name of the database to which the collection to create belongs to. <zilliz>This parameter applies only to dedicated clusters.</zilliz>"
+          },
           "collectionName": {
             "type": "string",
             "description": "The name of the collection to create."
@@ -1664,6 +1668,7 @@
           "dimension"
         ],
         "x-apifox-orders": [
+          "dbName",
           "collectionName",
           "dimension",
           "metricType",
