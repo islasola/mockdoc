@@ -35,7 +35,7 @@
         ],
         "parameters": [
           {
-            "name": "cloud-provider-id",
+            "name": "CLOUD_PROVIDER",
             "in": "path",
             "description": "",
             "required": true,
@@ -88,9 +88,9 @@
         ],
         "parameters": [
           {
-            "name": "cloud-provider-id",
+            "name": "CLOUD_PROVIDER",
             "in": "path",
-            "description": "",
+            "description": "An available cloud provider and region set",
             "required": true,
             "schema": {
               "type": "string"
@@ -141,9 +141,9 @@
         ],
         "parameters": [
           {
-            "name": "cloud-region-id",
+            "name": "CLOUD_PROVIDER",
             "in": "path",
-            "description": "",
+            "description": "An available cloud provider and region set.",
             "required": true,
             "schema": {
               "type": "string"
@@ -204,9 +204,9 @@
         ],
         "parameters": [
           {
-            "name": "cloud-region-id",
+            "name": "CLOUD_PROVIDER",
             "in": "path",
-            "description": "",
+            "description": "An available cloud provider and region set.",
             "required": true,
             "schema": {
               "type": "string"
@@ -250,9 +250,9 @@
         ],
         "parameters": [
           {
-            "name": "cloud-region-id",
+            "name": "CLOUD_PROVIDER",
             "in": "path",
-            "description": "",
+            "description": "An available cloud provider and region set.",
             "required": true,
             "schema": {
               "type": "string"
@@ -296,9 +296,9 @@
         ],
         "parameters": [
           {
-            "name": "cloud-region-id",
+            "name": "CLOUD_PROVIDER",
             "in": "path",
-            "description": "",
+            "description": "An available cloud provider and region set.",
             "required": true,
             "schema": {
               "type": "string"
@@ -342,11 +342,10 @@
         ],
         "parameters": [
           {
-            "name": "public-endpoint",
+            "name": "CLUSTER_ENDPOINT",
             "in": "path",
-            "description": "",
+            "description": "The endpoint of your cluster.",
             "required": true,
-            "example": "",
             "schema": {
               "type": "string"
             }
@@ -379,9 +378,9 @@
         ],
         "parameters": [
           {
-            "name": "public-endpoint",
+            "name": "CLUSTER_ENDPOINT",
             "in": "path",
-            "description": "",
+            "description": "The endpoint of your cluster.",
             "required": true,
             "schema": {
               "type": "string"
@@ -425,9 +424,9 @@
         ],
         "parameters": [
           {
-            "name": "public-endpoint",
+            "name": "CLUSTER_ENDPOINT",
             "in": "path",
-            "description": "",
+            "description": "The endpoint of your cluster.",
             "required": true,
             "schema": {
               "type": "string"
@@ -471,9 +470,9 @@
         ],
         "parameters": [
           {
-            "name": "public-endpoint",
+            "name": "CLUSTER_ENDPOINT",
             "in": "path",
-            "description": "",
+            "description": "The endpoint of your cluster.",
             "required": true,
             "schema": {
               "type": "string"
@@ -1109,11 +1108,10 @@
         ],
         "parameters": [
           {
-            "name": "cloud-region-id",
+            "name": "CLOUD_PROVIDER",
             "in": "path",
-            "description": "",
+            "description": "An available cloud provider and region set.",
             "required": true,
-            "example": "gcp-us-west1",
             "schema": {
               "type": "string"
             }
@@ -1175,9 +1173,9 @@
         ],
         "parameters": [
           {
-            "name": "cloud-region-id",
+            "name": "CLOUD_PROVIDER",
             "in": "path",
-            "description": "",
+            "description": "An available cloud provider and region set.",
             "required": true,
             "schema": {
               "type": "string"
@@ -1188,6 +1186,16 @@
             "in": "query",
             "description": "The ID of the import task in concern",
             "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "clusterId",
+            "in": "query",
+            "description": "The ID of the target cluster",
+            "required": false,
             "example": "",
             "schema": {
               "type": "string"
