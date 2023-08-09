@@ -6,7 +6,7 @@ Lists all cloud providers available on Zilliz Cloud:
 
 ```shell
 curl --request GET \
-     --url "https://controller.api.aws-us-west-2.zillizcloud.com/v1/clouds" \
+     --url "https://controller.api.${CLOUD_REGION_ID}.zillizcloud.com/v1/clouds" \
      --header "Authorization: Bearer ${TOKEN}" \
      --header "accept: application/json" \
      --header "content-type: application/json"
@@ -36,7 +36,7 @@ Lists all available cloud regions of a specific cloud provider:
 
 ```shell
 curl --request GET \
-     --url "https://controller.api.gcp-us-west1.zillizcloud.com/v1/regions?cloudId=gcp" \
+     --url "https://controller.api.${CLOUD_REGION_ID}.zillizcloud.com/v1/regions?cloudId=gcp" \
      --header "Authorization: Bearer ${TOKEN}" \
      --header "accept: application/json" \
      --header "content-type: application/json"
@@ -65,7 +65,7 @@ Describes the details of a cluster:
 
 ```shell
 curl --request GET \
-     --url "https://controller.api.<Cloud-Region>.zillizcloud.com/v1/clusters/<Cluster-ID>" \
+     --url "https://controller.api.${CLOUD_REGION_ID}.zillizcloud.com/v1/clusters/<Cluster-ID>" \
      --header "Authorization: Bearer ${TOKEN}" \
      --header "accept: application/json" \
      --header "content-type: application/json"
@@ -99,7 +99,7 @@ Success response:
 Suspends a cluster. This operation will stop the cluster and your data will remain intact.
 
 ```shell
-curl --request POST \ "https://controller.<Cloud-Region>.zillizcloud.com/v1/clusters/<Cluster-ID>/suspend" \
+curl --request POST \ "https://controller.${CLOUD_REGION_ID}.zillizcloud.com/v1/clusters/<Cluster-ID>/suspend" \
      --header "Authorization: Bearer ${TOKEN}" \
      --header "accept: application/json" \
      --header "content-type: application/json"
@@ -122,7 +122,7 @@ Success response:
 Resume a cluster that has been suspended:
 
 ```shell
-curl --request POST \ "https://controller.api.<Cloud-Region>.zillizcloud.com/v1/clusters/<Cluster-ID>/resume" \
+curl --request POST \ "https://controller.api.${CLOUD_REGION_ID}.zillizcloud.com/v1/clusters/<Cluster-ID>/resume" \
      --header "Authorization: Bearer ${TOKEN}" \
      --header "accept: application/json" \
      --header "content-type: application/json"
@@ -148,7 +148,7 @@ Lists all clusters in a cloud region:
 Request Example:
 
 curl --request GET \
-     --url "https://controller.api.<Cloud-Region>.zillizcloud.com/v1/clusters?pageSize=&current=" \
+     --url "https://controller.api.${CLOUD_REGION_ID}.zillizcloud.com/v1/clusters?pageSize=&current=" \
      --header "Authorization: Bearer ${TOKEN}" \
      --header "accept: application/json" \
      --header "content-type: application/json"
@@ -503,4 +503,35 @@ curl --request POST \
         "collectionName": "medium_articles",
         "id": ["id1", "id2", "id3","id4"]
       }'
+```
+
+## Import
+
+Imports data from files stored in a specified object storage bucket. Note that the bucket is in the same cloud as the target cluster of the import.
+
+```shell
+curl --request POST \
+     --url "https://controller.api.${CLOUD_REGION_ID}.zillizcloud.com/v1/vector/collections/import" \
+     --header "Authorization: Bearer ${TOKEN}" \
+     --header "accept: application/json" \
+     --header "content-type: application/json" \
+     -d '{
+       "clusterId": "in03-181766e3f9556b7",
+       "collectionName": "medium_articles",
+       "objectUrl": "gs://publicdataset-zillizcloud-com/medium_articles_2020.json"
+       "accessKey": "your-access-key"
+       "secretKey": "your-secret-key"
+     }'
+```
+
+## Get Import Progress
+
+Retrieves the progress of a specified import task.
+
+```shell
+curl --request GET \
+     --url "https://controller.api.${CLOUD_REGION_ID}.zillizcloud.com/v1/vector/collections/import/get?jobId=${JOBID}&clusterId=${CLUSTERID}" \
+     --header "Authorization: Bearer ${TOKEN}" \
+     --header "accept: application/json" \
+     --header "content-type: application/json" \
 ```

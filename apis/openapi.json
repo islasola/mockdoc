@@ -16,6 +16,9 @@
       "name": "Collection Operations"
     },
     {
+      "name": "Import Operations"
+    },
+    {
       "name": "Vector Operations"
     }
   ],
@@ -2057,10 +2060,383 @@
         },
         "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-82172081-run"
       }
+    },
+    "/v1/vector/collections/import": {
+      "post": {
+        "summary": "Import",
+        "x-apifox-folder": "Import Operations",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "Imports data from files stored in a specified object storage bucket. Note that the bucket is in the same cloud as the target cluster of the import.",
+        "tags": [
+          "Import Operations"
+        ],
+        "parameters": [
+          {
+            "name": "cloud-region-id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "gcp-us-west1",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "Bearer e7a35f43adbabb1303380f05f1af795f645ab6f2e1d83bf1fb14b1fef1f24f40792d99a4cd86bde6ab1486324fabc321e7eea921",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "clusterId": {
+                    "type": "string",
+                    "description": "The ID of a cluster to which this operation applies."
+                  },
+                  "collectionName": {
+                    "type": "string",
+                    "description": "The name of the collection to which this operation applies."
+                  },
+                  "objectUrl": {
+                    "type": "string",
+                    "description": "The URL of the object that stores the data to be imported."
+                  },
+                  "accessKey": {
+                    "type": "string",
+                    "description": "The access key used to access the specified object."
+                  },
+                  "secretKey": {
+                    "type": "string",
+                    "description": "The access secret key used to access the specified object."
+                  }
+                },
+                "x-apifox-orders": [
+                  "clusterId",
+                  "collectionName",
+                  "objectUrl",
+                  "accessKey",
+                  "secretKey"
+                ],
+                "required": [
+                  "collectionName",
+                  "objectUrl",
+                  "clusterId"
+                ],
+                "x-apifox-ignore-properties": [],
+                "x-apifox-folder": "Schemas"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "jobId": {
+                          "type": "string",
+                          "description": "The ID of the import task that has been submitted"
+                        }
+                      },
+                      "x-apifox-orders": [
+                        "jobId"
+                      ],
+                      "required": [
+                        "jobId"
+                      ],
+                      "x-apifox-ignore-properties": []
+                    }
+                  },
+                  "x-apifox-orders": [
+                    "code",
+                    "data"
+                  ],
+                  "required": [
+                    "code",
+                    "data"
+                  ],
+                  "x-apifox-ignore-properties": [],
+                  "x-apifox-folder": "Schemas"
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-96562160-run"
+      }
+    },
+    "/v1/vector/collections/import/get": {
+      "get": {
+        "summary": "Get Import Progress",
+        "x-apifox-folder": "Import Operations",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "Retrieves the progress of a specified import task.",
+        "tags": [
+          "Import Operations"
+        ],
+        "parameters": [
+          {
+            "name": "cloud-region-id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "jobId",
+            "in": "query",
+            "description": "The ID of the import task in concern",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "fileName": {
+                          "type": "string",
+                          "description": "The path of the data file object in the object storage."
+                        },
+                        "fileSize": {
+                          "type": "integer",
+                          "description": "The size of the data file object.",
+                          "format": "int64"
+                        },
+                        "readyPercentage": {
+                          "type": "number",
+                          "description": "The indicator of the import progress",
+                          "format": "float"
+                        },
+                        "completeTime": {
+                          "type": "string",
+                          "description": "The estimated duration in milliseconds until the import task completes.",
+                          "nullable": true
+                        },
+                        "errorMessage": {
+                          "type": "string",
+                          "description": "The message that explains the reason for an import failure",
+                          "nullable": true
+                        }
+                      },
+                      "x-apifox-orders": [
+                        "fileName",
+                        "fileSize",
+                        "readyPercentage",
+                        "completeTime",
+                        "errorMessage"
+                      ],
+                      "required": [
+                        "fileName",
+                        "fileSize",
+                        "readyPercentage",
+                        "completeTime",
+                        "errorMessage"
+                      ],
+                      "x-apifox-ignore-properties": []
+                    }
+                  },
+                  "x-apifox-orders": [
+                    "code",
+                    "data"
+                  ],
+                  "required": [
+                    "code",
+                    "data"
+                  ],
+                  "x-apifox-ignore-properties": [],
+                  "x-apifox-folder": "Schemas"
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-96581883-run"
+      }
     }
   },
   "components": {
     "schemas": {
+      "customer.GetImportTaskResp": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "fileName": {
+                "type": "string",
+                "description": "The path of the data file object in the object storage."
+              },
+              "fileSize": {
+                "type": "integer",
+                "description": "The size of the data file object.",
+                "format": "int64"
+              },
+              "readyPercentage": {
+                "type": "number",
+                "description": "The indicator of the import progress",
+                "format": "float"
+              },
+              "completeTime": {
+                "type": "string",
+                "description": "The estimated duration in milliseconds until the import task completes.",
+                "nullable": true
+              },
+              "errorMessage": {
+                "type": "string",
+                "description": "The message that explains the reason for an import failure",
+                "nullable": true
+              }
+            },
+            "x-apifox-orders": [
+              "fileName",
+              "fileSize",
+              "readyPercentage",
+              "completeTime",
+              "errorMessage"
+            ],
+            "required": [
+              "fileName",
+              "fileSize",
+              "readyPercentage",
+              "completeTime",
+              "errorMessage"
+            ],
+            "x-apifox-ignore-properties": []
+          }
+        },
+        "x-apifox-orders": [
+          "code",
+          "data"
+        ],
+        "required": [
+          "code",
+          "data"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "customer.ImportResp": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "jobId": {
+                "type": "string",
+                "description": "The ID of the import task that has been submitted"
+              }
+            },
+            "x-apifox-orders": [
+              "jobId"
+            ],
+            "required": [
+              "jobId"
+            ],
+            "x-apifox-ignore-properties": []
+          }
+        },
+        "x-apifox-orders": [
+          "code",
+          "data"
+        ],
+        "required": [
+          "code",
+          "data"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "customer.ImportReq": {
+        "type": "object",
+        "properties": {
+          "clusterId": {
+            "type": "string",
+            "description": "The ID of a cluster to which this operation applies."
+          },
+          "collectionName": {
+            "type": "string",
+            "description": "The name of the collection to which this operation applies."
+          },
+          "objectUrl": {
+            "type": "string",
+            "description": "The URL of the object that stores the data to be imported."
+          },
+          "accessKey": {
+            "type": "string",
+            "description": "The access key used to access the specified object."
+          },
+          "secretKey": {
+            "type": "string",
+            "description": "The access secret key used to access the specified object."
+          }
+        },
+        "x-apifox-orders": [
+          "clusterId",
+          "collectionName",
+          "objectUrl",
+          "accessKey",
+          "secretKey"
+        ],
+        "required": [
+          "collectionName",
+          "objectUrl",
+          "clusterId"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
       "customer.GetReq4": {
         "type": "object",
         "properties": {
