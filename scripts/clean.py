@@ -23,7 +23,7 @@ if __name__ == '__main__':
                             del param['example']
 
                 if 'requestBody' in specifications['paths'][url][method]:
-                    if 'example' in specifications['paths'][url][method]['requestBody']['content']['application/json']['example']:
+                    if 'example' in specifications['paths'][url][method]['requestBody']['content']['application/json']:
                         del specifications['paths'][url][method]['requestBody']['content']['application/json']['example']
                     schema = specifications['paths'][url][method]['requestBody']['content']['application/json']['schema']
                     if 'anyOf' in schema:
