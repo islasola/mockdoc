@@ -86,3 +86,15 @@
 47005,The specified cluster collection not exists.
 90144,No jobId record found under this cluster, please check your request parameters.
 90103,The clusterId parameter is empty in the request path.
+83001,Failed to getObjectMeta {xxx}.
+40021,The cluster ID does not exist.
+40022,No access to this cluster. Please request access from your admin.
+40003,Action not available given the current status of the cluster.
+47039,The specified cluster do not support multiple imports at the same time.
+83004,Importing files across clouds is not currently supported
+47035,The specified object size exceeds limit.
+47036,The number of objects not equal to the number of collection fields.
+47055,The current cluster is currently importing data (xxx). To ensure more stable service of your Milvus cluster, please wait a few minutes before importing the data.
+90142,No import content provided.
+90104,The clusterId parameter is empty in the request parameter.
+90145,No ObjectUrl key field.
