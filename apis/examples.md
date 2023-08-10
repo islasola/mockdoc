@@ -578,7 +578,7 @@ curl --request POST \
 
 ## Import
 
-Imports data from files stored in a specified object storage bucket. Note that the bucket is in the same cloud as the target cluster of the import.
+Imports data from files stored in a specified object storage bucket. Note that the bucket should be in the same cloud as the target cluster of the import.
 
 > 📘 Notes
 >
