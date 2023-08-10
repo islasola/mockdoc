@@ -2,7 +2,11 @@
 
 ## List Cloud Providers
 
-Lists all cloud providers available on Zilliz Cloud:
+Lists all cloud providers available on Zilliz Cloud.
+
+> 📘 Notes
+>
+> You should always use an API key as the token.
 
 ```shell
 curl --request GET \
@@ -32,7 +36,11 @@ Success response:
 
 ## List Cloud Regions
 
-Lists all available cloud regions of a specific cloud provider:
+Lists all available cloud regions of a specific cloud provider.
+
+> 📘 Notes
+>
+> You should always use an API key as the token.
 
 ```shell
 curl --request GET \
@@ -61,7 +69,11 @@ Success response:
 
 ## Describe Cluster
 
-Describes the details of a cluster:
+Describes the details of a cluster.
+
+> 📘 Notes
+>
+> You should always use an API key as the token.
 
 ```shell
 curl --request GET \
@@ -98,6 +110,11 @@ Success response:
 
 Suspends a cluster. This operation will stop the cluster and your data will remain intact.
 
+> 📘 Notes
+>
+> You should always use an API key as the token.
+> This applies only to dedicated clusters. You should add a payment method before you can perform this action.
+
 ```shell
 curl --request POST \ "https://controller.${CLOUD_REGION_ID}.zillizcloud.com/v1/clusters/<Cluster-ID>/suspend" \
      --header "Authorization: Bearer ${TOKEN}" \
@@ -119,7 +136,12 @@ Success response:
 
 ## Resume Cluster
 
-Resume a cluster that has been suspended:
+Resume a cluster that has been suspended.
+
+> 📘 Notes
+>
+> You should always use an API key as the token.
+> This applies only to dedicated clusters. You should add a payment method before you can perform this action.
 
 ```shell
 curl --request POST \ "https://controller.api.${CLOUD_REGION_ID}.zillizcloud.com/v1/clusters/<Cluster-ID>/resume" \
@@ -142,7 +164,11 @@ Success response:
 
 ## List Clusters
 
-Lists all clusters in a cloud region:
+Lists all clusters in a cloud region.
+
+> 📘 Notes
+>
+> You should always use an API key as the token.
 
 ```shell
 Request Example:
@@ -170,7 +196,12 @@ Success response:
 
 ## Create Collection
 
-Create a collection named `medium_articles`:
+Create a collection named `medium_articles`.
+
+> 📘 Notes
+>
+> For serverless clusters, you should always use an API key as the token.
+> For dedicated clusters, you should use your database access credentials separated by a colon (:), such as `user:password`, as the token.
 
 ```shell
 curl --request POST \
@@ -199,7 +230,12 @@ Success response:
 
 ## Drop Collection
 
-Drop a collection named `medium_articles`:
+Drop a collection named `medium_articles`.
+
+> 📘 Notes
+>
+> For serverless clusters, you should always use an API key as the token.
+> For dedicated clusters, you should use your database access credentials separated by a colon (:), such as `user:password`, as the token.
 
 ```shell
 curl --request POST \
@@ -223,7 +259,12 @@ Success response:
 
 ## Describe Collection
 
-Describe the details of a collection named `medium_articles`:
+Describe the details of a collection named `medium_articles`.
+
+> 📘 Notes
+>
+> For serverless clusters, you should always use an API key as the token.
+> For dedicated clusters, you should use your database access credentials separated by a colon (:), such as `user:password`, as the token.
 
 ```shell
 curl --request GET \
@@ -266,7 +307,12 @@ Success response:
 
 ## List Collections
 
-List all collections in a cluster:
+List all collections in a cluster.
+
+> 📘 Notes
+>
+> For serverless clusters, you should always use an API key as the token.
+> For dedicated clusters, you should use your database access credentials separated by a colon (:), such as `user:password`, as the token.
 
 ```shell
 curl --request GET \
@@ -292,7 +338,12 @@ Sample response:
 
 ## Insert
 
-Insert an entity to a collection named `collection1`:
+> 📘 Notes
+>
+> For serverless clusters, you should always use an API key as the token.
+> For dedicated clusters, you should use your database access credentials separated by a colon (:), such as `user:password`, as the token.
+
+- Insert an entity to a collection named `medium_articles`.
 
 ```shell
 curl --request POST \
@@ -310,7 +361,7 @@ curl --request POST \
      }'
 ```
 
-Insert multiple entities:
+- Insert multiple entities.
 
 ```shell
 curl --request POST \
@@ -334,7 +385,12 @@ curl --request POST \
 
 ## Search
 
-Search entities based on a given vector:
+> 📘 Notes
+>
+> For serverless clusters, you should always use an API key as the token.
+> For dedicated clusters, you should use your database access credentials separated by a colon (:), such as `user:password`, as the token.
+
+- Search entities based on a given vector.
 
 ```shell
 curl --request POST \
@@ -348,7 +404,7 @@ curl --request POST \
       }'
 ```
 
-Search entities and return specific fields:
+- Search entities and return specific fields.
 
 ```shell
 curl --request POST \
@@ -368,7 +424,12 @@ curl --request POST \
 
 ## Query
 
-Query entities that meet specific conditions:
+> 📘 Notes
+>
+> For serverless clusters, you should always use an API key as the token.
+> For dedicated clusters, you should use your database access credentials separated by a colon (:), such as `user:password`, as the token.
+
+Query entities that meet specific conditions.
 
 ```shell
 curl --request POST \
@@ -387,7 +448,12 @@ curl --request POST \
 
 ## Get
 
-Get a specified entity whose ID is an integer:
+> 📘 Notes
+>
+> For serverless clusters, you should always use an API key as the token.
+> For dedicated clusters, you should use your database access credentials separated by a colon (:), such as `user:password`, as the token.
+
+- Get a specified entity whose ID is an integer.
 
 ```shell
 curl --request POST \
@@ -402,7 +468,7 @@ curl --request POST \
      }'
 ```
 
-Get a specified entity whose ID is a string:
+- Get a specified entity whose ID is a string:
 
 ```shell
 curl --request POST \
@@ -417,7 +483,7 @@ curl --request POST \
      }'
 ```
 
-Get a list of entities whose IDs are integers:
+- Get a list of entities whose IDs are integers:
 
 ```shell
 curl --request POST \
@@ -432,7 +498,7 @@ curl --request POST \
      }'
 ```
 
-Get a list of entities whose IDs are strings:
+- Get a list of entities whose IDs are strings:
 
 ```shell
 curl --request POST \
@@ -449,7 +515,12 @@ curl --request POST \
 
 ## Delete
 
-Delete a collection whose ID is an integer:
+> 📘 Notes
+>
+> For serverless clusters, you should always use an API key as the token.
+> For dedicated clusters, you should use your database access credentials separated by a colon (:), such as `user:password`, as the token.
+
+- Delete a collection whose ID is an integer.
 
 ```shell
 curl --request POST \
@@ -463,7 +534,7 @@ curl --request POST \
      }'
 ```
 
-Delete a collection whose ID is a string:
+- Delete a collection whose ID is a string.
 
 ```shell
 curl --request POST \
@@ -477,7 +548,7 @@ curl --request POST \
      }'
 ```
 
-Delete a list of collections whose IDs are integers:
+- Delete a list of collections whose IDs are integers.
 
 ```shell
 curl --request POST \
@@ -491,7 +562,7 @@ curl --request POST \
       }'
 ```
 
-Delete a list of collections whose IDs are strings:
+- Delete a list of collections whose IDs are strings.
 
 ```shell
 curl --request POST \
@@ -508,6 +579,10 @@ curl --request POST \
 ## Import
 
 Imports data from files stored in a specified object storage bucket. Note that the bucket is in the same cloud as the target cluster of the import.
+
+> 📘 Notes
+>
+> You should always use an API key as the token.
 
 ```shell
 curl --request POST \
@@ -527,6 +602,10 @@ curl --request POST \
 ## Get Import Progress
 
 Retrieves the progress of a specified import task.
+
+> 📘 Notes
+>
+> You should always use an API key as the token.
 
 ```shell
 curl --request GET \
