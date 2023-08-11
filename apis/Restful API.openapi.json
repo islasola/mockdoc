@@ -1102,7 +1102,7 @@
         "x-apifox-folder": "Import Operations",
         "x-apifox-status": "developing",
         "deprecated": false,
-        "description": "Imports data from files stored in a specified object storage bucket. Note that the bucket is in the same cloud as the target cluster of the import.",
+        "description": "Imports data from files stored in a specified object storage bucket. Note that the bucket should be in the same cloud as the target cluster of the import.",
         "tags": [
           "Import Operations"
         ],
@@ -1194,8 +1194,8 @@
           {
             "name": "clusterId",
             "in": "query",
-            "description": "The ID of the target cluster",
-            "required": false,
+            "description": "The ID of a cluster to which this operation applies.",
+            "required": true,
             "example": "",
             "schema": {
               "type": "string"
