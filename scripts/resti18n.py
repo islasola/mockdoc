@@ -12,6 +12,9 @@ def iterate_dict(d, path, strings):
         elif isinstance(v, list):
             iterate_list(v, path + '.' + k, strings)
         else:
+            if walk_strings(strings, path + '.' + k):
+                continue
+
             strings.append(path + '.' + k + ': ' + v) if k in ['summary', 'description'] else []
             print(path + '.' + k, ':', v)
 
@@ -26,14 +29,21 @@ def iterate_list(l, path, strings):
         else:
             print(path + '.' + str(i), ':', v)
 
+def walk_strings(strings, path):
+    for s in strings:
+        if s.startswith(path):
+            return True
+    return False
+
 if __name__ == '__main__':
     with open('apis/openapi.json') as f:
         openapi = json.load(f)
 
+    with open('apis/zh-CN.properties') as f:
+        strings = f.read().splitlines()
+
     # list all 'summary' and 'description' of all path and parameters in a separate i18n file with specific key paths
     # for example: 'paths./api/v1/health.get.summary' and 'paths./api/v1/health.get.description'
-
-    strings = []
 
     strings = iterate_dict(openapi, 'paths', strings)
 
