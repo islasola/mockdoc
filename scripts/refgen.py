@@ -41,7 +41,7 @@ class RefGen:
                 page_method = [ x for x in siblings if x['title'] == page_title ][0]['method']
                 server = ''
 
-                if 'cloud' in page_slug or 'cluster' in page_slug:
+                if 'cloud' in page_slug or 'cluster' in page_slug or 'import' in page_slug:
                     server = "https://controller.api.{cloud_region}.zillizcloud.com"
                 
                 if 'collection' in page_slug or 'query' in page_slug or 'search' in page_slug or 'get' in page_slug or 'insert' in page_slug or 'delete' in page_slug:
