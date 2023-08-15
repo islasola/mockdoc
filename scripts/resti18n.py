@@ -1,3 +1,4 @@
+import os
 import json
 
 def iterate_dict(d, path, strings):
@@ -15,7 +16,7 @@ def iterate_dict(d, path, strings):
             if walk_strings(strings, path + '.' + k):
                 continue
 
-            strings.append(path + '.' + k + ': ' + v) if k in ['summary', 'description'] else []
+            strings.append(path + '.' + k + ':' + v) if k in ['summary', 'description'] else []
             print(path + '.' + k, ':', v)
 
     return strings
@@ -39,8 +40,11 @@ if __name__ == '__main__':
     with open('apis/openapi.json') as f:
         openapi = json.load(f)
 
-    with open('apis/zh-CN.properties') as f:
-        strings = f.read().splitlines()
+    if os.path.exists('apis/zh-CN.properties'):
+        with open('apis/zh-CN.properties') as f:
+            strings = f.read().splitlines()
+    else:
+        strings = []
 
     # list all 'summary' and 'description' of all path and parameters in a separate i18n file with specific key paths
     # for example: 'paths./api/v1/health.get.summary' and 'paths./api/v1/health.get.description'

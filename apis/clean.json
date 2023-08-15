@@ -16,11 +16,14 @@
             "name": "Collection Operations"
         },
         {
+            "name": "Import Operations"
+        },
+        {
             "name": "Vector Operations"
         }
     ],
     "paths": {
-        "/clouds": {
+        "/v1/clouds": {
             "get": {
                 "summary": "List Cloud Providers",
                 "x-apifox-folder": "Cloud Meta",
@@ -30,7 +33,17 @@
                 "tags": [
                     "Cloud Meta"
                 ],
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "CLOUD_PROVIDER",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Returns a list of all available cloud providers on Zilliz Cloud.",
@@ -109,7 +122,7 @@
                 "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767159-run"
             }
         },
-        "/regions": {
+        "/v1/regions": {
             "get": {
                 "summary": "List Cloud Regions",
                 "x-apifox-folder": "Cloud Meta",
@@ -120,6 +133,15 @@
                     "Cloud Meta"
                 ],
                 "parameters": [
+                    {
+                        "name": "CLOUD_PROVIDER",
+                        "in": "path",
+                        "description": "An available cloud provider and region set",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
                     {
                         "name": "cloudId",
                         "in": "query",
@@ -203,7 +225,7 @@
                 "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767161-run"
             }
         },
-        "/clusters": {
+        "/v1/clusters": {
             "get": {
                 "summary": "List Clusters",
                 "x-apifox-folder": "Cluster Operations",
@@ -214,6 +236,15 @@
                     "Cluster Operations"
                 ],
                 "parameters": [
+                    {
+                        "name": "CLOUD_PROVIDER",
+                        "in": "path",
+                        "description": "An available cloud provider and region set.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
                     {
                         "name": "pageSize",
                         "in": "query",
@@ -369,7 +400,7 @@
                 "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767163-run"
             }
         },
-        "/clusters/{clusterId}": {
+        "/v1/clusters/clusters/{clusterId}": {
             "get": {
                 "summary": "Describe Cluster",
                 "x-apifox-folder": "Cluster Operations",
@@ -380,6 +411,15 @@
                     "Cluster Operations"
                 ],
                 "parameters": [
+                    {
+                        "name": "CLOUD_PROVIDER",
+                        "in": "path",
+                        "description": "An available cloud provider and region set.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
                     {
                         "name": "clusterId",
                         "in": "path",
@@ -429,7 +469,7 @@
                                                             "description": "The type of the CU associated with the cluster."
                                                         },
                                                         "cuSize": {
-                                                            "type": "string",
+                                                            "type": "integer",
                                                             "description": "The size of the CU used by the cluster."
                                                         },
                                                         "status": {
@@ -491,7 +531,7 @@
                                                     "description": "The type of the CU associated with the cluster."
                                                 },
                                                 "cuSize": {
-                                                    "type": "string",
+                                                    "type": "integer",
                                                     "description": "The size of the CU used by the cluster."
                                                 },
                                                 "status": {
@@ -511,15 +551,16 @@
                                                     "description": "The time when this cluster has been creaated."
                                                 },
                                                 "storageSize": {
-                                                    "type": "string",
-                                                    "description": "The storage size of the cluster."
+                                                    "type": "integer",
+                                                    "description": "The storage size of the cluster.",
+                                                    "format": "sint64"
                                                 },
                                                 "snapshotNumber": {
-                                                    "type": "string",
+                                                    "type": "integer",
                                                     "description": "The number of snapshofts created from the cluster."
                                                 },
                                                 "createProgress": {
-                                                    "type": "string",
+                                                    "type": "integer",
                                                     "description": "The creation progress of the cluster."
                                                 }
                                             },
@@ -564,7 +605,7 @@
                 "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767164-run"
             }
         },
-        "/clusters/{clusterId}/resume": {
+        "/v1/clusters/{clusterId}/resume": {
             "post": {
                 "summary": "Resume Cluster",
                 "x-apifox-folder": "Cluster Operations",
@@ -575,6 +616,15 @@
                     "Cluster Operations"
                 ],
                 "parameters": [
+                    {
+                        "name": "CLOUD_PROVIDER",
+                        "in": "path",
+                        "description": "An available cloud provider and region set.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
                     {
                         "name": "clusterId",
                         "in": "path",
@@ -630,7 +680,7 @@
                 "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767167-run"
             }
         },
-        "/clusters/{clusterId}/suspend": {
+        "/v1/clusters/{clusterId}/suspend": {
             "post": {
                 "summary": "Suspend Cluster",
                 "x-apifox-folder": "Cluster Operations",
@@ -641,6 +691,15 @@
                     "Cluster Operations"
                 ],
                 "parameters": [
+                    {
+                        "name": "CLOUD_PROVIDER",
+                        "in": "path",
+                        "description": "An available cloud provider and region set.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
                     {
                         "name": "clusterId",
                         "in": "path",
@@ -696,7 +755,7 @@
                 "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767168-run"
             }
         },
-        "/vector/collections": {
+        "/v1/vector/collections": {
             "get": {
                 "summary": "List Collections",
                 "x-apifox-folder": "Collection Operations",
@@ -706,7 +765,17 @@
                 "tags": [
                     "Collection Operations"
                 ],
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "CLUSTER_ENDPOINT",
+                        "in": "path",
+                        "description": "The endpoint of your cluster.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Returns a list of collections in the specified cluster.",
@@ -739,7 +808,7 @@
                 "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767175-run"
             }
         },
-        "/vector/collections/create": {
+        "/v1/vector/collections/create": {
             "post": {
                 "summary": "Create Collection",
                 "x-apifox-folder": "Collection Operations",
@@ -749,13 +818,27 @@
                 "tags": [
                     "Collection Operations"
                 ],
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "CLUSTER_ENDPOINT",
+                        "in": "path",
+                        "description": "The endpoint of your cluster.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
+                                    "dbName": {
+                                        "type": "string",
+                                        "description": "The name of the database to which the collection to create belongs to. <zilliz>This parameter applies only to dedicated clusters.</zilliz>"
+                                    },
                                     "collectionName": {
                                         "type": "string",
                                         "description": "The name of the collection to create."
@@ -791,6 +874,7 @@
                                     "dimension"
                                 ],
                                 "x-apifox-orders": [
+                                    "dbName",
                                     "collectionName",
                                     "dimension",
                                     "metricType",
@@ -837,7 +921,7 @@
                 "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767176-run"
             }
         },
-        "/vector/collections/describe": {
+        "/v1/vector/collections/describe": {
             "get": {
                 "summary": "Describe Collection",
                 "x-apifox-folder": "Collection Operations",
@@ -848,6 +932,15 @@
                     "Collection Operations"
                 ],
                 "parameters": [
+                    {
+                        "name": "CLUSTER_ENDPOINT",
+                        "in": "path",
+                        "description": "The endpoint of your cluster.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
                     {
                         "name": "collectionName",
                         "in": "query",
@@ -954,7 +1047,7 @@
                                                     "type": "integer",
                                                     "description": "The number of shards in the collection."
                                                 },
-                                                "enableDynamic": {
+                                                "enableDynamicField": {
                                                     "type": "boolean",
                                                     "description": "Whether the dynamic JSON feature is enabled for this collection."
                                                 }
@@ -966,10 +1059,10 @@
                                                 "indexes",
                                                 "load",
                                                 "shardsNum",
-                                                "enableDynamic"
+                                                "enableDynamicField"
                                             ],
                                             "required": [
-                                                "enableDynamic"
+                                                "enableDynamicField"
                                             ],
                                             "x-apifox-ignore-properties": [],
                                             "x-apifox-folder": "Schemas"
@@ -989,7 +1082,7 @@
                 "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767177-run"
             }
         },
-        "/vector/collections/drop": {
+        "/v1/vector/collections/drop": {
             "post": {
                 "summary": "Drop Collection",
                 "x-apifox-folder": "Collection Operations",
@@ -999,7 +1092,17 @@
                 "tags": [
                     "Collection Operations"
                 ],
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "CLUSTER_ENDPOINT",
+                        "in": "path",
+                        "description": "The endpoint of your cluster.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1056,7 +1159,7 @@
                 "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767178-run"
             }
         },
-        "/vector/delete": {
+        "/v1/vector/delete": {
             "post": {
                 "summary": "Delete",
                 "x-apifox-folder": "Vector Operations",
@@ -1066,7 +1169,17 @@
                 "tags": [
                     "Vector Operations"
                 ],
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "public-endpoint",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1208,7 +1321,7 @@
                 "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767179-run"
             }
         },
-        "/vector/insert": {
+        "/v1/vector/insert": {
             "post": {
                 "summary": "Insert",
                 "x-apifox-folder": "Vector Operations",
@@ -1218,7 +1331,17 @@
                 "tags": [
                     "Vector Operations"
                 ],
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "public-endpoint",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1333,7 +1456,7 @@
                 "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767180-run"
             }
         },
-        "/vector/search": {
+        "/v1/vector/search": {
             "post": {
                 "summary": "Search",
                 "x-apifox-folder": "Vector Operations",
@@ -1343,7 +1466,17 @@
                 "tags": [
                     "Vector Operations"
                 ],
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "public-endpoint",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1370,16 +1503,16 @@
                                             },
                                             "limit": {
                                                 "type": "integer",
-                                                "description": "The maximum number of entities to return.",
+                                                "description": "The maximum number of entities to return.<br>The sum of this value of that of `offset` should be less than **1024**.",
                                                 "default": 100,
                                                 "minimum": 1,
-                                                "maximum": 3000
+                                                "maximum": 100
                                             },
                                             "offset": {
                                                 "type": "integer",
-                                                "description": "The number of entities to skip in the search results.",
+                                                "description": "The number of entities to skip in the search results.<br>The sum of this value and that of `limit` should not be greater than **1024**.",
                                                 "minimum": 0,
-                                                "maximum": 16384,
+                                                "maximum": 1024,
                                                 "exclusiveMinimum": true
                                             },
                                             "outputFields": {
@@ -1391,8 +1524,12 @@
                                                 "description": "An array of fields to return along with the search results."
                                             },
                                             "vector": {
-                                                "type": "string",
-                                                "description": "The label of this field should be the name of the indexed vector field in the collection. For example, if the name of the indexed vector field is **title_vector**, the label of this field should be **title_vector**."
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "number",
+                                                    "format": "float32"
+                                                },
+                                                "description": "The query vector in the form of a list of floating numbers."
                                             }
                                         },
                                         "x-apifox-orders": [
@@ -1425,16 +1562,16 @@
                                     },
                                     "limit": {
                                         "type": "integer",
-                                        "description": "The maximum number of entities to return.",
+                                        "description": "The maximum number of entities to return.<br>The sum of this value of that of `offset` should be less than **1024**.",
                                         "default": 100,
                                         "minimum": 1,
-                                        "maximum": 3000
+                                        "maximum": 100
                                     },
                                     "offset": {
                                         "type": "integer",
-                                        "description": "The number of entities to skip in the search results.",
+                                        "description": "The number of entities to skip in the search results.<br>The sum of this value and that of `limit` should not be greater than **1024**.",
                                         "minimum": 0,
-                                        "maximum": 16384,
+                                        "maximum": 1024,
                                         "exclusiveMinimum": true
                                     },
                                     "outputFields": {
@@ -1446,8 +1583,12 @@
                                         "description": "An array of fields to return along with the search results."
                                     },
                                     "vector": {
-                                        "type": "string",
-                                        "description": "The label of this field should be the name of the indexed vector field in the collection. For example, if the name of the indexed vector field is **title_vector**, the label of this field should be **title_vector**."
+                                        "type": "array",
+                                        "items": {
+                                            "type": "number",
+                                            "format": "float32"
+                                        },
+                                        "description": "The query vector in the form of a list of floating numbers."
                                     }
                                 },
                                 "required": [
@@ -1501,7 +1642,7 @@
                 "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767181-run"
             }
         },
-        "/vector/query": {
+        "/v1/vector/query": {
             "post": {
                 "summary": "Query",
                 "x-apifox-folder": "Vector Operations",
@@ -1511,7 +1652,17 @@
                 "tags": [
                     "Vector Operations"
                 ],
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "public-endpoint",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1528,14 +1679,14 @@
                                     },
                                     "limit": {
                                         "type": "integer",
-                                        "description": "The maximum number of entities to return.",
+                                        "description": "The maximum number of entities to return.<br>The sum of this value and that of `offset` should be less than **16384**.",
                                         "default": 100,
                                         "minimum": 1,
-                                        "maximum": 3000
+                                        "maximum": 100
                                     },
                                     "offset": {
                                         "type": "integer",
-                                        "description": "The number of entities to skip in the search results.",
+                                        "description": "The number of entities to skip in the search results.<br>The sum of this value and that of `limit` should be less than **16384**.",
                                         "minimum": 0,
                                         "exclusiveMinimum": true,
                                         "maximum": 16384
@@ -1562,14 +1713,14 @@
                                             },
                                             "limit": {
                                                 "type": "integer",
-                                                "description": "The maximum number of entities to return.",
+                                                "description": "The maximum number of entities to return.<br>The sum of this value and that of `offset` should be less than **16384**.",
                                                 "default": 100,
                                                 "minimum": 1,
-                                                "maximum": 3000
+                                                "maximum": 100
                                             },
                                             "offset": {
                                                 "type": "integer",
-                                                "description": "The number of entities to skip in the search results.",
+                                                "description": "The number of entities to skip in the search results.<br>The sum of this value and that of `limit` should be less than **16384**.",
                                                 "minimum": 0,
                                                 "exclusiveMinimum": true,
                                                 "maximum": 16384
@@ -1650,17 +1801,27 @@
                 "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-82167294-run"
             }
         },
-        "/vector/get": {
+        "/v1/vector/get": {
             "post": {
                 "summary": "Get",
                 "x-apifox-folder": "Vector Operations",
                 "x-apifox-status": "released",
                 "deprecated": false,
-                "description": "Conducts a similarity search in a collection.",
+                "description": "Gets entities by the specified IDs.",
                 "tags": [
                     "Vector Operations"
                 ],
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "public-endpoint",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1874,6 +2035,249 @@
                 },
                 "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-82172081-run"
             }
+        },
+        "/v1/vector/collections/import": {
+            "post": {
+                "summary": "Import",
+                "x-apifox-folder": "Import Operations",
+                "x-apifox-status": "developing",
+                "deprecated": false,
+                "description": "Imports data from files stored in a specified object storage bucket. Note that the bucket should be in the same cloud as the target cluster of the import.",
+                "tags": [
+                    "Import Operations"
+                ],
+                "parameters": [
+                    {
+                        "name": "CLOUD_PROVIDER",
+                        "in": "path",
+                        "description": "An available cloud provider and region set.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "clusterId": {
+                                        "type": "string",
+                                        "description": "The ID of a cluster to which this operation applies."
+                                    },
+                                    "collectionName": {
+                                        "type": "string",
+                                        "description": "The name of the collection to which this operation applies."
+                                    },
+                                    "objectUrl": {
+                                        "type": "string",
+                                        "description": "The URL of the object that stores the data to be imported."
+                                    },
+                                    "accessKey": {
+                                        "type": "string",
+                                        "description": "The access key used to access the specified object."
+                                    },
+                                    "secretKey": {
+                                        "type": "string",
+                                        "description": "The access secret key used to access the specified object."
+                                    }
+                                },
+                                "x-apifox-orders": [
+                                    "clusterId",
+                                    "collectionName",
+                                    "objectUrl",
+                                    "accessKey",
+                                    "secretKey"
+                                ],
+                                "required": [
+                                    "collectionName",
+                                    "objectUrl",
+                                    "clusterId"
+                                ],
+                                "x-apifox-ignore-properties": [],
+                                "x-apifox-folder": "Schemas"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Returns a import task job ID.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "jobId": {
+                                                    "type": "string",
+                                                    "description": "The ID of the import task that has been submitted"
+                                                }
+                                            },
+                                            "x-apifox-orders": [
+                                                "jobId"
+                                            ],
+                                            "required": [
+                                                "jobId"
+                                            ],
+                                            "x-apifox-ignore-properties": []
+                                        }
+                                    },
+                                    "x-apifox-orders": [
+                                        "code",
+                                        "data"
+                                    ],
+                                    "required": [
+                                        "code",
+                                        "data"
+                                    ],
+                                    "x-apifox-ignore-properties": [],
+                                    "x-apifox-folder": "Schemas"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-96562160-run"
+            }
+        },
+        "/v1/vector/collections/import/get": {
+            "get": {
+                "summary": "Get Import Progress",
+                "x-apifox-folder": "Import Operations",
+                "x-apifox-status": "developing",
+                "deprecated": false,
+                "description": "Retrieves the progress of a specified import task.",
+                "tags": [
+                    "Import Operations"
+                ],
+                "parameters": [
+                    {
+                        "name": "CLOUD_PROVIDER",
+                        "in": "path",
+                        "description": "An available cloud provider and region set.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "query",
+                        "description": "The ID of the import task in concern",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "clusterId",
+                        "in": "query",
+                        "description": "The ID of a cluster to which this operation applies.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns the progress of the specified job ID in percentage.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "fileName": {
+                                                    "type": "string",
+                                                    "description": "The path of the data file object in the object storage."
+                                                },
+                                                "fileSize": {
+                                                    "type": "integer",
+                                                    "description": "The size of the data file object.",
+                                                    "format": "int64"
+                                                },
+                                                "readyPercentage": {
+                                                    "type": "number",
+                                                    "description": "The indicator of the import progress",
+                                                    "format": "float"
+                                                },
+                                                "completeTime": {
+                                                    "type": "string",
+                                                    "description": "The estimated duration in milliseconds until the import task completes.",
+                                                    "nullable": true
+                                                },
+                                                "errorMessage": {
+                                                    "type": "string",
+                                                    "description": "The message that explains the reason for an import failure",
+                                                    "nullable": true
+                                                }
+                                            },
+                                            "x-apifox-orders": [
+                                                "fileName",
+                                                "fileSize",
+                                                "readyPercentage",
+                                                "completeTime",
+                                                "errorMessage"
+                                            ],
+                                            "required": [
+                                                "fileName",
+                                                "fileSize",
+                                                "readyPercentage",
+                                                "completeTime",
+                                                "errorMessage"
+                                            ],
+                                            "x-apifox-ignore-properties": []
+                                        }
+                                    },
+                                    "x-apifox-orders": [
+                                        "code",
+                                        "data"
+                                    ],
+                                    "required": [
+                                        "code",
+                                        "data"
+                                    ],
+                                    "x-apifox-ignore-properties": [],
+                                    "x-apifox-folder": "Schemas"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-96581883-run"
+            }
         }
     },
     "servers": [
@@ -1887,7 +2291,7 @@
             }
         },
         {
-            "url": "https://{instance-id}.{cloud-region}.vectordb.zillizcloud.com:{instance-port}",
+            "url": "https://{instance-id}.{cloud-region}.vectordb.zillizcloud.com/v1",
             "variables": {
                 "instance-id": {
                     "default": "vector-instance",
@@ -1899,23 +2303,6 @@
                 },
                 "instance-port": {
                     "default": "80",
-                    "description": "Indicates the port of your vector database."
-                }
-            }
-        },
-        {
-            "url": "https://{instance-id}-privatelink.{cloud-region}.vectordb.zillizcloud.com:{instance-port}",
-            "variables": {
-                "instance-id": {
-                    "default": "vector-instance",
-                    "description": "Indicates the instance ID of your vector database."
-                },
-                "cloud-region": {
-                    "default": "aws-us-west-2",
-                    "description": "Indicates the cloud region that accommodates your vector databases."
-                },
-                "instance-port": {
-                    "default": "19530",
                     "description": "Indicates the port of your vector database."
                 }
             }

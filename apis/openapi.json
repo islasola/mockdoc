@@ -2148,7 +2148,7 @@
         },
         "responses": {
           "200": {
-            "description": "成功",
+            "description": "Returns a import task job ID.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2235,7 +2235,7 @@
         ],
         "responses": {
           "200": {
-            "description": "成功",
+            "description": "Returns the progress of the specified job ID in percentage.",
             "content": {
               "application/json": {
                 "schema": {
