@@ -895,14 +895,14 @@
                   },
                   "limit": {
                     "type": "integer",
-                    "description": "The maximum number of entities to return.<br>The sum of this value and that of `offset` should be less than **16384**.",
+                    "description": "The maximum number of entities to return.<br/>The sum of this value and that of `offset` should be less than **16384**.",
                     "default": 100,
                     "minimum": 1,
                     "maximum": 100
                   },
                   "offset": {
                     "type": "integer",
-                    "description": "The number of entities to skip in the search results.<br>The sum of this value and that of `limit` should be less than **16384**.",
+                    "description": "The number of entities to skip in the search results.<br/>The sum of this value and that of `limit` should be less than **16384**.",
                     "minimum": 0,
                     "exclusiveMinimum": true,
                     "maximum": 16384
@@ -1498,14 +1498,14 @@
           },
           "limit": {
             "type": "integer",
-            "description": "The maximum number of entities to return.<br>The sum of this value and that of `offset` should be less than **16384**.",
+            "description": "The maximum number of entities to return.<br/>The sum of this value and that of `offset` should be less than **16384**.",
             "default": 100,
             "minimum": 1,
             "maximum": 100
           },
           "offset": {
             "type": "integer",
-            "description": "The number of entities to skip in the search results.<br>The sum of this value and that of `limit` should be less than **16384**.",
+            "description": "The number of entities to skip in the search results.<br/>The sum of this value and that of `limit` should be less than **16384**.",
             "minimum": 0,
             "exclusiveMinimum": true,
             "maximum": 16384
@@ -1898,8 +1898,8 @@
           },
           "dimension": {
             "type": "integer",
-            "description": "The number of dimensions for the vector field of the collection.",
-            "minimum": 32,
+            "description": "The number of dimensions for the vector field of the collection. For performance-optimized CUs, this value ranges from 1 to 32768. For capacity-optimized and cost-optimized CUs, this value ranges from 32 to 32768.",
+            "minimum": 1,
             "maximum": 32768
           },
           "metricType": {
