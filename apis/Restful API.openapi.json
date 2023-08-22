@@ -192,7 +192,7 @@
         "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-77767163-run"
       }
     },
-    "/v1/clusters/clusters/{clusterId}": {
+    "/v1/clusters/{clusterId}": {
       "get": {
         "summary": "Describe Cluster",
         "x-apifox-folder": "Cluster Operations",
