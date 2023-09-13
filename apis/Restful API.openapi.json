@@ -35,7 +35,7 @@
         ],
         "parameters": [
           {
-            "name": "CLOUD_PROVIDER",
+            "name": "CLOUD_REGION_ID",
             "in": "path",
             "description": "",
             "required": true,
@@ -88,9 +88,9 @@
         ],
         "parameters": [
           {
-            "name": "CLOUD_PROVIDER",
+            "name": "CLOUD_REGION_ID",
             "in": "path",
-            "description": "An available cloud provider and region set",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -141,9 +141,9 @@
         ],
         "parameters": [
           {
-            "name": "CLOUD_PROVIDER",
+            "name": "CLOUD_REGION_ID",
             "in": "path",
-            "description": "An available cloud provider and region set.",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -204,9 +204,9 @@
         ],
         "parameters": [
           {
-            "name": "CLOUD_PROVIDER",
+            "name": "CLOUD_REGION_ID",
             "in": "path",
-            "description": "An available cloud provider and region set.",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -250,9 +250,9 @@
         ],
         "parameters": [
           {
-            "name": "CLOUD_PROVIDER",
+            "name": "CLOUD_REGION_ID",
             "in": "path",
-            "description": "An available cloud provider and region set.",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -296,9 +296,9 @@
         ],
         "parameters": [
           {
-            "name": "CLOUD_PROVIDER",
+            "name": "CLOUD_REGION_ID",
             "in": "path",
-            "description": "An available cloud provider and region set.",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string"

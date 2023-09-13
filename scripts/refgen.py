@@ -42,10 +42,10 @@ class RefGen:
                 server = ''
 
                 if 'cloud' in page_slug or 'cluster' in page_slug or 'import' in page_slug:
-                    server = "https://controller.api.{cloud_region}.zillizcloud.com"
+                    server = "https://controller.api.{CLOUD_REGION_ID}.zillizcloud.com"
                 
                 elif 'collection' in page_slug or 'query' in page_slug or 'search' in page_slug or 'get' in page_slug or 'insert' in page_slug or 'delete' in page_slug:
-                    server = "https://{public_endpoint}"
+                    server = "https://{CLUSTSER_ENDPOINT}"
                 
                 
                 if 'parameters' in self.specifications['paths'][url][method]:
