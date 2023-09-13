@@ -27,7 +27,7 @@ class LandingPageGen:
     def generate(self):
         categories = [ dict(x, block_id=self.landing_categories.index(x['title'])) for x in self.categories if x['title'] in self.landing_categories ]
 
-        print(categories)
+        print(len(categories))
 
         for category in categories:
             for book in category['books']:
