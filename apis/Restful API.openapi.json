@@ -1108,9 +1108,9 @@
         ],
         "parameters": [
           {
-            "name": "CLOUD_PROVIDER",
+            "name": "CLOUD_REGION_ID",
             "in": "path",
-            "description": "An available cloud provider and region set.",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -1173,9 +1173,9 @@
         ],
         "parameters": [
           {
-            "name": "CLOUD_PROVIDER",
+            "name": "CLOUD_REGION_ID",
             "in": "path",
-            "description": "An available cloud provider and region set.",
+            "description": "",
             "required": true,
             "schema": {
               "type": "string"
@@ -1223,13 +1223,13 @@
         "x-apifox-folder": "Import Operations",
         "x-apifox-status": "developing",
         "deprecated": false,
-        "description": "",
+        "description": "List all import jobs specific to a cluster.",
         "tags": [
           "Import Operations"
         ],
         "parameters": [
           {
-            "name": "CLOUD_PROVIDER",
+            "name": "CLOUD_REGION_ID",
             "in": "path",
             "description": "",
             "required": true,
