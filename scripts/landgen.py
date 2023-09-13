@@ -10,7 +10,7 @@ class LandingPageGen:
 
     def __init__(self, guides):
         self.categories = guides
-        self.landing_categories = ['Zilliz Cloud 101', 'AI Model Integrations', 'Advanced User Guides', 'Migration from Milvus']
+        self.landing_categories = ['Zilliz Cloud 101', 'AI Model Integrations', 'Advanced User Guides', 'Migration and Data Import']
         self.icons = self.__get_icons()
 
     def __get_icons(self):
@@ -48,7 +48,7 @@ class LandingPageGen:
 
     def __max_length(self, pages):
         if pages:
-            print([ x for x in pages if 'title' not in x])
+            print([ (x, pages) for x in pages if 'title' not in x])
             return max([ len(x['title']) for x in pages])
         else:
             return 0
