@@ -48,8 +48,8 @@ class LandingPageGen:
 
     def __max_length(self, pages):
         if pages:
-            print(pages)
-            return max([ len(x['title']) for x in json.loads(pages) ])
+            print([ x for x in pages if 'title' not in x])
+            return max([ len(x['title']) for x in pages])
         else:
             return 0
         
