@@ -27,8 +27,7 @@
                             <span :class="{active_group_caption: group==0, inactive_group_caption: group!=0}">Zilliz Cloud 101</span>
                         </div>
                         <div style="text-align: center;">
-                            <span style="font-size: 0.8em; color: #647489;">A beginner's guide to using Zilliz Cloud for
-                                vector databases.</span>
+                            <span style="font-size: 0.8em; color: #647489;">Learn how to quickly set up a Zilliz Cloud cluster using <b>Python</b>, <b>Node.js</b>, and <b>RESTful API</b>.</span>
                         </div>
                     </div>
                 </div>
@@ -79,7 +78,7 @@
                         <div style="text-align: center;">
                             <span style="font-size: 0.8em; color: #647489;">In-depth guides for advanced Zilliz Cloud
                                 vector
-                                database users.</span>
+                                database users using <b>Python</b>, <b>Java</b>, <b>Golang</b>, and <b>Node.js</b>.</span>
                         </div>
                     </div>
                 </div>
@@ -100,12 +99,10 @@
 
                         </div>
                         <div style="text-align: center;">
-                            <span :class="{active_group_caption: group==3, inactive_group_caption: group!=3}">Migration from Milvus</span>
+                            <span :class="{active_group_caption: group==3, inactive_group_caption: group!=3}">Migration and Data Import</span>
                         </div>
                         <div style="text-align: center;">
-                            <span style="font-size: 0.8em; color: #647489;">Find out how to migrate data from
-                                self-hosted
-                                Milvus clusters to Zilliz Cloud.</span>
+                            <span style="font-size: 0.8em; color: #647489;">Find out how to migrate and import data from to Zilliz Cloud.</span>
                         </div>
                     </div>
                 </div>
@@ -143,11 +140,20 @@
                             <div style="display: block; line-height: 32px; flex: 25%;">
                                 <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/free-trials" target="_blank">Free Trials</a></span>
                             </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/install-sdks" target="_blank">Install SDKs</a></span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/example-dataset" target="_blank">Example Dataset</a></span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span></span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--Serverless Cluster 101-->
+            <!--Starter User Guides-->
             <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==0">
                 <div style="display: block; flex: 18%">
                     <div style="display: flex; flex-direction: row; gap: 0.5em">
@@ -158,7 +164,7 @@
 
                         </div>
                         <div style="display: flex; flex-direction: column;">
-                            <span style="font-size: 1.2em; font-weight: bold;">Serverless Cluster 101</span>
+                            <span style="font-size: 1.2em; font-weight: bold;">Starter User Guides</span>
                             <span style="font-size: 0.8em;">An ordered guide for vector database cluster beginners</span>
                         </div>
                     </div>
@@ -168,38 +174,33 @@
                         style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
                         <div style="display: flex; flex-flow: row wrap; gap: 2%">
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/create-first-project-3" target="_blank">1. Create First Project</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/create-cluster" target="_blank">1. Create Cluster</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/create-first-cluster-3" target="_blank">2. Create First Cluster</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/connect-to-cluster" target="_blank">2. Connect to Cluster</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/example-dataset-1" target="_blank">3. Example Dataset</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/create-collection-2" target="_blank">3. Create Collection</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/connect-to-cluster-1" target="_blank">4. Connect to Cluster</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/insert-entities" target="_blank">4. Insert Entities</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/install-sdks" target="_blank">5. Install SDKs</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/search-and-query" target="_blank">5. Search and Query</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/create-collection-3" target="_blank">6. Create Collection</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/delete-entities" target="_blank">6. Delete Entities</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/drop-collection-4" target="_blank">7. Drop Collection</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/drop-collection-1" target="_blank">7. Drop Collection</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/insert-entities-1" target="_blank">8. Insert Entities</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/manage-cluster" target="_blank">8. Manage Cluster</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/search-and-query-1" target="_blank">9. Search and Query</a></span>
-                            </div>
-                            <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/delete-entities-1" target="_blank">10. Delete Entities</a></span>
+                                <span></span>
                             </div>
                         </div>
-                        <hr style="border-top: 1px solid #E0E3E7">
-                        <div style="margin-top: 1em; line-height: 1.2em; font-size: 0.7em; color: #647489">* This guide series are designed for starters, such as independent developers, that need to quickly set up a vector database cluster for app development. For a guide series for enterprise users, refer to <a style="font-weight: bold; color:#647489;" href="#" @click="this.group=2">Advanced User Guides</a>.</Serverless></div>
                     </div>
                 </div>
             </div>
@@ -227,6 +228,9 @@
                                 <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/autoindex-explained" target="_blank">AUTOINDEX Explained</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/cu-types-explained" target="_blank">CU Types Explained</a></span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
                                 <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/cluster-collection-entities" target="_blank">Cluster, Collection & Entities</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
@@ -240,6 +244,12 @@
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
                                 <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/cloud-providers-and-regions" target="_blank">Cloud Providers and Regions</a></span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/data-security" target="_blank">Data Security</a></span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span></span>
                             </div>
                         </div>
                     </div>
@@ -265,7 +275,13 @@
                     <div
                         style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
                         <div style="display: flex; flex-flow: row wrap; gap: 2%">
-                            <div style="display: block; line-height: 32px; flex: 25%;">
+                            <div style="display: block; line-height: 32px; flex: 45%;">
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/choose-the-right-cu-type-and-size" target="_blank">Choose the Right CU Type and Size</a></span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 45%;">
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/select-zilliz-cloud-service-plans" target="_blank">Select Zilliz Cloud Service Plans</a></span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 45%;">
                                 <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/pricing-calculator" target="_blank">Pricing Calculator</a></span>
                             </div>
                         </div>
@@ -340,18 +356,15 @@
                 <div style="display: block; flex: 75%">
                     <div
                         style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
-                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                        <div style="display: flex; flex-flow: column wrap; gap: 2%">
                             <div style="display: block; line-height: 32px; flex: 45%;">
                                 <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/similarity-search-with-zilliz-cloud-and-openai" target="_blank">Similarity Search with Zilliz Cloud and OpenAI</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 45%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/question-answering-using-zilliz-cloud-and-huggingface" target="_blank">Question Answering Using Zilliz Cloud and HuggingFace</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/question-answering-using-zilliz-cloud-and-hugging-face" target="_blank">Question Answering Using Zilliz Cloud and Hugging Face</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 45%;">
                                 <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/question-answering-using-zilliz-cloud-and-cohere" target="_blank">Question Answering Using Zilliz Cloud and Cohere</a></span>
-                            </div>
-                            <div style="display: block; line-height: 32px; flex: 45%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/question-answering-using-zilliz-cloud-and-hugging-face" target="_blank">Question Answering Using Zilliz Cloud and Hugging Face</a></span>
                             </div>
                         </div>
                     </div>
@@ -379,7 +392,7 @@
                 <div style="display: block; flex: 75%">
                     <div
                         style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
-                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                        <div style="display: flex; flex-flow: column wrap; gap: 2%">
                             <div style="display: block; line-height: 32px; flex: 45%;">
                                 <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/question-answering-over-documents-with-zilliz-cloud-and-langchain" target="_blank">Question Answering over Documents with Zilliz Cloud and LangChain</a></span>
                             </div>
@@ -396,7 +409,7 @@
                     </div>
                 </div>
             </div>
-            <!--Get Started-->
+            <!--Customize Collection Schema-->
             <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==2">
                 <div style="display: block; flex: 18%">
                     <div style="display: flex; flex-direction: row; gap: 0.5em">
@@ -414,8 +427,8 @@
 
                         </div>
                         <div style="display: flex; flex-direction: column;">
-                            <span style="font-size: 1.2em; font-weight: bold;">Get Started</span>
-                            <span style="font-size: 0.8em;">Learn basic operations and APIs of Zilliz Cloud</span>
+                            <span style="font-size: 1.2em; font-weight: bold;">Customize Collection Schema</span>
+                            <span style="font-size: 0.8em;">Learn advanced operations through end-to-end cases.</span>
                         </div>
                     </div>
                 </div>
@@ -424,48 +437,19 @@
                         style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
                         <div style="display: flex; flex-flow: row wrap; gap: 2%">
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/create-first-cluster-1" target="_blank">1. Create First Cluster</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/use-customized-schema" target="_blank">Use Customized Schema</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/example-dataset-2" target="_blank">2. Example Dataset</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/enable-dynamic-schema" target="_blank">Enable Dynamic Schema</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/connect-to-cluster-2" target="_blank">3. Connect to Cluster</a></span>
-                            </div>
-                            <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/install-sdks-1" target="_blank">4. Install SDKs</a></span>
-                            </div>
-                            <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/create-collection-1" target="_blank">5. Create Collection</a></span>
-                            </div>
-                            <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/manage-indexes-1" target="_blank">6. Manage Indexes</a></span>
-                            </div>
-                            <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/manage-collections" target="_blank">7. Manage Collections</a></span>
-                            </div>
-                            <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/insert-entities-2" target="_blank">8. Insert Entities</a></span>
-                            </div>
-                            <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/search-and-query-2" target="_blank">9. Search and Query</a></span>
-                            </div>
-                            <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/use-dynamic-schema-1" target="_blank">10. Use Dynamic Schema</a></span>
-                            </div>
-                            <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/delete-entities-2" target="_blank">11. Delete Entities</a></span>
-                            </div>
-                            <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/other-operations-2" target="_blank">12. Other Operations</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/use-partition-key" target="_blank">Use Partition Key</a></span>
                             </div>
                         </div>
-                        <hr style="border-top: 1px solid #E0E3E7">
-                        <div style="margin-top: 1em; line-height: 1.2em; font-size: 0.7em; color: #647489">* This guide series are designed for users, such as enterprises, that need to take full control of its collection schemas and require high data operation performance via SDKs. For a guide series for starters, refer to <a style="font-weight: bold; color:#647489;" href="#" @click="this.group=0">Serverless Cluster 101</a>.</Serverless></div>
                     </div>
                 </div>
             </div>
-            <!--Data Types-->
+            <!--Advanced Data Types-->
             <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==2">
                 <div style="display: block; flex: 18%">
                     <div style="display: flex; flex-direction: row; gap: 0.5em">
@@ -483,7 +467,7 @@
 
                         </div>
                         <div style="display: flex; flex-direction: column;">
-                            <span style="font-size: 1.2em; font-weight: bold;">Data Types</span>
+                            <span style="font-size: 1.2em; font-weight: bold;">Advanced Data Types</span>
                             <span style="font-size: 0.8em;">Learn more about data types you can use on Zilliz Cloud</span>
                         </div>
                     </div>
@@ -493,7 +477,7 @@
                         style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
                         <div style="display: flex; flex-flow: row wrap; gap: 2%">
                             <div style="display: block; line-height: 32px; flex: 45%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/javascript-object-notation-json" target="_blank">JavaScript Object Notation (JSON)</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/javascript-object-notation-json-1" target="_blank">JavaScript Object Notation (JSON)</a></span>
                             </div>
                         </div>
                     </div>
@@ -526,7 +510,7 @@
                                 <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/manage-cluster-credentials" target="_blank">Manage Cluster Credentials</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/set-up-a-whitelist" target="_blank">Set up a Whitelist</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/set-up-whitelist" target="_blank">Set up Whitelist</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
                                 <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/set-up-a-private-link" target="_blank">Set up a Private Link</a></span>
@@ -548,7 +532,7 @@
                         </div>
                         <div style="display: flex; flex-direction: column;">
                             <span style="font-size: 1.2em; font-weight: bold;">Backup and Restore</span>
-                            <span style="font-size: 0.8em;">Learn about backup and restore operations</span>
+                            <span style="font-size: 0.8em;">Learn about backup and restore operations.</span>
                         </div>
                     </div>
                 </div>
@@ -658,6 +642,9 @@
                             <div style="display: block; line-height: 32px; flex: 25%;">
                                 <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/view-cluster-metrics" target="_blank">View Cluster Metrics</a></span>
                             </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/advance-pay-balance-monitor" target="_blank">Advance Pay Balance Monitor</a></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -693,10 +680,10 @@
                                 <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/subscribe-by-adding-credit-card" target="_blank">Subscribe by Adding Credit Card</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/edit-payment-method" target="_blank">Edit Payment Method</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/view-invoice" target="_blank">View Invoice</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/view-invoice" target="_blank">View Invoice</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/advance-pay" target="_blank">Advance Pay</a></span>
                             </div>
                         </div>
                     </div>
@@ -729,6 +716,9 @@
                             <div style="display: block; line-height: 32px; flex: 25%;">
                                 <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/set-up-maintenance-window" target="_blank">Set up Maintenance Window</a></span>
                             </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/manage-organization-information" target="_blank">Manage Organization Information</a></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -757,30 +747,45 @@
                         style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
                         <div style="display: flex; flex-flow: row wrap; gap: 2%">
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/migrate-from-milvus-1x" target="_blank">Migrate from Milvus 1.x</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/migrate-from-milvus-1x-1" target="_blank">Migrate from Milvus 1.x</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/migrate-from-milvus-2x" target="_blank">Migrate from Milvus 2.x</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/migrate-from-milvus-2x-1" target="_blank">Migrate from Milvus 2.x</a></span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/migrate-from-elasticsearch" target="_blank">Migrate from Elasticsearch</a></span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/migrate-between-clusters" target="_blank">Migrate Between Clusters</a></span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--Zilliz Cloud v.s. Milvus-->
+            <!--Data Import into Existing Collection-->
             <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==3">
                 <div style="display: block; flex: 18%">
                     <div style="display: flex; flex-direction: row; gap: 0.5em">
                         <div style="align-self: center;">
-                            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M10.1241 5.64404L3.12097 5.64404L3.12096 12.6471L10.1241 12.6471L10.1241 5.64404ZM27.127 5.64404H20.1239L20.1239 12.6471L27.127 12.6471L27.127 5.64404ZM3.12097 4.64404C2.56868 4.64404 2.12097 5.09176 2.12097 5.64404V12.6471C2.12097 13.1994 2.56868 13.6471 3.12096 13.6471H10.1241C10.6763 13.6471 11.1241 13.1994 11.1241 12.6471V5.64404C11.1241 5.09176 10.6764 4.64404 10.1241 4.64404H3.12097ZM20.1239 4.64404C19.5716 4.64404 19.1239 5.09176 19.1239 5.64404V12.6471C19.1239 13.1994 19.5716 13.6471 20.1239 13.6471H27.127C27.6793 13.6471 28.127 13.1994 28.127 12.6471V5.64404C28.127 5.09176 27.6793 4.64404 27.127 4.64404H20.1239Z" fill="black"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 15.8529C1.5 15.5767 1.72386 15.3529 2 15.3529H28C28.2761 15.3529 28.5 15.5767 28.5 15.8529C28.5 16.129 28.2761 16.3529 28 16.3529H2C1.72386 16.3529 1.5 16.129 1.5 15.8529Z" fill="black"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M10.3115 25.356C9.07538 25.356 8.36981 23.9448 9.11148 22.9559L13.864 16.6195C14.464 15.8195 15.664 15.8195 16.264 16.6195L21.0161 22.956C21.7577 23.9448 21.0522 25.356 19.8161 25.356H10.3115ZM9.91146 23.5559C9.66424 23.8856 9.89943 24.356 10.3115 24.356H19.8161C20.2281 24.356 20.4633 23.8856 20.2161 23.556L15.464 17.2195C15.264 16.9529 14.864 16.9529 14.664 17.2195L9.91146 23.5559Z" fill="black"/>
+                            <svg width="31" height="30" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="path-1-inside-1_3_1095" fill="white">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M26.6757 8.85738C26.6758 8.84969 26.6759 8.842 26.6759 8.8343C26.6759 6.27617 22.1076 4.20239 16.4723 4.20239C10.8465 4.20239 6.28405 6.2692 6.26872 8.8214H6.26855V24.1265C6.26855 24.1266 6.26855 24.1267 6.26855 24.1268C6.26886 26.6848 10.837 28.7584 16.4721 28.7584C22.1072 28.7584 26.6754 26.6848 26.6757 24.1268C26.6757 24.1267 26.6757 24.1266 26.6757 24.1265V8.85738Z"/>
+</mask>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M26.6757 8.85738C26.6758 8.84969 26.6759 8.842 26.6759 8.8343C26.6759 6.27617 22.1076 4.20239 16.4723 4.20239C10.8465 4.20239 6.28405 6.2692 6.26872 8.8214H6.26855V24.1265C6.26855 24.1266 6.26855 24.1267 6.26855 24.1268C6.26886 26.6848 10.837 28.7584 16.4721 28.7584C22.1072 28.7584 26.6754 26.6848 26.6757 24.1268C26.6757 24.1267 26.6757 24.1266 26.6757 24.1265V8.85738Z" fill="white"/>
+<path d="M26.6757 8.85738L25.6757 8.84671V8.85738H26.6757ZM6.26872 8.8214V9.8214H7.26273L7.2687 8.82741L6.26872 8.8214ZM6.26855 8.8214V7.8214H5.26855V8.8214H6.26855ZM6.26855 24.1268L7.26855 24.1267L6.26855 24.1268ZM26.6757 24.1268L27.6757 24.1269V24.1268H26.6757ZM27.6757 8.86805C27.6758 8.85688 27.6759 8.84563 27.6759 8.8343H25.6759C25.6759 8.83837 25.6758 8.8425 25.6758 8.84671L27.6757 8.86805ZM27.6759 8.8343C27.6759 6.92126 26.0137 5.5169 24.1007 4.64848C22.0969 3.73886 19.3989 3.20239 16.4723 3.20239V5.20239C19.1809 5.20239 21.5848 5.70281 23.2739 6.46962C25.0539 7.27762 25.6759 8.18921 25.6759 8.8343H27.6759ZM16.4723 3.20239C13.5505 3.20239 10.8567 3.73708 8.85409 4.64385C6.9418 5.50971 5.28019 6.90859 5.26874 8.81539L7.2687 8.82741C7.27258 8.18201 7.89984 7.27139 9.67904 6.46579C11.3679 5.70111 13.7682 5.20239 16.4723 5.20239V3.20239ZM6.26855 9.8214H6.26872V7.8214H6.26855V9.8214ZM7.26855 24.1265V8.8214H5.26855V24.1265H7.26855ZM5.26855 24.1265C5.26855 24.1266 5.26855 24.1265 5.26855 24.1266C5.26855 24.1267 5.26855 24.1268 5.26855 24.1269L7.26855 24.1267V24.1265H5.26855ZM5.26855 24.1269C5.26878 26.0398 6.93094 27.4441 8.84397 28.3124C10.8477 29.222 13.5456 29.7584 16.4721 29.7584V27.7584C13.7636 27.7584 11.3598 27.2581 9.67064 26.4913C7.89072 25.6833 7.26863 24.7718 7.26855 24.1267L5.26855 24.1269ZM16.4721 29.7584C19.3987 29.7584 22.0966 29.222 24.1003 28.3124C26.0134 27.4441 27.6755 26.0398 27.6757 24.1269L25.6757 24.1267C25.6757 24.7718 25.0536 25.6833 23.2737 26.4913C21.5845 27.2581 19.1807 27.7584 16.4721 27.7584V29.7584ZM27.6757 24.1268C27.6757 24.1268 27.6757 24.1268 27.6757 24.1268C27.6757 24.1268 27.6757 24.1268 27.6757 24.1268V24.1268C27.6757 24.1268 27.6757 24.1268 27.6757 24.1268C27.6757 24.1268 27.6757 24.1268 27.6757 24.1268C27.6757 24.1268 27.6757 24.1268 27.6757 24.1268V24.1268V24.1268C27.6757 24.1268 27.6757 24.1268 27.6757 24.1268C27.6757 24.1268 27.6757 24.1268 27.6757 24.1268C27.6757 24.1268 27.6757 24.1268 27.6757 24.1268V24.1268V24.1268C27.6757 24.1268 27.6757 24.1268 27.6757 24.1268C27.6757 24.1268 27.6757 24.1268 27.6757 24.1268C27.6757 24.1268 27.6757 24.1268 27.6757 24.1268V24.1268V24.1268C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267V24.1267V24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267V24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267V24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267V24.1267V24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267V24.1267V24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267V24.1267V24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267V24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267V24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267V24.1267V24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267V24.1267V24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267C27.6757 24.1267 27.6757 24.1267 27.6757 24.1267V24.1267V24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266V24.1266V24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266V24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266V24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266V24.1266V24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266V24.1266V24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266V24.1266V24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266V24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266V24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266V24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266V24.1266V24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266C27.6757 24.1266 27.6757 24.1266 27.6757 24.1266V24.1266V24.1265C27.6757 24.1265 27.6757 24.1265 27.6757 24.1265C27.6757 24.1265 27.6757 24.1265 27.6757 24.1265C27.6757 24.1265 27.6757 24.1265 27.6757 24.1265V24.1265V24.1265C27.6757 24.1265 27.6757 24.1265 27.6757 24.1265C27.6757 24.1265 27.6757 24.1265 27.6757 24.1265C27.6757 24.1265 27.6757 24.1265 27.6757 24.1265V24.1265C27.6757 24.1265 27.6757 24.1265 27.6757 24.1265C27.6757 24.1265 27.6757 24.1265 27.6757 24.1265H25.6757C25.6757 24.1265 25.6757 24.1265 25.6757 24.1265C25.6757 24.1265 25.6757 24.1265 25.6757 24.1265V24.1265C25.6757 24.1265 25.6757 24.1265 25.6757 24.1265C25.6757 24.1265 25.6757 24.1265 25.6757 24.1265C25.6757 24.1265 25.6757 24.1265 25.6757 24.1265V24.1265V24.1265C25.6757 24.1265 25.6757 24.1265 25.6757 24.1265C25.6757 24.1265 25.6757 24.1265 25.6757 24.1265C25.6757 24.1265 25.6757 24.1265 25.6757 24.1265V24.1266V24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266V24.1266V24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266V24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266V24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266V24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266V24.1266V24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266V24.1266V24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266V24.1266V24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266V24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266V24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266V24.1266V24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266C25.6757 24.1266 25.6757 24.1266 25.6757 24.1266V24.1267V24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267V24.1267V24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267V24.1267V24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267V24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267V24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267V24.1267V24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267V24.1267V24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267V24.1267V24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267V24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267V24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267V24.1267V24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1267C25.6757 24.1267 25.6757 24.1267 25.6757 24.1268V24.1268V24.1268C25.6757 24.1268 25.6757 24.1268 25.6757 24.1268C25.6757 24.1268 25.6757 24.1268 25.6757 24.1268C25.6757 24.1268 25.6757 24.1268 25.6757 24.1268V24.1268V24.1268C25.6757 24.1268 25.6757 24.1268 25.6757 24.1268C25.6757 24.1268 25.6757 24.1268 25.6757 24.1268C25.6757 24.1268 25.6757 24.1268 25.6757 24.1268V24.1268V24.1268C25.6757 24.1268 25.6757 24.1268 25.6757 24.1268C25.6757 24.1268 25.6757 24.1268 25.6757 24.1268C25.6757 24.1268 25.6757 24.1268 25.6757 24.1268V24.1268C25.6757 24.1268 25.6757 24.1268 25.6757 24.1268C25.6757 24.1268 25.6757 24.1268 25.6757 24.1268H27.6757ZM25.6757 8.85738V24.1265H27.6757V8.85738H25.6757Z" fill="black" mask="url(#path-1-inside-1_3_1095)"/>
+<path d="M26.1757 8.83406C26.1757 9.79614 25.2937 10.8309 23.4805 11.654C21.7127 12.4565 19.2353 12.966 16.4721 12.966C13.709 12.966 11.2316 12.4565 9.46379 11.654C7.65059 10.8309 6.76855 9.79614 6.76855 8.83406C6.76855 7.87198 7.65059 6.83719 9.46379 6.01409C11.2316 5.21158 13.709 4.70215 16.4721 4.70215C19.2353 4.70215 21.7127 5.21158 23.4805 6.01409C25.2937 6.83719 26.1757 7.87198 26.1757 8.83406Z" fill="white" stroke="black"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M6.26855 16.085C6.26936 18.6428 10.8374 20.7162 16.4721 20.7162C22.1069 20.7162 26.6749 18.6428 26.6757 16.085H25.6757C25.6753 16.73 25.0531 17.6413 23.2738 18.449C21.5846 19.2158 19.1808 19.7162 16.4721 19.7162C13.7635 19.7162 11.3597 19.2158 9.67047 18.449C7.89117 17.6413 7.26899 16.73 7.26855 16.085H6.26855Z" fill="black"/>
+<circle cx="6.5625" cy="8.83398" r="4.13184" fill="white" stroke="black"/>
+<path d="M4.76758 8.83398H8.35605" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6.56152 10.6289L6.56152 7.04044" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="23.1768" cy="15.5" r="0.5" fill="black"/>
+<circle cx="23.1768" cy="22.6934" r="0.5" fill="black"/>
 </svg>
 
                         </div>
                         <div style="display: flex; flex-direction: column;">
-                            <span style="font-size: 1.2em; font-weight: bold;">Zilliz Cloud v.s. Milvus</span>
-                            <span style="font-size: 0.8em;">Learn the differences in terms of specifications between Zilliz Cloud and Milvus</span>
+                            <span style="font-size: 1.2em; font-weight: bold;">Data Import into Existing Collection</span>
+                            <span style="font-size: 0.8em;">Learn how to import data to existing collections.</span>
                         </div>
                     </div>
                 </div>
@@ -789,10 +794,46 @@
                         style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
                         <div style="display: flex; flex-flow: row wrap; gap: 2%">
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/autoindex-explained-1" target="_blank">AUTOINDEX Explained</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/import-data-on-web-ui" target="_blank">Import Data on Web UI</a></span>
                             </div>
                             <div style="display: block; line-height: 32px; flex: 25%;">
-                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/cu-types-explained" target="_blank">CU Types Explained</a></span>
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/import-data-via-restful-api" target="_blank">Import Data via RESTful API</a></span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Reference-->
+            <div style="display: flex; flex-direction: row; gap: 2%" v-if="group==3">
+                <div style="display: block; flex: 18%">
+                    <div style="display: flex; flex-direction: row; gap: 0.5em">
+                        <div style="align-self: center;">
+                            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M21.0191 18.3283C22.9027 16.6618 24.0878 14.2297 24.0878 11.5195C24.0878 6.5004 20.0191 2.43164 15 2.43164C9.98093 2.43164 5.91217 6.5004 5.91217 11.5195C5.91217 14.2557 7.1202 16.7086 9.0354 18.3762C9.70104 18.9558 10.1944 19.8155 10.1944 20.8074V21.0761C10.4886 20.906 10.8301 20.8086 11.1944 20.8086H18.8861C19.2481 20.8086 19.5876 20.9048 19.8806 21.0729V20.7425C19.8806 19.7604 20.3644 18.9075 21.0191 18.3283ZM10.1944 24.0986C10.1944 24.1445 10.1975 24.1897 10.2035 24.2339C10.2065 24.2563 10.2102 24.2783 10.2147 24.3002C10.308 24.7557 10.7112 25.0984 11.1944 25.0984H18.8861C18.8978 25.0984 18.9094 25.0982 18.9209 25.0978C19.4545 25.0767 19.8806 24.6374 19.8806 24.0986V22.7023C19.8275 22.2 19.4025 21.8086 18.8861 21.8086H11.1944C10.6452 21.8086 10.1994 22.2513 10.1944 22.7993V24.0986ZM9.1944 20.8074V22.7955L9.19436 22.8086V24.0984C9.19436 24.2021 9.20225 24.3038 9.21744 24.4032C9.22764 24.4699 9.24113 24.5356 9.25775 24.6C9.48023 25.4619 10.263 26.0986 11.1944 26.0986H15.2019H18.8806C18.9066 26.0986 18.9326 26.0981 18.9585 26.0971C20.0295 26.0591 20.8861 25.1788 20.8861 24.0984V22.8086C20.8861 22.758 20.8843 22.7078 20.8806 22.6581V20.7425C20.8806 20.0987 21.1995 19.5039 21.6817 19.0773C23.7708 17.229 25.0878 14.528 25.0878 11.5195C25.0878 5.94811 20.5713 1.43164 15 1.43164C9.42864 1.43164 4.91217 5.94811 4.91217 11.5195C4.91217 14.557 6.25469 17.281 8.37874 19.1304C8.86918 19.5574 9.1944 20.1571 9.1944 20.8074ZM14.7759 5.17493C13.9475 5.17493 13.2759 5.8465 13.2759 6.67493V6.82656C13.0373 6.91106 12.8063 7.01147 12.5841 7.1265L12.5663 7.10866C11.9805 6.52287 11.0307 6.52287 10.445 7.10866L9.99975 7.55387C9.41396 8.13965 9.41396 9.0894 9.99975 9.67519L10.0854 9.76084C10.0122 9.92275 9.94657 10.0888 9.88897 10.2586H9.68617C8.85774 10.2586 8.18617 10.9302 8.18617 11.7586V12.3883C8.18617 13.2167 8.85775 13.8883 9.68617 13.8883H9.91669C9.9573 14.0022 10.0015 14.1144 10.0493 14.2247L9.8822 14.3917C9.29641 14.9775 9.29641 15.9273 9.8822 16.5131L10.3274 16.9583C10.9132 17.5441 11.8629 17.5441 12.4487 16.9583L12.507 16.9C12.7527 17.0322 13.0096 17.1463 13.276 17.2407V17.253C13.276 18.0814 13.9475 18.753 14.776 18.753H15.4056C16.2314 18.753 16.9013 18.0857 16.9056 17.261C17.1369 17.182 17.3612 17.0881 17.5775 16.9804C18.1649 17.544 19.0979 17.5366 19.6762 16.9583L20.1214 16.5131C20.7072 15.9273 20.7072 14.9775 20.1214 14.3917L20.1171 14.3874C20.1936 14.2252 20.2625 14.0587 20.3232 13.8882C21.1473 13.8832 21.8138 13.2136 21.8138 12.3883V11.7586C21.8138 10.9427 21.1623 10.2789 20.3511 10.2591C20.2932 10.0884 20.2272 9.92142 20.1535 9.75868L20.237 9.67519C20.8228 9.0894 20.8228 8.13965 20.237 7.55387L19.7918 7.10866C19.206 6.52287 18.2563 6.52287 17.6705 7.10866L17.6537 7.12543C17.4141 7.0015 17.1642 6.89456 16.9056 6.80625V6.67493C16.9056 5.8465 16.234 5.17493 15.4056 5.17493H14.7759ZM14.2759 6.67493C14.2759 6.39879 14.4998 6.17493 14.7759 6.17493H15.4056C15.6817 6.17493 15.9056 6.39878 15.9056 6.67493V7.1771V7.56222L16.2779 7.66053C16.706 7.77354 17.1093 7.94782 17.478 8.17359L17.814 8.37936L18.0926 8.10074L18.3776 7.81576C18.5729 7.6205 18.8894 7.6205 19.0847 7.81576L19.5299 8.26097C19.7252 8.45624 19.7252 8.77282 19.5299 8.96808L19.193 9.30499L18.9301 9.56787L19.1062 9.89532C19.2729 10.2055 19.4045 10.5372 19.4955 10.8852L19.5932 11.2586H19.9793H20.3138C20.59 11.2586 20.8138 11.4825 20.8138 11.7586V12.3883C20.8138 12.6644 20.59 12.8883 20.3138 12.8883H19.9577H19.5783L19.4761 13.2537C19.3792 13.6006 19.2418 13.9308 19.0694 14.2389L18.8846 14.5691L19.1522 14.8367L19.4143 15.0988C19.6096 15.2941 19.6096 15.6107 19.4143 15.806L18.9691 16.2512C18.7739 16.4464 18.4573 16.4464 18.262 16.2512L18.0206 16.0098L17.7467 15.7359L17.4131 15.9326C17.0622 16.1395 16.681 16.3002 16.2779 16.4067L15.9056 16.505V16.8901V17.253C15.9056 17.5292 15.6817 17.753 15.4056 17.753H14.776C14.4998 17.753 14.276 17.5292 14.276 17.253V16.8743V16.494L13.9095 16.3925C13.475 16.2721 13.0666 16.0884 12.6949 15.8517L12.3565 15.6363L12.0728 15.92L11.7416 16.2512C11.5464 16.4464 11.2298 16.4464 11.0345 16.2512L10.5893 15.806C10.394 15.6107 10.394 15.2941 10.5893 15.0988L11.0052 14.683L11.2632 14.425L11.0962 14.1005C10.9582 13.8326 10.8463 13.5493 10.7638 13.2537L10.6616 12.8883H10.2822H9.68617C9.41003 12.8883 9.18617 12.6644 9.18617 12.3883V11.7586C9.18617 11.4825 9.41003 11.2586 9.68617 11.2586H10.2606H10.6467L10.7444 10.8852C10.8352 10.5379 10.9664 10.2068 11.1327 9.89715L11.3086 9.56978L11.0458 9.30702L10.7069 8.96808C10.5116 8.77282 10.5116 8.45624 10.7069 8.26097L11.1521 7.81576C11.3473 7.6205 11.6639 7.6205 11.8592 7.81576L12.1453 8.10192L12.4241 8.38068L12.7602 8.17466C13.1142 7.95764 13.5002 7.78811 13.9094 7.67475L14.2759 7.57321V7.1929V6.67493ZM15.1011 9.98499C13.9761 9.98499 13.0641 10.897 13.0641 12.0219C13.0641 13.1469 13.9761 14.0589 15.1011 14.0589C16.226 14.0589 17.138 13.1469 17.138 12.0219C17.138 10.897 16.226 9.98499 15.1011 9.98499ZM12.0641 12.0219C12.0641 10.3447 13.4238 8.98499 15.1011 8.98499C16.7783 8.98499 18.138 10.3447 18.138 12.0219C18.138 13.6992 16.7783 15.0589 15.1011 15.0589C13.4238 15.0589 12.0641 13.6992 12.0641 12.0219ZM10.9057 27.5684C10.6296 27.5684 10.4057 27.7922 10.4057 28.0684C10.4057 28.3445 10.6296 28.5684 10.9057 28.5684H19.1C19.3762 28.5684 19.6 28.3445 19.6 28.0684C19.6 27.7922 19.3762 27.5684 19.1 27.5684H10.9057Z" fill="black"/>
+</svg>
+
+                        </div>
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-size: 1.2em; font-weight: bold;">Reference</span>
+                            <span style="font-size: 0.8em;">References for you to learn more about migration and data import.</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: block; flex: 75%">
+                    <div
+                        style="background-color: #F6F8FA; border: 1px solid #E0E3E7; border-radius: 8px; padding: 1.5em 3em;">
+                        <div style="display: flex; flex-flow: row wrap; gap: 2%">
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/use-bulkwriter-for-data-import" target="_blank">Use BulkWriter for Data Import</a></span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/api-comparisons" target="_blank">Zilliz Cloud v.s. Milvus in API</a></span>
+                            </div>
+                            <div style="display: block; line-height: 32px; flex: 25%;">
+                                <span><a style="color:#000000; text-decoration: none; font-size: 0.95em;" href="https://docs.zilliz.com/docs/other-differences-1" target="_blank">Other Differences</a></span>
                             </div>
                         </div>
                     </div>
