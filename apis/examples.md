@@ -614,3 +614,19 @@ curl --request GET \
      --header "accept: application/json" \
      --header "content-type: application/json" \
 ```
+
+## List Import Jobs
+
+List all import jobs specific to a cluster.
+
+> 📘 Notes
+>
+> You should always use an API key as the token.
+
+```shell
+curl --request GET \
+     --url "https://controller.api.${CLOUD_REGION_ID}.zillizcloud.com/v1/vector/collections/import/list?clusterId=${CLUSTERID}" \
+     --header "Authorization: Bearer ${TOKEN}" \
+     --header "accept: application/json" \
+     --header "content-type: application/json" \
+```
