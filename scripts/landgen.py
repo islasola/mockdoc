@@ -51,7 +51,7 @@ class LandingPageGen:
     def __max_length(self, pages):
         if pages:
             print([ (x, pages) for x in pages if 'title' not in x])
-            return max([ len(x['title']) for x in pages])
+            return max([ len(x['title']) for x in pages if 'title' in x])
         else:
             return 0
         
