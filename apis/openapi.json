@@ -2263,13 +2263,69 @@
                         },
                         "completeTime": {
                           "type": "string",
-                          "description": "The estimated duration in milliseconds until the import task completes.",
+                          "description": "The time at which the import task completes. `null` indicates that the file import is going on.",
                           "nullable": true
                         },
                         "errorMessage": {
                           "type": "string",
-                          "description": "The message that explains the reason for an import failure",
+                          "description": "The message that explains the reason for an import failure. `null` indicates that no error occurs.",
                           "nullable": true
+                        },
+                        "collectionName": {
+                          "type": "string",
+                          "description": "The target collection name of the import task."
+                        },
+                        "jobId": {
+                          "type": "string",
+                          "description": "The ID of an import task."
+                        },
+                        "details": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "fileName": {
+                                "type": "string",
+                                "description": "The path to a file being imported."
+                              },
+                              "fileSize": {
+                                "type": "integer",
+                                "description": "The size of a file being imported.",
+                                "format": "int64"
+                              },
+                              "readyPercentage": {
+                                "type": "number",
+                                "description": "The import progress of a specific file.",
+                                "format": "float"
+                              },
+                              "completeTime": {
+                                "type": "string",
+                                "description": "The time at which the import progress ends for a specific file. `null` indicates that the file import is going on.",
+                                "nullable": true
+                              },
+                              "errorMessage": {
+                                "type": "string",
+                                "description": "The message that explains the reason for an import failure. `null` indicates that no error occurs.",
+                                "nullable": true
+                              }
+                            },
+                            "x-apifox-orders": [
+                              "fileName",
+                              "fileSize",
+                              "readyPercentage",
+                              "completeTime",
+                              "errorMessage"
+                            ],
+                            "required": [
+                              "fileName",
+                              "fileSize",
+                              "readyPercentage",
+                              "completeTime",
+                              "errorMessage"
+                            ],
+                            "x-apifox-ignore-properties": []
+                          },
+                          "description": "The import task details"
                         }
                       },
                       "x-apifox-orders": [
@@ -2277,14 +2333,20 @@
                         "fileSize",
                         "readyPercentage",
                         "completeTime",
-                        "errorMessage"
+                        "errorMessage",
+                        "collectionName",
+                        "jobId",
+                        "details"
                       ],
                       "required": [
                         "fileName",
                         "fileSize",
                         "readyPercentage",
                         "completeTime",
-                        "errorMessage"
+                        "errorMessage",
+                        "collectionName",
+                        "jobId",
+                        "details"
                       ],
                       "x-apifox-ignore-properties": []
                     }
@@ -2306,10 +2368,313 @@
         },
         "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-96581883-run"
       }
+    },
+    "/v1/vector/collections/import/list": {
+      "get": {
+        "summary": "List Import Jobs",
+        "x-apifox-folder": "Import Operations",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Import Operations"
+        ],
+        "parameters": [
+          {
+            "name": "CLOUD_PROVIDER",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "clusterId",
+            "in": "query",
+            "description": "The ID of a specific cluster on Zilliz Cloud.",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The number of records to return at each request.",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "currentPage",
+            "in": "query",
+            "description": "The current page number.",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "string",
+                          "description": "Total number of records listed in this response."
+                        },
+                        "currentPage": {
+                          "type": "string",
+                          "description": "The current page number for your reference."
+                        },
+                        "pageSize": {
+                          "type": "string",
+                          "description": "The maximum number of records to be included in each return."
+                        },
+                        "records": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "collectionName": {
+                                "type": "string",
+                                "description": "The target collection name of a import task."
+                              },
+                              "jobId": {
+                                "type": "string",
+                                "description": "The ID of an import task."
+                              },
+                              "state": {
+                                "type": "string",
+                                "description": "The corresponding status of the import task. Possible values are <b>ImportRunning</b>, <b>ImportCompleted</b> and <b>ImportFailed</b>."
+                              }
+                            },
+                            "x-apifox-orders": [
+                              "collectionName",
+                              "jobId",
+                              "state"
+                            ],
+                            "required": [
+                              "collectionName",
+                              "jobId",
+                              "state"
+                            ],
+                            "x-apifox-ignore-properties": []
+                          }
+                        }
+                      },
+                      "x-apifox-orders": [
+                        "count",
+                        "currentPage",
+                        "pageSize",
+                        "records"
+                      ],
+                      "required": [
+                        "count",
+                        "currentPage",
+                        "pageSize",
+                        "records"
+                      ],
+                      "x-apifox-ignore-properties": []
+                    }
+                  },
+                  "x-apifox-orders": [
+                    "01H9HR3SJXBHH9WRXFQTXAHFZ9"
+                  ],
+                  "required": [
+                    "code",
+                    "data"
+                  ],
+                  "x-apifox-refs": {
+                    "01H9HR3SJXBHH9WRXFQTXAHFZ9": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        },
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "count": {
+                              "type": "string",
+                              "description": "Total number of records listed in this response."
+                            },
+                            "currentPage": {
+                              "type": "string",
+                              "description": "The current page number for your reference."
+                            },
+                            "pageSize": {
+                              "type": "string",
+                              "description": "The maximum number of records to be included in each return."
+                            },
+                            "records": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "collectionName": {
+                                    "type": "string",
+                                    "description": "The target collection name of a import task."
+                                  },
+                                  "jobId": {
+                                    "type": "string",
+                                    "description": "The ID of an import task."
+                                  },
+                                  "state": {
+                                    "type": "string",
+                                    "description": "The corresponding status of the import task. Possible values are <b>ImportRunning</b>, <b>ImportCompleted</b> and <b>ImportFailed</b>."
+                                  }
+                                },
+                                "x-apifox-orders": [
+                                  "collectionName",
+                                  "jobId",
+                                  "state"
+                                ],
+                                "required": [
+                                  "collectionName",
+                                  "jobId",
+                                  "state"
+                                ],
+                                "x-apifox-ignore-properties": []
+                              }
+                            }
+                          },
+                          "x-apifox-orders": [
+                            "count",
+                            "currentPage",
+                            "pageSize",
+                            "records"
+                          ],
+                          "required": [
+                            "count",
+                            "currentPage",
+                            "pageSize",
+                            "records"
+                          ],
+                          "x-apifox-ignore-properties": []
+                        }
+                      },
+                      "x-apifox-orders": [
+                        "code",
+                        "data"
+                      ],
+                      "required": [
+                        "code",
+                        "data"
+                      ],
+                      "x-apifox-ignore-properties": [],
+                      "x-apifox-folder": "Schemas"
+                    }
+                  },
+                  "x-apifox-ignore-properties": [
+                    "code",
+                    "data"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://www.apifox.cn/web/project/2645146/apis/api-108178351-run"
+      }
     }
   },
   "components": {
     "schemas": {
+      "customer.ImportListRes": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "count": {
+                "type": "string",
+                "description": "Total number of records listed in this response."
+              },
+              "currentPage": {
+                "type": "string",
+                "description": "The current page number for your reference."
+              },
+              "pageSize": {
+                "type": "string",
+                "description": "The maximum number of records to be included in each return."
+              },
+              "records": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "collectionName": {
+                      "type": "string",
+                      "description": "The target collection name of a import task."
+                    },
+                    "jobId": {
+                      "type": "string",
+                      "description": "The ID of an import task."
+                    },
+                    "state": {
+                      "type": "string",
+                      "description": "The corresponding status of the import task. Possible values are <b>ImportRunning</b>, <b>ImportCompleted</b> and <b>ImportFailed</b>."
+                    }
+                  },
+                  "x-apifox-orders": [
+                    "collectionName",
+                    "jobId",
+                    "state"
+                  ],
+                  "required": [
+                    "collectionName",
+                    "jobId",
+                    "state"
+                  ],
+                  "x-apifox-ignore-properties": []
+                }
+              }
+            },
+            "x-apifox-orders": [
+              "count",
+              "currentPage",
+              "pageSize",
+              "records"
+            ],
+            "required": [
+              "count",
+              "currentPage",
+              "pageSize",
+              "records"
+            ],
+            "x-apifox-ignore-properties": []
+          }
+        },
+        "x-apifox-orders": [
+          "code",
+          "data"
+        ],
+        "required": [
+          "code",
+          "data"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
       "customer.GetImportTaskResp": {
         "type": "object",
         "properties": {
@@ -2335,13 +2700,69 @@
               },
               "completeTime": {
                 "type": "string",
-                "description": "The estimated duration in milliseconds until the import task completes.",
+                "description": "The time at which the import task completes. `null` indicates that the file import is going on.",
                 "nullable": true
               },
               "errorMessage": {
                 "type": "string",
-                "description": "The message that explains the reason for an import failure",
+                "description": "The message that explains the reason for an import failure. `null` indicates that no error occurs.",
                 "nullable": true
+              },
+              "collectionName": {
+                "type": "string",
+                "description": "The target collection name of the import task."
+              },
+              "jobId": {
+                "type": "string",
+                "description": "The ID of an import task."
+              },
+              "details": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "fileName": {
+                      "type": "string",
+                      "description": "The path to a file being imported."
+                    },
+                    "fileSize": {
+                      "type": "integer",
+                      "description": "The size of a file being imported.",
+                      "format": "int64"
+                    },
+                    "readyPercentage": {
+                      "type": "number",
+                      "description": "The import progress of a specific file.",
+                      "format": "float"
+                    },
+                    "completeTime": {
+                      "type": "string",
+                      "description": "The time at which the import progress ends for a specific file. `null` indicates that the file import is going on.",
+                      "nullable": true
+                    },
+                    "errorMessage": {
+                      "type": "string",
+                      "description": "The message that explains the reason for an import failure. `null` indicates that no error occurs.",
+                      "nullable": true
+                    }
+                  },
+                  "x-apifox-orders": [
+                    "fileName",
+                    "fileSize",
+                    "readyPercentage",
+                    "completeTime",
+                    "errorMessage"
+                  ],
+                  "required": [
+                    "fileName",
+                    "fileSize",
+                    "readyPercentage",
+                    "completeTime",
+                    "errorMessage"
+                  ],
+                  "x-apifox-ignore-properties": []
+                },
+                "description": "The import task details"
               }
             },
             "x-apifox-orders": [
@@ -2349,14 +2770,20 @@
               "fileSize",
               "readyPercentage",
               "completeTime",
-              "errorMessage"
+              "errorMessage",
+              "collectionName",
+              "jobId",
+              "details"
             ],
             "required": [
               "fileName",
               "fileSize",
               "readyPercentage",
               "completeTime",
-              "errorMessage"
+              "errorMessage",
+              "collectionName",
+              "jobId",
+              "details"
             ],
             "x-apifox-ignore-properties": []
           }
