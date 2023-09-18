@@ -209,3 +209,12 @@ ListCloudProviders,63032
 ListCloudRegions,90117
 ListCloudRegions,80001
 ListCloudRegions,80002
+ListImportJobs,40021
+ListImportJobs,40022
+ListImportJobs,80000
+ListImportJobs,80003
+ListImportJobs,80004
+ListImportJobs,80020
+ListImportJobs,90102
+ListImportJobs,90104
+ListImportJobs,90117
