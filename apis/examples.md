@@ -4,14 +4,10 @@
 
 Lists all cloud providers available on Zilliz Cloud.
 
-> 📘 Notes
->
-> You should always use an API key as the token.
-
 ```shell
 curl --request GET \
      --url "https://controller.api.${CLOUD_REGION_ID}.zillizcloud.com/v1/clouds" \
-     --header "Authorization: Bearer ${TOKEN}" \
+     --header "Authorization: Bearer ${API_KEY}" \
      --header "accept: application/json" \
      --header "content-type: application/json"
 ```
@@ -38,14 +34,10 @@ Success response:
 
 Lists all available cloud regions of a specific cloud provider.
 
-> 📘 Notes
->
-> You should always use an API key as the token.
-
 ```shell
 curl --request GET \
      --url "https://controller.api.${CLOUD_REGION_ID}.zillizcloud.com/v1/regions?cloudId=gcp" \
-     --header "Authorization: Bearer ${TOKEN}" \
+     --header "Authorization: Bearer ${API_KEY}" \
      --header "accept: application/json" \
      --header "content-type: application/json"
 ```
@@ -71,14 +63,10 @@ Success response:
 
 Describes the details of a cluster.
 
-> 📘 Notes
->
-> You should always use an API key as the token.
-
 ```shell
 curl --request GET \
      --url "https://controller.api.${CLOUD_REGION_ID}.zillizcloud.com/v1/clusters/<Cluster-ID>" \
-     --header "Authorization: Bearer ${TOKEN}" \
+     --header "Authorization: Bearer ${API_KEY}" \
      --header "accept: application/json" \
      --header "content-type: application/json"
 ```
@@ -112,12 +100,11 @@ Suspends a cluster. This operation will stop the cluster and your data will rema
 
 > 📘 Notes
 >
-> You should always use an API key as the token.
 > This applies only to dedicated clusters. You should add a payment method before you can perform this action.
 
 ```shell
 curl --request POST \ "https://controller.${CLOUD_REGION_ID}.zillizcloud.com/v1/clusters/<Cluster-ID>/suspend" \
-     --header "Authorization: Bearer ${TOKEN}" \
+     --header "Authorization: Bearer ${API_KEY}" \
      --header "accept: application/json" \
      --header "content-type: application/json"
 ```
@@ -140,12 +127,11 @@ Resume a cluster that has been suspended.
 
 > 📘 Notes
 >
-> You should always use an API key as the token.
 > This applies only to dedicated clusters. You should add a payment method before you can perform this action.
 
 ```shell
 curl --request POST \ "https://controller.api.${CLOUD_REGION_ID}.zillizcloud.com/v1/clusters/<Cluster-ID>/resume" \
-     --header "Authorization: Bearer ${TOKEN}" \
+     --header "Authorization: Bearer ${API_KEY}" \
      --header "accept: application/json" \
      --header "content-type: application/json"
 ```
@@ -166,16 +152,12 @@ Success response:
 
 Lists all clusters in a cloud region.
 
-> 📘 Notes
->
-> You should always use an API key as the token.
-
 ```shell
 Request Example:
 
 curl --request GET \
      --url "https://controller.api.${CLOUD_REGION_ID}.zillizcloud.com/v1/clusters?pageSize=&current=" \
-     --header "Authorization: Bearer ${TOKEN}" \
+     --header "Authorization: Bearer ${API_KEY}" \
      --header "accept: application/json" \
      --header "content-type: application/json"
 ```
@@ -580,14 +562,10 @@ curl --request POST \
 
 Imports data from files stored in a specified object storage bucket. Note that the bucket should be in the same cloud as the target cluster of the import.
 
-> 📘 Notes
->
-> You should always use an API key as the token.
-
 ```shell
 curl --request POST \
      --url "https://controller.api.${CLOUD_REGION_ID}.zillizcloud.com/v1/vector/collections/import" \
-     --header "Authorization: Bearer ${TOKEN}" \
+     --header "Authorization: Bearer ${API_KEY}" \
      --header "accept: application/json" \
      --header "content-type: application/json" \
      -d '{
@@ -603,14 +581,10 @@ curl --request POST \
 
 Retrieves the progress of a specified import task.
 
-> 📘 Notes
->
-> You should always use an API key as the token.
-
 ```shell
 curl --request GET \
      --url "https://controller.api.${CLOUD_REGION_ID}.zillizcloud.com/v1/vector/collections/import/get?jobId=${JOBID}&clusterId=${CLUSTERID}" \
-     --header "Authorization: Bearer ${TOKEN}" \
+     --header "Authorization: Bearer ${API_KEY}" \
      --header "accept: application/json" \
      --header "content-type: application/json" \
 ```
@@ -619,14 +593,10 @@ curl --request GET \
 
 List all import jobs specific to a cluster.
 
-> 📘 Notes
->
-> You should always use an API key as the token.
-
 ```shell
 curl --request GET \
      --url "https://controller.api.${CLOUD_REGION_ID}.zillizcloud.com/v1/vector/collections/import/list?clusterId=${CLUSTERID}" \
-     --header "Authorization: Bearer ${TOKEN}" \
+     --header "Authorization: Bearer ${API_KEY}" \
      --header "accept: application/json" \
      --header "content-type: application/json" \
 ```
